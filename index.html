@@ -9,47 +9,68 @@
       background-color: #f4f4f4;
       padding: 20px;
     }
-    .folder {
-      margin: 10px 0;
-    }
-    .folder > .name {
-      font-weight: bold;
-      cursor: pointer;
+    h1 {
       color: #2c3e50;
+      text-align: center;
+      animation: fadeIn 2s ease-in-out;
     }
-    .files {
-      margin-left: 20px;
-      display: none;
+    h2 {
+      color: #2980b9;
+      margin-top: 20px;
+      transition: transform 0.3s ease, color 0.3s ease;
     }
-    .file {
+    h2:hover {
+      transform: translateX(10px);
+      color: #e67e22;
+    }
+    ul {
+      list-style: none;
+      padding-left: 20px;
+      animation: slideIn 1s ease-in-out;
+    }
+    li {
       margin: 5px 0;
-      color: #34495e;
+      padding: 5px;
+      background: #ecf0f1;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    li:hover {
+      background: #d1f7c4;
+      transform: scale(1.05);
+    }
+
+    /* Animações */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideIn {
+      from { transform: translateX(-30px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
   </style>
-  <script>
-    function toggleFolder(id) {
-      const files = document.getElementById(id);
-      files.style.display = files.style.display === "none" ? "block" : "none";
-    }
-  </script>
 </head>
 <body>
   <h1>Meu Explorador de Arquivos</h1>
 
-  <div class="folder">
-    <div class="name" onclick="toggleFolder('pasta1')">📁 Pasta 1</div>
-    <div class="files" id="pasta1">
-      <div class="file">📄 arquivo1.txt</div>
-      <div class="file">📄 arquivo2.docx</div>
-    </div>
-  </div>
+  <h2>📁 Pasta 1</h2>
+  <ul>
+    <li>📄 arquivo1.txt</li>
+    <li>📄 arquivo2.docx</li>
+  </ul>
 
-  <div class="folder">
-    <div class="name" onclick="toggleFolder('pasta2')">📁 Pasta 2</div>
-    <div class="files" id="pasta2">
-      <div class="file">📄 foto.png</div>
-      <div class="file">📄 musica.mp3</div>
-    </div>
-  </div>
+  <h2>📁 Pasta 2</h2>
+  <ul>
+    <li>📄 foto.png</li>
+    <li>📄 musica.mp3</li>
+  </ul>
+
+  <h2>📁 Projetos</h2>
+  <ul>
+    <li>📄 site.html</li>
+    <li>📄 estilo.css</li>
+    <li>📄 script.js</li>
+  </ul>
 </body>
 </html>
