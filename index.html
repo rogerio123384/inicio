@@ -2,64 +2,155 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Meu Site Animado</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Site Pessoal</title>
     <style>
-        /* 1. Animação de Entrada (Fade In) */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
+        /* CONFIGURAÇÕES GERAIS */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        
+        body {
+            background-color: #0f172a;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* ANIMAÇÕES */
+        @keyframes subir {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 2. Animação do Botão (Pulse) */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        @keyframes flutuar {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
         }
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
+        /* LAYOUT */
+        header {
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
-            color: #fff;
+            text-align: center;
+            background: radial-gradient(circle, #1e293b 0%, #0f172a 100%);
+        }
+
+        .foto-perfil {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #38bdf8;
+            margin-bottom: 20px;
+            animation: flutuar 4s ease-in-out infinite;
+            object-fit: cover;
         }
 
         h1 {
-            animation: fadeIn 1.5s ease-out;
-            font-size: 3rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            animation: subir 1s ease-out;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .botao-animado {
-            padding: 15px 30px;
+        p {
             font-size: 1.2rem;
-            background-color: #ffffff;
-            color: #ff6b6b;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            animation: pulse 2s infinite ease-in-out;
-            transition: 0.3s;
+            color: #94a3b8;
+            max-width: 600px;
+            animation: subir 1.5s ease-out;
         }
 
-        .botao-animado:hover {
-            background-color: #ff6b6b;
-            color: white;
-            transform: translateY(-3px);
+        .botoes {
+            margin-top: 30px;
+            animation: subir 2s ease-out;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .btn-principal {
+            background-color: #38bdf8;
+            color: #0f172a;
+        }
+
+        .btn-principal:hover {
+            background-color: #7dd3fc;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+
+        section {
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 15px;
+            width: 280px;
+            transition: 0.4s;
+            border: 1px solid #334155;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #38bdf8;
         }
     </style>
 </head>
 <body>
 
-    <h1>Explorando Animações! 🚀</h1>
-    <p>Passe o mouse no botão abaixo.</p>
-    <button class="botao-animado">Clique Aqui</button>
+    <header>
+        <img src="https://via.placeholder.com/150" alt="Minha Foto" class="foto-perfil">
+        <h1>Olá, eu sou o [Seu Nome]</h1>
+        <p>Bem-vindo ao meu cantinho na internet. Sou apaixonado por tecnologia, design e criar coisas novas.</p>
+        
+        <div class="botoes">
+            <a href="#sobre" class="btn btn-principal">Saiba Mais</a>
+            <a href="https://instagram.com" class="btn" style="color: white; border: 1px solid #334155;">Meu Instagram</a>
+        </div>
+    </header>
+
+    <section id="sobre">
+        <h2>O que eu faço</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>Design</h3>
+                <p>Criação de interfaces visuais modernas e elegantes.</p>
+            </div>
+            <div class="card">
+                <h3>Código</h3>
+                <p>Desenvolvimento de sites rápidos e animados.</p>
+            </div>
+            <div class="card">
+                <h3>Ideias</h3>
+                <p>Transformo conceitos abstratos em projetos reais.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem;">
+        &copy; 2026 - Criado por [Seu Nome]
+    </footer>
 
 </body>
 </html>
