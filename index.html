@@ -1,155 +1,129 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Site Pessoal</title>
+    <title>Minha Pasta de Trabalho</title>
     <style>
-        /* CONFIGURAÇÕES GERAIS */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        
+        :root {
+            --primaria: #2563eb;
+            --escuro: #1e293b;
+            --claro: #f8fafc;
+        }
+
         body {
-            background-color: #0f172a;
-            color: white;
-            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: var(--claro);
+            color: var(--escuro);
         }
 
-        /* ANIMAÇÕES */
-        @keyframes subir {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes flutuar {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* LAYOUT */
+        /* Cabeçalho */
         header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            background-color: white;
+            padding: 60px 20px;
             text-align: center;
-            background: radial-gradient(circle, #1e293b 0%, #0f172a 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
-        .foto-perfil {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid #38bdf8;
-            margin-bottom: 20px;
-            animation: flutuar 4s ease-in-out infinite;
-            object-fit: cover;
+        h1 { margin: 0; font-size: 2.5rem; color: var(--primaria); }
+        p { color: #64748b; margin-top: 10px; }
+
+        /* Grade de Trabalhos */
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            animation: subir 1s ease-out;
-            background: linear-gradient(90deg, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .galeria {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
 
-        p {
-            font-size: 1.2rem;
+        /* Item do Trabalho (Card) */
+        .projeto {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .projeto:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+        }
+
+        .capa {
+            width: 100%;
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .projeto:hover .capa {
+            transform: scale(1.1);
+        }
+
+        .info {
+            padding: 20px;
+        }
+
+        .info h3 { margin: 0 0 10px 0; font-size: 1.2rem; }
+        .info p { font-size: 0.9rem; margin: 0; }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 40px;
             color: #94a3b8;
-            max-width: 600px;
-            animation: subir 1.5s ease-out;
-        }
-
-        .botoes {
-            margin-top: 30px;
-            animation: subir 2s ease-out;
-        }
-
-        .btn {
-            text-decoration: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: 0.3s;
-            display: inline-block;
-            margin: 10px;
-        }
-
-        .btn-principal {
-            background-color: #38bdf8;
-            color: #0f172a;
-        }
-
-        .btn-principal:hover {
-            background-color: #7dd3fc;
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-        }
-
-        section {
-            padding: 100px 20px;
-            text-align: center;
-        }
-
-        .cards {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 40px;
-        }
-
-        .card {
-            background: #1e293b;
-            padding: 30px;
-            border-radius: 15px;
-            width: 280px;
-            transition: 0.4s;
-            border: 1px solid #334155;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: #38bdf8;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="https://via.placeholder.com/150" alt="Minha Foto" class="foto-perfil">
-        <h1>Olá, eu sou o [Seu Nome]</h1>
-        <p>Bem-vindo ao meu cantinho na internet. Sou apaixonado por tecnologia, design e criar coisas novas.</p>
-        
-        <div class="botoes">
-            <a href="#sobre" class="btn btn-principal">Saiba Mais</a>
-            <a href="https://instagram.com" class="btn" style="color: white; border: 1px solid #334155;">Meu Instagram</a>
-        </div>
+        <h1>Minha Pasta de Trabalho</h1>
+        <p>Confira abaixo os projetos que desenvolvi recentemente.</p>
     </header>
 
-    <section id="sobre">
-        <h2>O que eu faço</h2>
-        <div class="cards">
-            <div class="card">
-                <h3>Design</h3>
-                <p>Criação de interfaces visuais modernas e elegantes.</p>
+    <div class="container">
+        <div class="galeria">
+            
+            <div class="projeto">
+                <div class="capa" style="background-image: url('https://via.placeholder.com/400x250')"></div>
+                <div class="info">
+                    <h3>Projeto Alpha</h3>
+                    <p>Descrição curta do que você fez neste trabalho específico.</p>
+                </div>
             </div>
-            <div class="card">
-                <h3>Código</h3>
-                <p>Desenvolvimento de sites rápidos e animados.</p>
-            </div>
-            <div class="card">
-                <h3>Ideias</h3>
-                <p>Transformo conceitos abstratos em projetos reais.</p>
-            </div>
-        </div>
-    </section>
 
-    <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem;">
-        &copy; 2026 - Criado por [Seu Nome]
+            <div class="projeto">
+                <div class="capa" style="background-image: url('https://via.placeholder.com/400x250')"></div>
+                <div class="info">
+                    <h3>Projeto Beta</h3>
+                    <p>Design, estratégia e execução concluídos em 2024.</p>
+                </div>
+            </div>
+
+            <div class="projeto">
+                <div class="capa" style="background-image: url('https://via.placeholder.com/400x250')"></div>
+                <div class="info">
+                    <h3>Identidade Visual</h3>
+                    <p>Trabalho focado em criação de marca e cores.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 - Todos os direitos reservados.
     </footer>
 
 </body>
