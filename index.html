@@ -1,130 +1,55 @@
-!DOCTYPE html>
-<html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Pasta de Trabalho</title>
-    <style>
-        :root {
-            --primaria: #2563eb;
-            --escuro: #1e293b;
-            --claro: #f8fafc;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            background-color: var(--claro);
-            color: var(--escuro);
-        }
-
-        /* Cabeçalho */
-        header {
-            background-color: white;
-            padding: 60px 20px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        h1 { margin: 0; font-size: 2.5rem; color: var(--primaria); }
-        p { color: #64748b; margin-top: 10px; }
-
-        /* Grade de Trabalhos */
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .galeria {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        /* Item do Trabalho (Card) */
-        .projeto {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        .projeto:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
-        }
-
-        .capa {
-            width: 100%;
-            height: 200px;
-            background-color: #ddd;
-            background-size: cover;
-            background-position: center;
-            transition: transform 0.5s ease;
-        }
-
-        .projeto:hover .capa {
-            transform: scale(1.1);
-        }
-
-        .info {
-            padding: 20px;
-        }
-
-        .info h3 { margin: 0 0 10px 0; font-size: 1.2rem; }
-        .info p { font-size: 0.9rem; margin: 0; }
-
-        /* Rodapé */
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: #94a3b8;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Explorador de Arquivos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    .folder {
+      margin: 10px 0;
+    }
+    .folder > .name {
+      font-weight: bold;
+      cursor: pointer;
+      color: #2c3e50;
+    }
+    .files {
+      margin-left: 20px;
+      display: none;
+    }
+    .file {
+      margin: 5px 0;
+      color: #34495e;
+    }
+  </style>
+  <script>
+    function toggleFolder(id) {
+      const files = document.getElementById(id);
+      files.style.display = files.style.display === "none" ? "block" : "none";
+    }
+  </script>
 </head>
 <body>
+  <h1>Meu Explorador de Arquivos</h1>
 
-    <header>
-        <h1>Minha Pasta de Trabalho</h1>
-        <p>Confira abaixo os projetos que desenvolvi recentemente.</p>
-    </header>
-
-    <div class="container">
-        <div class="galeria">
-            
-            <div class="projeto">
-                <div class="capa" style="background-image: url('https://via.placeholder.com/400x250')"></div>
-                <div class="info">
-                    <h3>Projeto Alpha</h3>
-                    <p>Descrição curta do que você fez neste trabalho específico.</p>
-                </div>
-            </div>
-
-            <div class="projeto">
-                <div class="capa" style="background-image: url('https://via.placeholder.com/400x250')"></div>
-                <div class="info">
-                    <h3>Projeto Beta</h3>
-                    <p>Design, estratégia e execução concluídos em 2024.</p>
-                </div>
-            </div>
-
-            <div class="projeto">
-                <div class="capa" style="background-image: url('https://via.placeholder.com/400x250')"></div>
-                <div class="info">
-                    <h3>Identidade Visual</h3>
-                    <p>Trabalho focado em criação de marca e cores.</p>
-                </div>
-            </div>
-
-        </div>
+  <div class="folder">
+    <div class="name" onclick="toggleFolder('pasta1')">📁 Pasta 1</div>
+    <div class="files" id="pasta1">
+      <div class="file">📄 arquivo1.txt</div>
+      <div class="file">📄 arquivo2.docx</div>
     </div>
+  </div>
 
-    <footer>
-        &copy; 2026 - Todos os direitos reservados.
-    </footer>
-
+  <div class="folder">
+    <div class="name" onclick="toggleFolder('pasta2')">📁 Pasta 2</div>
+    <div class="files" id="pasta2">
+      <div class="file">📄 foto.png</div>
+      <div class="file">📄 musica.mp3</div>
+    </div>
+  </div>
 </body>
 </html>
