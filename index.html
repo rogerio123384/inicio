@@ -2,75 +2,71 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Explorador de Arquivos</title>
+  <title>Meus Arquivos</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #0073e6;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
       padding: 20px;
     }
-    h1 {
-      color: #2c3e50;
-      text-align: center;
-      animation: fadeIn 2s ease-in-out;
-    }
     h2 {
-      color: #2980b9;
-      margin-top: 20px;
-      transition: transform 0.3s ease, color 0.3s ease;
-    }
-    h2:hover {
-      transform: translateX(10px);
-      color: #e67e22;
+      color: #333;
     }
     ul {
-      list-style: none;
-      padding-left: 20px;
-      animation: slideIn 1s ease-in-out;
+      list-style-type: none;
+      padding: 0;
     }
     li {
-      margin: 5px 0;
-      padding: 5px;
-      background: #ecf0f1;
+      background: #fff;
+      margin: 10px 0;
+      padding: 15px;
+      border: 1px solid #ddd;
       border-radius: 5px;
-      transition: background 0.3s ease, transform 0.3s ease;
     }
-    li:hover {
-      background: #d1f7c4;
-      transform: scale(1.05);
+    a {
+      text-decoration: none;
+      color: #0073e6;
+      font-weight: bold;
     }
-
-    /* Animações */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    a:hover {
+      text-decoration: underline;
     }
-    @keyframes slideIn {
-      from { transform: translateX(-30px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
+    footer {
+      background: #0073e6;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
     }
   </style>
 </head>
 <body>
-  <h1>Meu Explorador de Arquivos</h1>
-
-  <h2>📁 Pasta 1</h2>
-  <ul>
-    <li>📄 arquivo1.txt</li>
-    <li>📄 arquivo2.docx</li>
-  </ul>
-
-  <h2>📁 Pasta 2</h2>
-  <ul>
-    <li>📄 foto.png</li>
-    <li>📄 musica.mp3</li>
-  </ul>
-
-  <h2>📁 Projetos</h2>
-  <ul>
-    <li>📄 site.html</li>
-    <li>📄 estilo.css</li>
-    <li>📄 script.js</li>
-  </ul>
+  <header>
+    <h1>📂 Página de Arquivos</h1>
+  </header>
+  <main>
+    <h2>Lista de Arquivos Disponíveis</h2>
+    <ul>
+      <li><a href="documento1.pdf" download>Documento 1 (PDF)</a></li>
+      <li><a href="planilha.xlsx" download>Planilha de Dados (Excel)</a></li>
+      <li><a href="apresentacao.pptx" download>Apresentação (PowerPoint)</a></li>
+      <li><a href="imagem.jpg" download>Imagem (JPG)</a></li>
+    </ul>
+  </main>
+  <footer>
+    <p>© 2026 - Meus Arquivos</p>
+  </footer>
 </body>
 </html>
