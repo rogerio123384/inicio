@@ -1,72 +1,42 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+!DOCTYPE html>
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Meus Arquivos</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background: #0073e6;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    main {
-      padding: 20px;
-    }
-    h2 {
-      color: #333;
-    }
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    li {
-      background: #fff;
-      margin: 10px 0;
-      padding: 15px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-    a {
-      text-decoration: none;
-      color: #0073e6;
-      font-weight: bold;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    footer {
-      background: #0073e6;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Portfólio | Desenvolvedor</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>📂 Página de Arquivos</h1>
-  </header>
-  <main>
-    <h2>Lista de Arquivos Disponíveis</h2>
-    <ul>
-      <li><a href="documento1.pdf" download>Documento 1 (PDF)</a></li>
-      <li><a href="planilha.xlsx" download>Planilha de Dados (Excel)</a></li>
-      <li><a href="apresentacao.pptx" download>Apresentação (PowerPoint)</a></li>
-      <li><a href="imagem.jpg" download>Imagem (JPG)</a></li>
-    </ul>
-  </main>
-  <footer>
-    <p>© 2026 - Meus Arquivos</p>
-  </footer>
+    <header>
+        <nav>
+            <div class="logo">SeuNome<span>.dev</span></div>
+            <ul>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#projetos">Projetos</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h1>Olá, eu sou o **Seu Nome**</h1>
+        <p>Desenvolvedor Full Stack apaixonado por criar soluções digitais.</p>
+        <a href="#projetos" class="btn">Ver meu trabalho</a>
+    </section>
+
+    <section id="projetos">
+        <h2>Meus Projetos</h2>
+        <div class="grid-projetos">
+            <div class="card">
+                <h3>Nome do Projeto</h3>
+                <p>Breve descrição da tecnologia usada (React, Node, etc).</p>
+                <a href="#">Link GitHub</a>
+            </div>
+            </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 - Desenvolvido por Seu Nome</p>
+    </footer>
 </body>
 </html>
