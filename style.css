@@ -1,130 +1,72 @@
-/* Importando uma fonte moderna e profissional */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
-
-:root {
-    --primary-color: #1a202c;    /* Azul escuro acinzentado (Confiança) */
-    --accent-color: #2563eb;     /* Azul vibrante (Tecnologia/Ação) */
-    --bg-color: #f8fafc;         /* Fundo levemente cinza (Limpeza) */
-    --card-bg: #ffffff;
-    --text-main: #334155;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --transition: all 0.3s ease;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    line-height: 1.6;
-    padding: 40px 20px;
+    background-color: #0f0c29;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
 }
 
-header {
-    text-align: center;
-    margin-bottom: 60px;
+/* Animação de entrada do título */
+.fade-in {
+    animation: fadeIn 2s ease-out;
 }
 
-header h1 {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    font-weight: 600;
-    letter-spacing: -0.025em;
-    position: relative;
-    display: inline-block;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-header h1::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 4px;
-    background: var(--accent-color);
-    margin: 10px auto 0;
-    border-radius: 2px;
-}
-
-main {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
-}
-
-section {
-    background: transparent;
-}
-
-/* Estilização das Listas */
-ul {
-    list-style: none;
+.hero {
+    height: 40vh;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #0f0c29, #302b63);
 }
 
-/* Estilização dos Itens (Cards) */
-li {
-    background: var(--card-bg);
-    padding: 18px 24px;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-    cursor: pointer;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
+/* Grid da Galeria */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 40px;
+}
+
+/* Cartões com Efeito Hover e Animação de Surgimento */
+.card {
     position: relative;
     overflow: hidden;
+    border-radius: 15px;
+    opacity: 0;
+    animation: slideIn 0.8s forwards;
+    animation-delay: var(--delay);
 }
 
-/* Indicador lateral sutil ao passar o mouse */
-li::before {
-    content: '';
+@keyframes slideIn {
+    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(50px); }
+}
+
+.card img {
+    width: 100%;
+    transition: transform 0.5s ease;
+}
+
+.card:hover img {
+    transform: scale(1.1) rotate(2deg); /* Zoom e leve rotação */
+}
+
+.info {
     position: absolute;
+    bottom: -100%;
     left: 0;
-    top: 0;
-    height: 100%;
-    width: 0;
-    background-color: var(--accent-color);
-    transition: var(--transition);
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    transition: bottom 0.4s;
+    text-align: center;
 }
 
-li:hover {
-    transform: translateY(-3px);
-    border-color: var(--accent-color);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-li:hover::before {
-    width: 5px;
-}
-
-li p {
-    font-weight: 500;
-    font-size: 1rem;
-    color: var(--text-main);
-    transition: var(--transition);
-}
-
-li:hover p {
-    color: var(--accent-color);
-    margin-left: 5px;
-}
-
-/* Responsividade para telas pequenas */
-@media (max-width: 600px) {
-    header h1 {
-        font-size: 1.8rem;
-    }
-    
-    body {
-        padding: 20px 15px;
-    }
+.card:hover .info {
+    bottom: 0;
 }
