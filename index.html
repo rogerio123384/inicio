@@ -3,56 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Portfólio</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Meu Portfólio | Estudante</title>
+    <style>
+        /* Estilo Geral */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; margin: 0; color: #333; background-color: #f4f4f9; }
+        header { background: #2c3e50; color: #fff; padding: 1rem 0; text-align: center; position: sticky; top: 0; }
+        section { padding: 2rem; max-width: 800px; margin: auto; }
+        
+        /* Cartões de Projeto */
+        .projeto-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .card { background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .card h3 { margin-top: 0; color: #2980b9; }
+
+        /* Rodapé e Botões */
+        footer { text-align: center; padding: 2rem; background: #ddd; }
+        .btn { background: #2980b9; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; }
+        .btn:hover { background: #3498db; }
+    </style>
 </head>
 <body>
 
-    <header>
-        <nav>
-            <div class="logo">Seu Nome</div>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#projetos">Projetos</a></li>
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#contato">Contato</a></li>
-            </ul>
-        </nav>
-    </header>
+<header>
+    <h1>Seu Nome Aqui</h1>
+    <p>Estudante e Desenvolvedor em Formação</p>
+</header>
 
-    <section id="home" class="hero">
-        <h1>Olá, eu sou [Seu Nome]</h1>
-        <p>Desenvolvedor Full Stack | Especialista em Soluções Digitais</p>
-        <a href="#projetos" class="btn">Ver Meus Trabalhos</a>
-    </section>
+<section id="sobre">
+    <h2>Sobre Mim</h2>
+    <p>Olá! Sou aluno de [Seu Curso/Série] e apaixonado por aprender coisas novas. Este é o espaço onde registro minha evolução e meus principais trabalhos acadêmicos e pessoais.</p>
+</section>
 
-    <section id="projetos">
-        <h2>Meus Projetos</h2>
-        <div class="grid-projetos">
-            <div class="card">
-                <img src="https://via.placeholder.com/300x200" alt="Projeto 1">
-                <h3>Nome do Projeto</h3>
-                <p>Uma breve descrição do que você construiu e as tecnologias usadas.</p>
-                <a href="#" class="link-projeto">Ver no GitHub</a>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/300x200" alt="Projeto 2">
-                <h3>Nome do Projeto</h3>
-                <p>Uma breve descrição do que você construiu e as tecnologias usadas.</p>
-                <a href="#" class="link-projeto">Ver no GitHub</a>
-            </div>
+<section id="projetos">
+    <h2>Meus Trabalhos</h2>
+    <div class="projeto-grid">
+        <div class="card">
+            <h3>Projeto 01</h3>
+            <p>Descrição curta do que você fez. Pode ser um trabalho escolar, um código ou uma arte.</p>
+            <a href="#" class="btn">Ver mais</a>
         </div>
-    </section>
+        <div class="card">
+            <h3>Projeto 02</h3>
+            <p>Use este espaço para mostrar suas habilidades técnicas ou criativas.</p>
+            <a href="#" class="btn">Ver mais</a>
+        </div>
+    </div>
+</section>
 
-    <section id="contato">
-        <h2>Vamos Conversar?</h2>
-        <p>Estou disponível para novos projetos e colaborações.</p>
-        <a href="mailto:seuemail@exemplo.com" class="btn">Enviar E-mail</a>
-    </section>
+<section id="contato">
+    <h2>Contato</h2>
+    <p>Gostou do meu trabalho? Vamos conversar!</p>
+    <p>Email: seuemail@exemplo.com</p>
+    <p>LinkedIn: /in/seuusuario</p>
+</section>
 
-    <footer>
-        <p>&copy; 2026 Seu Nome. Criado com café e código.</p>
-    </footer>
+<footer>
+    <p>&copy; 2026 - Criado por Você</p>
+</footer>
 
 </body>
 </html>
