@@ -1,53 +1,41 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Portfólio Premium</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<section class="meu-trabalho">
+    <div class="header-projetos">
+        <h2 class="reveal">Galeria de Projetos</h2>
+        <p class="reveal">Um resumo visual da minha trajetória e competências.</p>
+    </div>
 
-    <nav class="navbar">
-        <div class="logo">PORTFOLIO</div>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#projetos">Projetos</a></li>
-            <li><a href="#contato">Contato</a></li>
-        </ul>
-    </nav>
-
-    <section id="home" class="section hero">
-        <div class="content reveal">
-            <h1>Criatividade em <span class="highlight">Movimento</span></h1>
-            <p>Designer Visual & Desenvolvedor Front-end</p>
-        </div>
-    </section>
-
-    <section id="projetos" class="section">
-        <h2 class="reveal">Meus Trabalhos</h2>
-        <div class="grid">
-            <div class="card reveal">
-                <img src="https://picsum.photos/600/400?sig=1" alt="Projeto 1">
-                <div class="info">
-                    <h3>Identidade Visual</h3>
-                </div>
-            </div>
-            <div class="card reveal">
-                <img src="https://picsum.photos/600/400?sig=2" alt="Projeto 2">
-                <div class="info">
-                    <h3>Interface Web</h3>
-                </div>
-            </div>
-            <div class="card reveal">
-                <img src="https://picsum.photos/600/400?sig=3" alt="Projeto 3">
-                <div class="info">
-                    <h3>Mobile App</h3>
+    <div class="portfolio-container">
+        <div class="projeto-item reveal">
+            <div class="projeto-img">
+                <img src="link-da-sua-foto-1.jpg" alt="Descrição do Trabalho 1">
+                <div class="projeto-overlay">
+                    <span>Design Editorial</span>
+                    <h3>Nome do Trabalho 01</h3>
+                    <button class="btn-ver">Ver Case</button>
                 </div>
             </div>
         </div>
-    </section>
 
-    <script src="script.js"></script>
-</body>
-</html>
+        <div class="projeto-item reveal">
+            <div class="projeto-img">
+                <img src="link-da-sua-foto-2.jpg" alt="Descrição do Trabalho 2">
+                <div class="projeto-overlay">
+                    <span>Web Development</span>
+                    <h3>Nome do Trabalho 02</h3>
+                    <button class="btn-ver">Ver Case</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="projeto-item reveal">
+            <div class="projeto-img">
+                <img src="link-da-sua-foto-3.jpg" alt="Descrição do Trabalho 3">
+                <div class="projeto-overlay">
+                    <span>Social Media</span>
+                    <h3>Nome do Trabalho 03</h3>
+                    <button class="btn-ver">Ver Case</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
