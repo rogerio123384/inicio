@@ -3,43 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Portfólio Animado</title>
+    <title>Meu Portfólio Premium</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <section class="portfolio">
-        <h2>Meus Projetos</h2>
-        
-        <div class="grid">
-            <figure class="card">
-                <img src="https://picsum.photos/600/400?random=1" alt="Projeto 1">
-                <figcaption>
-                    <h3>Branding Ativo</h3>
-                    <p>Identidade visual e logo.</p>
-                    <a href="#" class="link">Ver mais</a>
-                </figcaption>
-            </figure>
+    <nav class="navbar">
+        <div class="logo">PORTFOLIO</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#projetos">Projetos</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+    </nav>
 
-            <figure class="card">
-                <img src="https://picsum.photos/600/400?random=2" alt="Projeto 2">
-                <figcaption>
-                    <h3>App Redesign</h3>
-                    <p>Experiência do usuário (UX).</p>
-                    <a href="#" class="link">Ver mais</a>
-                </figcaption>
-            </figure>
-
-            <figure class="card">
-                <img src="https://picsum.photos/600/400?random=3" alt="Projeto 3">
-                <figcaption>
-                    <h3>Web E-commerce</h3>
-                    <p>Desenvolvimento Full-Stack.</p>
-                    <a href="#" class="link">Ver mais</a>
-                </figcaption>
-            </figure>
+    <section id="home" class="section hero">
+        <div class="content reveal">
+            <h1>Criatividade em <span class="highlight">Movimento</span></h1>
+            <p>Designer Visual & Desenvolvedor Front-end</p>
         </div>
     </section>
 
+    <section id="projetos" class="section">
+        <h2 class="reveal">Meus Trabalhos</h2>
+        <div class="grid">
+            <div class="card reveal">
+                <img src="https://picsum.photos/600/400?sig=1" alt="Projeto 1">
+                <div class="info">
+                    <h3>Identidade Visual</h3>
+                </div>
+            </div>
+            <div class="card reveal">
+                <img src="https://picsum.photos/600/400?sig=2" alt="Projeto 2">
+                <div class="info">
+                    <h3>Interface Web</h3>
+                </div>
+            </div>
+            <div class="card reveal">
+                <img src="https://picsum.photos/600/400?sig=3" alt="Projeto 3">
+                <div class="info">
+                    <h3>Mobile App</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
 </body>
 </html>
