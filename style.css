@@ -1,72 +1,86 @@
-body {
-    background-color: #0f0c29;
-    color: white;
-    font-family: 'Segoe UI', sans-serif;
-    margin: 0;
-    overflow-x: hidden;
+/* Configurações da Seção */
+.meu-trabalho {
+    padding: 80px 5%;
+    background-color: #f9f9f9;
+    text-align: center;
 }
 
-/* Animação de entrada do título */
-.fade-in {
-    animation: fadeIn 2s ease-out;
+.header-projetos h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+/* Container dos Projetos */
+.portfolio-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 50px;
 }
 
-.hero {
-    height: 40vh;
+/* Item Individual */
+.projeto-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden; /* Garante que a imagem não saia do card no zoom */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.projeto-img {
+    position: relative;
+    height: 350px;
+}
+
+.projeto-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+/* Overlay (Fundo que aparece no hover) */
+.projeto-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, #0f0c29, #302b63);
+    color: white;
+    opacity: 0; /* Começa invisível */
+    transition: opacity 0.4s ease;
 }
 
-/* Grid da Galeria */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 40px;
+.projeto-overlay span { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+.projeto-overlay h3 { margin: 15px 0; font-size: 1.5rem; }
+
+/* Botão dentro do Overlay */
+.btn-ver {
+    padding: 10px 20px;
+    background: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
-/* Cartões com Efeito Hover e Animação de Surgimento */
-.card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 15px;
+.btn-ver:hover { background: #007bff; color: #fff; }
+
+/* Efeito Hover no Card */
+.projeto-item:hover .projeto-img img { transform: scale(1.1); }
+.projeto-item:hover .projeto-overlay { opacity: 1; }
+
+/* --- LÓGICA DE ANIMAÇÃO REVEAL --- */
+.reveal {
     opacity: 0;
-    animation: slideIn 0.8s forwards;
-    animation-delay: var(--delay);
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
 }
 
-@keyframes slideIn {
-    to { opacity: 1; transform: translateY(0); }
-    from { opacity: 0; transform: translateY(50px); }
-}
-
-.card img {
-    width: 100%;
-    transition: transform 0.5s ease;
-}
-
-.card:hover img {
-    transform: scale(1.1) rotate(2deg); /* Zoom e leve rotação */
-}
-
-.info {
-    position: absolute;
-    bottom: -100%;
-    left: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    transition: bottom 0.4s;
-    text-align: center;
-}
-
-.card:hover .info {
-    bottom: 0;
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
 }
