@@ -3,51 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Portfólio Premium</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Meu Portfólio | Nome Sobrenome</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 font-sans">
 
-    <nav class="navbar">
-        <div class="logo">PORTFOLIO</div>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#projetos">Projetos</a></li>
-            <li><a href="#contato">Contato</a></li>
-        </ul>
+    <nav class="fixed w-full bg-white/80 backdrop-blur-md z-50 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+            <span class="font-bold text-xl tracking-tighter">MEU.NOME</span>
+            <div class="space-x-6 text-sm font-medium">
+                <a href="#sobre" class="hover:text-blue-600 transition">Sobre</a>
+                <a href="#projetos" class="hover:text-blue-600 transition">Projetos</a>
+                <a href="#contato" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Contato</a>
+            </div>
+        </div>
     </nav>
 
-    <section id="home" class="section hero">
-        <div class="content reveal">
-            <h1>Criatividade em <span class="highlight">Movimento</span></h1>
-            <p>Designer Visual & Desenvolvedor Front-end</p>
+    <header class="pt-32 pb-20 px-4">
+        <div class="max-w-3xl mx-auto text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
+                Olá, eu sou [Seu Nome].
+            </h1>
+            <p class="text-xl text-gray-600 mb-8">
+                Desenvolvedor Full Stack focado em criar experiências digitais escaláveis e centradas no usuário.
+            </p>
+            <div class="flex justify-center gap-4">
+                <span class="bg-gray-200 px-3 py-1 rounded text-sm">React</span>
+                <span class="bg-gray-200 px-3 py-1 rounded text-sm">Node.js</span>
+                <span class="bg-gray-200 px-3 py-1 rounded text-sm">TypeScript</span>
+            </div>
+        </div>
+    </header>
+
+    <section id="projetos" class="max-w-5xl mx-auto px-4 py-20">
+        <h2 class="text-3xl font-bold mb-12 text-center">Projetos em Destaque</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+            
+            <div class="group bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all">
+                <div class="h-48 bg-gray-200">
+                    </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2">E-commerce Dashboard</h3>
+                    <p class="text-gray-600 text-sm mb-4">Uma interface de gerenciamento de vendas com gráficos em tempo real e controle de estoque.</p>
+                    <a href="#" class="text-blue-600 font-semibold text-sm hover:underline">Ver Projeto →</a>
+                </div>
+            </div>
+
+            <div class="group bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all">
+                <div class="h-48 bg-gray-200"></div>
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2">App de Produtividade</h3>
+                    <p class="text-gray-600 text-sm mb-4">Ferramenta mobile para organização de tarefas usando metodologia Kanban.</p>
+                    <a href="#" class="text-blue-600 font-semibold text-sm hover:underline">Ver Projeto →</a>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <section id="projetos" class="section">
-        <h2 class="reveal">Meus Trabalhos</h2>
-        <div class="grid">
-            <div class="card reveal">
-                <img src="https://picsum.photos/600/400?sig=1" alt="Projeto 1">
-                <div class="info">
-                    <h3>Identidade Visual</h3>
-                </div>
+    <footer id="contato" class="bg-white border-t py-20 px-4">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-2xl font-bold mb-4">Vamos conversar?</h2>
+            <p class="text-gray-600 mb-8">Estou disponível para novos projetos e colaborações.</p>
+            <div class="flex justify-center gap-6">
+                <a href="mailto:email@exemplo.com" class="text-gray-500 hover:text-blue-600 font-medium transition">E-mail</a>
+                <a href="#" class="text-gray-500 hover:text-blue-600 font-medium transition">LinkedIn</a>
+                <a href="#" class="text-gray-500 hover:text-blue-600 font-medium transition">GitHub</a>
             </div>
-            <div class="card reveal">
-                <img src="https://picsum.photos/600/400?sig=2" alt="Projeto 2">
-                <div class="info">
-                    <h3>Interface Web</h3>
-                </div>
-            </div>
-            <div class="card reveal">
-                <img src="https://picsum.photos/600/400?sig=3" alt="Projeto 3">
-                <div class="info">
-                    <h3>Mobile App</h3>
-                </div>
-            </div>
+            <p class="mt-12 text-xs text-gray-400">© 2026 [Seu Nome]. Feito com café.</p>
         </div>
-    </section>
+    </footer>
 
-    <script src="script.js"></script>
 </body>
 </html>
