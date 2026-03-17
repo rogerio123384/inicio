@@ -2,40 +2,41 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Portfólio | Explorer</title>
+    <title>Meu Portfólio Estruturado</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
+<div class="explorer">
     <header>
-        <h1>C:/Usuarios/Portfolio/Projetos</h1>
-        <p>Selecione uma pasta para visualizar os detalhes.</p>
+        <h2>📁 Gerenciador de Projetos</h2>
     </header>
 
-    <main class="grid-pastas">
-        <div class="pasta" onclick="alert('Abrindo Design...')">
-            <div class="icone">📂</div>
-            <span class="nome">01_Design_Grafico</span>
+    <div class="pasta-container">
+        <div class="pasta-header" onclick="togglePasta('trabalho1')">
+            <span class="seta">▶</span> 📂 <strong>Trabalho_Design_2024</strong>
         </div>
+        <div id="trabalho1" class="pasta-conteudo">
+            <div class="item">🖼️ logo_final.png</div>
+            <div class="item">🎨 paleta_cores.pdf</div>
+            <div class="item">📝 briefing.docx</div>
+        </div>
+    </div>
 
-        <div class="pasta" onclick="alert('Abrindo Web Dev...')">
-            <div class="icone">📂</div>
-            <span class="nome">02_Web_Development</span>
+    <div class="pasta-container">
+        <div class="pasta-header" onclick="togglePasta('trabalho2')">
+            <span class="seta">▶</span> 📂 <strong>Desenvolvimento_Web</strong>
         </div>
+        <div id="trabalho2" class="pasta-conteudo">
+            <div class="item">🌐 index.html</div>
+            <div class="item">✨ style.css</div>
+            <div class="item">📜 script.js</div>
+        </div>
+    </div>
 
-        <div class="pasta" onclick="alert('Abrindo Redação...')">
-            <div class="icone">📂</div>
-            <span class="nome">03_Copywriting</span>
-        </div>
-
-        <div class="arquivo">
-            <div class="icone">📄</div>
-            <span class="nome">curriculo_2024.pdf</span>
-        </div>
-    </main>
+    <div class="item-avulso">📄 meu_curriculo.pdf</div>
 </div>
 
+<script src="script.js"></script>
 </body>
 </html>
