@@ -74,6 +74,23 @@
       margin: 10px 0;
     }
 
+    /* Estilo do botão */
+    .botao {
+      display: inline-block;
+      background: #4a90e2;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .botao:hover {
+      background: #9013fe;
+      transform: scale(1.05);
+    }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -92,6 +109,8 @@
   <header>
     <h1>Portfólio de Rogério</h1>
     <p>Minhas atividades e projetos</p>
+    <!-- Botão na área do cabeçalho -->
+    <a href="curriculo.pdf" class="botao">Baixar Currículo</a>
   </header>
 
   <nav>
@@ -105,18 +124,22 @@
       <h2>Atividade 1 - Minha Arte</h2>
       <p>Descrição da atividade: desenho digital inspirado em natureza.</p>
       <img src="imagens/arte1.jpg" alt="Minha Arte 1">
+      <!-- Botão dentro da atividade -->
+      <a href="imagens/arte1.jpg" class="botao">Ver em tamanho maior</a>
     </div>
 
     <div class="card" id="atividade2">
       <h2>Atividade 2 - Desenvolvimento Web</h2>
       <p>Site responsivo feito em HTML e CSS para prática pessoal.</p>
       <img src="imagens/site1.jpg" alt="Meu Site">
+      <a href="imagens/site1.jpg" class="botao">Abrir Projeto</a>
     </div>
 
     <div class="card" id="atividade3">
       <h2>Atividade 3 - Criatividade</h2>
       <p>Projeto experimental com colagens digitais e fotografia.</p>
       <img src="imagens/projeto1.jpg" alt="Projeto Criativo">
+      <a href="imagens/projeto1.jpg" class="botao">Explorar Mais</a>
     </div>
   </div>
 
