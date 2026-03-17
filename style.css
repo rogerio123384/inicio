@@ -1,112 +1,37 @@
-/* Reset básico */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Corpo da página */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  margin: 0;
+  background: #fdfdfd;
+  color: #333;
 }
 
-/* Container padrão */
-.container {
-    width: 80%;
-    margin: 0 auto;
-}
-
-/* Cabeçalho */
 header {
-    background-color: #333;
-    color: white;
-    padding: 20px 0;
+  background: #4a90e2;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
 }
 
-header h1 {
-    text-align: center;
-    font-size: 36px;
-}
-
-header p {
-    text-align: center;
-    font-size: 18px;
-}
-
-nav ul {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    margin-top: 10px;
-}
-
-nav ul li {
-    margin: 0 15px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-}
-
-nav ul li a:hover {
-    color: #00bcd4;
-}
-
-/* Seções */
-.section {
-    padding: 50px 0;
-}
-
-h2 {
-    text-align: center;
-    font-size: 28px;
-    margin-bottom: 20px;
-}
-
-/* Projetos */
-.projetos {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+.pagina {
+  background: repeating-linear-gradient(
+    white,
+    white 24px,
+    #cce7ff 25px
+  );
+  border-left: 5px solid red; /* margem vermelha de caderno */
+  padding: 40px;
+  margin: 20px auto;
+  max-width: 800px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 .projeto {
-    width: 45%;
-    background-color: white;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
-.projeto img {
-    width: 100%;
-    height: auto;
-}
-
-.projeto h3 {
-    font-size: 22px;
-    margin-top: 15px;
-}
-
-.projeto a {
-    color: #00bcd4;
-    text-decoration: none;
-    margin-top: 10px;
-    display: inline-block;
-}
-
-.projeto a:hover {
-    text-decoration: underline;
-}
-
-/* Rodapé */
 footer {
-    background-color: #333;
-    color: white;
-    padding: 20px 0;
-    text-align: center;
+  background: #4a90e2;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
 }
