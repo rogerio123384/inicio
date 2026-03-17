@@ -8,53 +8,46 @@
       font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      display: flex;
       background: #f4f4f4;
       color: #333;
     }
 
-    /* Menu lateral */
-    nav {
-      width: 220px;
-      background: #4a90e2;
+    header {
+      background: linear-gradient(135deg, #4a90e2, #9013fe);
       color: white;
-      height: 100vh;
-      padding: 20px;
-      box-sizing: border-box;
-      position: fixed;
+      text-align: center;
+      padding: 40px 20px;
     }
 
-    nav h2 {
-      margin-top: 0;
-      font-size: 1.5em;
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+
+    header p {
+      font-size: 1.2em;
+    }
+
+    nav {
+      background: #4a90e2;
+      padding: 15px;
       text-align: center;
     }
 
-    nav ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    nav ul li {
-      margin: 15px 0;
-    }
-
-    nav ul li a {
+    nav a {
       color: white;
       text-decoration: none;
+      margin: 0 15px;
       font-weight: bold;
-      transition: color 0.3s;
     }
 
-    nav ul li a:hover {
+    nav a:hover {
       color: #ffdd57;
     }
 
-    /* Conteúdo principal */
-    .content {
-      margin-left: 240px;
-      padding: 30px;
-      flex: 1;
+    .container {
+      width: 85%;
+      margin: 30px auto;
     }
 
     .card {
@@ -96,39 +89,39 @@
   </style>
 </head>
 <body>
-  <!-- Menu lateral -->
+  <header>
+    <h1>Portfólio de Rogério</h1>
+    <p>Minhas atividades e projetos</p>
+  </header>
+
   <nav>
-    <h2>Portfólio</h2>
-    <ul>
-      <li><a href="#atividade1">Atividade 1</a></li>
-      <li><a href="#atividade2">Atividade 2</a></li>
-      <li><a href="#atividade3">Atividade 3</a></li>
-    </ul>
+    <a href="#atividade1">Atividade 1</a>
+    <a href="#atividade2">Atividade 2</a>
+    <a href="#atividade3">Atividade 3</a>
   </nav>
 
-  <!-- Conteúdo -->
-  <div class="content">
+  <div class="container">
     <div class="card" id="atividade1">
-      <h2>Atividade 1 - Design Gráfico</h2>
-      <p>Criação de logotipo usando Illustrator.</p>
-      <img src="imagens/atividade1.jpg" alt="Projeto 1">
+      <h2>Atividade 1 - Minha Arte</h2>
+      <p>Descrição da atividade: desenho digital inspirado em natureza.</p>
+      <img src="imagens/arte1.jpg" alt="Minha Arte 1">
     </div>
 
     <div class="card" id="atividade2">
       <h2>Atividade 2 - Desenvolvimento Web</h2>
-      <p>Site responsivo feito em HTML e CSS.</p>
-      <img src="imagens/atividade2.jpg" alt="Projeto 2">
+      <p>Site responsivo feito em HTML e CSS para prática pessoal.</p>
+      <img src="imagens/site1.jpg" alt="Meu Site">
     </div>
 
     <div class="card" id="atividade3">
       <h2>Atividade 3 - Criatividade</h2>
-      <p>Projeto experimental com colagens digitais.</p>
-      <img src="imagens/atividade3.jpg" alt="Projeto 3">
+      <p>Projeto experimental com colagens digitais e fotografia.</p>
+      <img src="imagens/projeto1.jpg" alt="Projeto Criativo">
     </div>
-
-    <footer>
-      <p>Contato: <a href="mailto:rogerio@exemplo.com">rogerio@exemplo.com</a></p>
-    </footer>
   </div>
+
+  <footer>
+    <p>Contato: <a href="mailto:rogerio@exemplo.com">rogerio@exemplo.com</a></p>
+  </footer>
 </body>
 </html>
