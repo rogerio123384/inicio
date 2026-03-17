@@ -1,63 +1,112 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo da página */
 body {
-    background-color: #f4f4f9;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
 }
 
-.explorer {
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    max-width: 500px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    overflow: hidden;
+/* Container padrão */
+.container {
+    width: 80%;
+    margin: 0 auto;
 }
 
+/* Cabeçalho */
 header {
-    background: #0078d7;
+    background-color: #333;
     color: white;
-    padding: 10px 15px;
+    padding: 20px 0;
 }
 
-.pasta-header {
-    padding: 10px 15px;
-    background: #fff;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
-    user-select: none;
-    transition: background 0.2s;
+header h1 {
+    text-align: center;
+    font-size: 36px;
 }
 
-.pasta-header:hover {
-    background: #e5f3ff;
+header p {
+    text-align: center;
+    font-size: 18px;
 }
 
-.pasta-conteudo {
-    display: none; /* Escondido por padrão */
-    background: #fafafa;
-    padding-left: 30px;
-    border-bottom: 1px solid #eee;
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin-top: 10px;
 }
 
-.item, .item-avulso {
-    padding: 8px 15px;
-    font-size: 14px;
-    color: #444;
+nav ul li {
+    margin: 0 15px;
 }
 
-.item:hover {
-    color: #0078d7;
-    text-decoration: underline;
-    cursor: pointer;
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
 }
 
-.seta {
+nav ul li a:hover {
+    color: #00bcd4;
+}
+
+/* Seções */
+.section {
+    padding: 50px 0;
+}
+
+h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* Projetos */
+.projetos {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.projeto {
+    width: 45%;
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.projeto img {
+    width: 100%;
+    height: auto;
+}
+
+.projeto h3 {
+    font-size: 22px;
+    margin-top: 15px;
+}
+
+.projeto a {
+    color: #00bcd4;
+    text-decoration: none;
+    margin-top: 10px;
     display: inline-block;
-    transition: transform 0.2s;
-    margin-right: 5px;
-    font-size: 10px;
 }
 
-.pasta-ativa .seta {
-    transform: rotate(90deg); /* Gira a seta quando abre */
+.projeto a:hover {
+    text-decoration: underline;
+}
+
+/* Rodapé */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
 }
