@@ -2,35 +2,59 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Portfólio - Meu Trabalho</title>
+  <title>Portfólio - Rogério</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
+      display: flex;
       background: #f4f4f4;
       color: #333;
     }
 
-    header {
-      background: linear-gradient(135deg, #4a90e2, #9013fe);
+    /* Menu lateral */
+    nav {
+      width: 220px;
+      background: #4a90e2;
       color: white;
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+      position: fixed;
+    }
+
+    nav h2 {
+      margin-top: 0;
+      font-size: 1.5em;
       text-align: center;
-      padding: 40px 20px;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.5em;
+    nav ul {
+      list-style: none;
+      padding: 0;
     }
 
-    header p {
-      font-size: 1.2em;
+    nav ul li {
+      margin: 15px 0;
     }
 
-    .container {
-      width: 80%;
-      margin: 30px auto;
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #ffdd57;
+    }
+
+    /* Conteúdo principal */
+    .content {
+      margin-left: 240px;
+      padding: 30px;
+      flex: 1;
     }
 
     .card {
@@ -72,33 +96,39 @@
   </style>
 </head>
 <body>
-  <header>
-    <h1>Meu Portfólio</h1>
-    <p>Projetos e atividades com estilo</p>
-  </header>
+  <!-- Menu lateral -->
+  <nav>
+    <h2>Portfólio</h2>
+    <ul>
+      <li><a href="#atividade1">Atividade 1</a></li>
+      <li><a href="#atividade2">Atividade 2</a></li>
+      <li><a href="#atividade3">Atividade 3</a></li>
+    </ul>
+  </nav>
 
-  <div class="container">
-    <div class="card">
+  <!-- Conteúdo -->
+  <div class="content">
+    <div class="card" id="atividade1">
       <h2>Atividade 1 - Design Gráfico</h2>
-      <p>Descrição breve da atividade, ferramentas utilizadas e aprendizado.</p>
-      <img src="imagem1.jpg" alt="Projeto 1">
+      <p>Criação de logotipo usando Illustrator.</p>
+      <img src="imagens/atividade1.jpg" alt="Projeto 1">
     </div>
 
-    <div class="card">
+    <div class="card" id="atividade2">
       <h2>Atividade 2 - Desenvolvimento Web</h2>
-      <p>Descrição breve da atividade, contexto e resultado final.</p>
-      <img src="imagem2.jpg" alt="Projeto 2">
+      <p>Site responsivo feito em HTML e CSS.</p>
+      <img src="imagens/atividade2.jpg" alt="Projeto 2">
     </div>
 
-    <div class="card">
+    <div class="card" id="atividade3">
       <h2>Atividade 3 - Criatividade</h2>
-      <p>Reflexão pessoal sobre o processo e desafios superados.</p>
-      <img src="imagem3.jpg" alt="Projeto 3">
+      <p>Projeto experimental com colagens digitais.</p>
+      <img src="imagens/atividade3.jpg" alt="Projeto 3">
     </div>
-  </div>
 
-  <footer>
-    <p>Contato: <a href="mailto:meuemail@exemplo.com">meuemail@exemplo.com</a></p>
-  </footer>
+    <footer>
+      <p>Contato: <a href="mailto:rogerio@exemplo.com">rogerio@exemplo.com</a></p>
+    </footer>
+  </div>
 </body>
 </html>
