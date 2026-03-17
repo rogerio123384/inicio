@@ -2,104 +2,48 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfólio</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-    header {
-      background-color: #222;
-      color: white;
-      padding: 30px;
-      text-align: center;
-      animation: fadeInDown 1.5s ease;
-    }
-    header h1 {
-      margin: 0;
-    }
-    section {
-      padding: 20px;
-      max-width: 900px;
-      margin: auto;
-      animation: fadeIn 2s ease;
-    }
-    .projeto {
-      background: white;
-      margin: 20px 0;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: slideUp 1.2s ease;
-    }
-    .projeto:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-    }
-    .projeto h2 {
-      margin-top: 0;
-    }
-    footer {
-      background: #222;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      margin-top: 30px;
-      animation: fadeInUp 1.5s ease;
-    }
-
-    /* Animações */
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-    @keyframes fadeInDown {
-      from {opacity: 0; transform: translateY(-30px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    @keyframes fadeInUp {
-      from {opacity: 0; transform: translateY(30px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    @keyframes slideUp {
-      from {opacity: 0; transform: translateY(50px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header>
-    <h1>Portfólio</h1>
-    <p>Meus trabalhos e projetos</p>
+    <h1>Meu Portfólio</h1>
+    <nav>
+      <a href="#sobre">Sobre</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#contato">Contato</a>
+    </nav>
   </header>
 
+  <section id="sobre">
+    <img src="img/foto-perfil.jpg" alt="Foto de perfil" class="perfil">
+    <h2>Sobre mim</h2>
+    <p>Sou desenvolvedor apaixonado por tecnologia e criação de soluções digitais.</p>
+  </section>
+
   <section id="projetos">
-    <h2>Meus Arquivos</h2>
-
+    <h2>Projetos</h2>
     <div class="projeto">
-      <h2>Projeto 1</h2>
-      <p>Arquivo PDF</p>
-      <a href="meu_arquivo/trabalho1.pdf" target="_blank">Abrir</a>
+      <h3>Projeto 1</h3>
+      <p>Descrição breve do projeto.</p>
     </div>
-
     <div class="projeto">
-      <h2>Projeto 2</h2>
-      <p>Imagem do projeto</p>
-      <img src="meu_arquivo/imagem1.jpg" alt="Imagem do projeto" width="300">
-    </div>
-
-    <div class="projeto">
-      <h2>Projeto 3</h2>
-      <p>Apresentação</p>
-      <a href="meu_arquivo/apresentacao.pptx" target="_blank">Download</a>
+      <h3>Projeto 2</h3>
+      <p>Outro projeto interessante.</p>
     </div>
   </section>
 
+  <section id="contato">
+    <h2>Contato</h2>
+    <p>Email: exemplo@email.com</p>
+    <p>LinkedIn: <a href="#">linkedin.com/in/exemplo</a></p>
+  </section>
+
   <footer>
-    <p>© 2026 - Todos os direitos reservados</p>
+    <p>&copy; 2026 - Todos os direitos reservados</p>
   </footer>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
