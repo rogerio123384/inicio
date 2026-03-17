@@ -1,120 +1,108 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+  <!DOCTYPE html>
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Portfólio - Rogério</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f4f4f4;
-      color: #333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Portfólio</title>
+    <style>
+        /* Estilização Básica */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    header {
-      background: linear-gradient(135deg, #4a90e2, #9013fe);
-      color: white;
-      text-align: center;
-      padding: 40px 20px;
-    }
+        header {
+            background-color: #333;
+            color: white;
+            width: 100%;
+            padding: 2rem 0;
+            text-align: center;
+        }
 
-    nav {
-      background: #4a90e2;
-      padding: 15px;
-      text-align: center;
-    }
+        /* Container da "Pasta" */
+        .container {
+            max-width: 1000px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 90%;
+        }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
-    }
+        /* Estilo dos Cards (Suas Coisas) */
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
 
-    nav a:hover {
-      color: #ffdd57;
-    }
+        .card:hover {
+            transform: translateY(-5px);
+        }
 
-    .container {
-      width: 85%;
-      margin: 30px auto;
-    }
+        .card h3 {
+            color: #007bff;
+        }
 
-    .card {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-      padding: 20px;
-    }
+        .card p {
+            color: #666;
+            font-size: 14px;
+        }
 
-    .card h2 {
-      margin-top: 0;
-      color: #4a90e2;
-    }
+        .botao {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
 
-    .card img {
-      max-width: 100%;
-      border-radius: 5px;
-      margin: 10px 0;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #333;
-      color: white;
-      margin-top: 40px;
-    }
-
-    footer a {
-      color: #4a90e2;
-      text-decoration: none;
-    }
-  </style>
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            color: #888;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Portfólio de Rogério</h1>
-    <p>Minhas atividades e projetos pessoais</p>
-  </header>
 
-  <nav>
-    <a href="#atividade1">Atividade 1</a>
-    <a href="#atividade2">Atividade 2</a>
-    <a href="#atividade3">Atividade 3</a>
-    <a href="#atividade4">Atividade 4</a>
-  </nav>
+    <header>
+        <h1>Portfólio de [Seu Nome]</h1>
+        <p>Bem-vindo à minha pasta de trabalhos</p>
+    </header>
 
-  <div class="container">
-    <div class="card" id="atividade1">
-      <h2>Atividade 1 - Minha Arte</h2>
-      <p>Desenho digital que fiz inspirado na natureza.</p>
-      <img src="imagens/arte1.jpg" alt="Minha Arte 1">
+    <div class="container">
+        <div class="card">
+            <h3>Projeto 01</h3>
+            <p>Descrição curta do que você fez aqui. Pode ser um design, um texto ou um código.</p>
+            <a href="#" class="botao">Ver Projeto</a>
+        </div>
+
+        <div class="card">
+            <h3>Projeto 02</h3>
+            <p>Explique o que tem nesta "pasta". Use palavras-chave do seu trabalho.</p>
+            <a href="#" class="botao">Abrir Arquivo</a>
+        </div>
+
+        <div class="card">
+            <h3>Certificados</h3>
+            <p>Aqui você pode colocar o link para o seu Drive ou LinkedIn.</p>
+            <a href="#" class="botao">Ver Mais</a>
+        </div>
     </div>
 
-    <div class="card" id="atividade2">
-      <h2>Atividade 2 - Desenvolvimento Web</h2>
-      <p>Site responsivo feito em HTML e CSS para prática pessoal.</p>
-      <img src="imagens/site1.jpg" alt="Meu Site">
-    </div>
+    <footer>
+        <p>Contato: seuemail@email.com</p>
+    </footer>
 
-    <div class="card" id="atividade3">
-      <h2>Atividade 3 - Criatividade</h2>
-      <p>Projeto experimental com colagens digitais e fotografia.</p>
-      <img src="imagens/projeto1.jpg" alt="Projeto Criativo">
-    </div>
-
-    <div class="card" id="atividade4">
-      <h2>Atividade 4 - Música</h2>
-      <p>Composição musical feita em software de áudio.</p>
-      <img src="imagens/musica1.jpg" alt="Minha Música">
-    </div>
-  </div>
-
-  <footer>
-    <p>Contato: <a href="mailto:rogerio@exemplo.com">rogerio@exemplo.com</a></p>
-  </footer>
 </body>
 </html>
