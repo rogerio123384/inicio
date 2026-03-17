@@ -1,75 +1,64 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Portfólio</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-    header {
-      background-color: #222;
-      color: white;
-      padding: 30px;
-      text-align: center;
-    }
-    section {
-      padding: 20px;
-      max-width: 900px;
-      margin: auto;
-    }
-    .projeto {
-      background: white;
-      margin: 20px 0;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .projeto h2 {
-      margin-top: 0;
-    }
-    footer {
-      background: #222;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      margin-top: 30px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Portfólio</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header>
-    <h1>Portfólio</h1>
-    <p>Meus trabalhos e projetos</p>
-  </header>
+    <header>
+        <div class="container">
+            <h1>Seu Nome</h1>
+            <p>Desenvolvedor Web | Designer Gráfico | Fotógrafo</p>
+            <nav>
+                <ul>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#projetos">Projetos</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <section id="projetos">
-    <h2>Meus Arquivos</h2>
+    <section id="sobre" class="section">
+        <div class="container">
+            <h2>Sobre Mim</h2>
+            <p>Sou um profissional apaixonado por tecnologia e design. Tenho experiência em [descrever suas habilidades e experiências].</p>
+        </div>
+    </section>
 
-    <div class="projeto">
-      <h2>Projeto 1</h2>
-      <p>Arquivo PDF</p>
-      <a href="meu_arquivo/trabalho1.pdf" target="_blank">Abrir</a>
-    </div>
+    <section id="projetos" class="section">
+        <div class="container">
+            <h2>Projetos</h2>
+            <div class="projetos">
+                <div class="projeto">
+                    <img src="img/projeto1.jpg" alt="Projeto 1">
+                    <h3>Projeto 1</h3>
+                    <p>Descrição do projeto 1. Tecnologias usadas: HTML, CSS, JavaScript.</p>
+                    <a href="link-para-o-projeto" target="_blank">Ver mais</a>
+                </div>
+                <div class="projeto">
+                    <img src="img/projeto2.jpg" alt="Projeto 2">
+                    <h3>Projeto 2</h3>
+                    <p>Descrição do projeto 2. Tecnologias usadas: React, Node.js.</p>
+                    <a href="link-para-o-projeto" target="_blank">Ver mais</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="projeto">
-      <h2>Projeto 2</h2>
-      <p>Imagem do projeto</p>
-      <img src="meu_arquivo/imagem1.jpg" alt="Imagem do projeto" width="300">
-    </div>
+    <section id="contato" class="section">
+        <div class="container">
+            <h2>Contato</h2>
+            <p>Entre em contato comigo através do e-mail: <a href="mailto:seuemail@dominio.com">seuemail@dominio.com</a></p>
+        </div>
+    </section>
 
-    <div class="projeto">
-      <h2>Projeto 3</h2>
-      <p>Apresentação</p>
-      <a href="meu_arquivo/apresentacao.pptx" target="_blank">Download</a>
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2026 - Todos os direitos reservados</p>
-  </footer>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Seu Nome. Todos os direitos reservados.</p>
+        </div>
+    </footer>
 </body>
 </html>
