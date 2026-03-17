@@ -1,50 +1,63 @@
 body {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
-    font-family: 'Courier New', Courier, monospace;
-    display: flex;
-    justify-content: center;
-    padding: 50px;
+    background-color: #f4f4f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
 }
 
-.container {
-    width: 100%;
-    max-width: 800px;
+.explorer {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    max-width: 500px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
 }
 
 header {
-    border-bottom: 2px solid #333;
-    margin-bottom: 30px;
-    padding-bottom: 10px;
+    background: #0078d7;
+    color: white;
+    padding: 10px 15px;
 }
 
-.grid-pastas {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
-}
-
-.pasta, .arquivo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.pasta-header {
+    padding: 10px 15px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
     cursor: pointer;
-    padding: 15px;
-    border-radius: 8px;
-    transition: background 0.3s;
+    user-select: none;
+    transition: background 0.2s;
 }
 
-.pasta:hover, .arquivo:hover {
-    background-color: #333;
+.pasta-header:hover {
+    background: #e5f3ff;
 }
 
-.icone {
-    font-size: 50px;
-    margin-bottom: 10px;
+.pasta-conteudo {
+    display: none; /* Escondido por padrão */
+    background: #fafafa;
+    padding-left: 30px;
+    border-bottom: 1px solid #eee;
 }
 
-.nome {
+.item, .item-avulso {
+    padding: 8px 15px;
     font-size: 14px;
-    text-align: center;
-    word-break: break-all;
+    color: #444;
+}
+
+.item:hover {
+    color: #0078d7;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.seta {
+    display: inline-block;
+    transition: transform 0.2s;
+    margin-right: 5px;
+    font-size: 10px;
+}
+
+.pasta-ativa .seta {
+    transform: rotate(90deg); /* Gira a seta quando abre */
 }
