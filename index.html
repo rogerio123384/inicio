@@ -1,42 +1,75 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Meu Portfólio Estruturado</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Portfólio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background-color: #222;
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+    section {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    .projeto {
+      background: white;
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .projeto h2 {
+      margin-top: 0;
+    }
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 30px;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Portfólio</h1>
+    <p>Meus trabalhos e projetos</p>
+  </header>
 
-<div class="explorer">
-    <header>
-        <h2>📁 Gerenciador de Projetos</h2>
-    </header>
+  <section id="projetos">
+    <h2>Meus Arquivos</h2>
 
-    <div class="pasta-container">
-        <div class="pasta-header" onclick="togglePasta('trabalho1')">
-            <span class="seta">▶</span> 📂 <strong>Trabalho_Design_2024</strong>
-        </div>
-        <div id="trabalho1" class="pasta-conteudo">
-            <div class="item">🖼️ logo_final.png</div>
-            <div class="item">🎨 paleta_cores.pdf</div>
-            <div class="item">📝 briefing.docx</div>
-        </div>
+    <div class="projeto">
+      <h2>Projeto 1</h2>
+      <p>Arquivo PDF</p>
+      <a href="meu_arquivo/trabalho1.pdf" target="_blank">Abrir</a>
     </div>
 
-    <div class="pasta-container">
-        <div class="pasta-header" onclick="togglePasta('trabalho2')">
-            <span class="seta">▶</span> 📂 <strong>Desenvolvimento_Web</strong>
-        </div>
-        <div id="trabalho2" class="pasta-conteudo">
-            <div class="item">🌐 index.html</div>
-            <div class="item">✨ style.css</div>
-            <div class="item">📜 script.js</div>
-        </div>
+    <div class="projeto">
+      <h2>Projeto 2</h2>
+      <p>Imagem do projeto</p>
+      <img src="meu_arquivo/imagem1.jpg" alt="Imagem do projeto" width="300">
     </div>
 
-    <div class="item-avulso">📄 meu_curriculo.pdf</div>
-</div>
+    <div class="projeto">
+      <h2>Projeto 3</h2>
+      <p>Apresentação</p>
+      <a href="meu_arquivo/apresentacao.pptx" target="_blank">Download</a>
+    </div>
+  </section>
 
-<script src="script.js"></script>
+  <footer>
+    <p>© 2026 - Todos os direitos reservados</p>
+  </footer>
 </body>
 </html>
