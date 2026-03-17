@@ -1,91 +1,56 @@
-body {
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  background: #f4f4f9;
-  color: #333;
+/* Estilos para a Tela de Início */
+.hero {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 50px;
 }
 
-header {
-  background: #2d3436;
-  color: #fff;
-  padding: 2rem;
-  text-align: center;
-  animation: fadeIn 2s ease;
+.badge {
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--accent);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-bottom: 20px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
 }
 
-nav {
-  display: flex;
-  justify-content: center;
-  background: #636e72;
-  padding: 0.5rem;
-  position: sticky;
-  top: 0;
+.highlight {
+    color: var(--accent);
+    background: linear-gradient(90deg, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-nav a {
-  color: white;
-  text-decoration: none;
-  margin: 0 15px;
-  font-weight: bold;
-  position: relative;
+.hero-description {
+    max-width: 600px;
+    margin: 20px auto 40px;
+    font-size: 1.2rem;
+    color: #94a3b8;
 }
 
-nav a:hover {
-  color: #00cec9;
+.cta-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
 }
 
-.container {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+.btn-outline {
+    background: transparent !important;
+    border: 1px solid var(--accent);
+    color: var(--accent) !important;
 }
 
-section {
-  background: white;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  animation: fadeUp 1s ease forwards;
-  opacity: 0;
-  transform: translateY(20px);
+.btn-outline:hover {
+    background: rgba(56, 189, 248, 0.1) !important;
 }
 
-.projeto {
-  border-left: 5px solid #0984e3;
-  padding-left: 1rem;
-  margin-bottom: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.projeto:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-.tag {
-  background: #dfe6e9;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  color: #2d3436;
-}
-
-footer {
-  text-align: center;
-  padding: 2rem;
-  font-size: 0.9rem;
-  color: #636e72;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Scroll suave para os links */
+html {
+    scroll-behavior: smooth;
 }
