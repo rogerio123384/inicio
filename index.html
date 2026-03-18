@@ -5,44 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meu Portfólio</title>
   <style>
-    /* Animações */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-
-    @keyframes slideIn {
-      from { transform: translateX(-100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
+    /* Fundo moderno */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-image: url('https://copilot.microsoft.com/th/id/BCO.1f9bf0c5-70ca-462e-adaf-2772af51320e.png');
-      background-size: cover;
-      background-position: center;
+      background: linear-gradient(135deg, #007bff, #00c6ff);
       margin: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      animation: slideIn 1s ease;
+      transition: background 0.5s ease;
     }
 
+    /* Cabeçalho */
     header {
-      background-color: rgba(51, 51, 51, 0.85);
+      background: rgba(51, 51, 51, 0.85);
       color: white;
       width: 100%;
       padding: 2rem 0;
       text-align: center;
-      animation: pulse 2s infinite;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      text-shadow: 0 0 8px rgba(255,255,255,0.6);
     }
 
+    /* Container */
     .container {
       max-width: 1000px;
       padding: 20px;
@@ -52,14 +37,14 @@
       width: 90%;
     }
 
+    /* Cards com efeito vidro */
     .card {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 15px;
       padding: 20px;
       text-align: center;
-      animation: fadeInUp 0.8s ease forwards;
-      opacity: 0;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
@@ -73,10 +58,11 @@
     }
 
     .card p {
-      color: #444;
+      color: #222;
       font-size: 14px;
     }
 
+    /* Botões com efeito clique */
     .botao {
       display: inline-block;
       margin-top: 15px;
@@ -85,6 +71,8 @@
       color: white;
       text-decoration: none;
       border-radius: 5px;
+      position: relative;
+      overflow: hidden;
       transition: all 0.3s ease;
     }
 
@@ -94,6 +82,12 @@
       transform: scale(1.05);
     }
 
+    .botao:active {
+      transform: scale(0.95);
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    }
+
+    /* Footer */
     footer {
       margin-top: 50px;
       padding: 20px;
@@ -102,19 +96,45 @@
       width: 100%;
       text-align: center;
     }
+
+    /* Modo escuro */
+    body.dark {
+      background: #121212;
+    }
+    body.dark header {
+      background: rgba(20,20,20,0.9);
+    }
+    body.dark .card {
+      background: rgba(255,255,255,0.1);
+      color: #eee;
+    }
+    body.dark footer {
+      background: rgba(255,255,255,0.1);
+      color: #ccc;
+    }
+
+    /* Botão modo escuro */
+    .toggle-dark {
+      margin: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background: #222;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .toggle-dark:hover {
+      background: #444;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Portfólio de [Seu Nome]</h1>
     <p>Bem-vindo à minha pasta de trabalhos</p>
+    <button class="toggle-dark" onclick="document.body.classList.toggle('dark')">🌙 Alternar Modo Escuro</button>
   </header>
-
-  <!-- Música de fundo -->
-  <audio autoplay loop controls>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    Seu navegador não suporta áudio.
-  </audio>
 
   <div class="container">
     <div class="card">
@@ -147,5 +167,5 @@
   <footer>
     &copy; 2026 - Desenvolvido por [Seu Nome]
   </footer>
-</body> 
+</body>
 </html>
