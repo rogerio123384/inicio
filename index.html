@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfólio SR Rogério</title>
   <style>
-    /* Fundo com imagem + overlay escuro */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: url('kratos.img') no-repeat center center fixed; /* coloque aqui sua imagem baixada */
+      background: url('kratos.img') no-repeat center center fixed;
       background-size: cover;
       margin: 0;
       display: flex;
@@ -17,13 +16,12 @@
       position: relative;
     }
 
-    /* Overlay para destacar textos */
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6); /* escurece o fundo */
+      background: rgba(0,0,0,0.6);
       z-index: -1;
     }
 
@@ -35,6 +33,31 @@
       text-align: center;
       backdrop-filter: blur(5px);
       box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+
+    /* Barra de botões */
+    .filtros {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    .filtros button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff4c4c;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filtros button:hover {
+      background-color: #b30000;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ff4c4c;
     }
 
     .container {
@@ -63,7 +86,7 @@
     }
 
     .card h3 {
-      color: #ff4c4c; /* vermelho estilo God of War */
+      color: #ff4c4c;
     }
 
     .botao {
@@ -91,6 +114,20 @@
       width: 100%;
       text-align: center;
     }
+
+    /* Responsividade */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+      .card {
+        padding: 15px;
+      }
+      .botao {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -99,45 +136,70 @@
     <p>Bem-vindo à minha pasta de trabalhos</p>
   </header>
 
+  <!-- Botões de filtro -->
+  <div class="filtros">
+    <button onclick="filtrar('all')">Mostrar Todos</button>
+    <button onclick="filtrar('html')">HTML</button>
+    <button onclick="filtrar('js')">JavaScript</button>
+    <button onclick="filtrar('python')">Python</button>
+    <button onclick="filtrar('analise')">Análise</button>
+  </div>
+
   <div class="container">
-    <div class="card">
+    <div class="card html">
       <h3>teste.html</h3>
       <p>Descrição curta do que você fez aqui.</p>
       <a href="teste.html" class="botao">Ver Mais</a>
     </div>
-    <div class="card">
+    <div class="card js">
       <h3>teste.js</h3>
       <p>Explique o que tem nesta pasta.</p>
       <a href="teste.js" class="botao">Ver Mais</a>
     </div>
-    <div class="card">
+    <div class="card js">
       <h3>teste2.js</h3>
       <p>Link para Drive ou LinkedIn.</p>
       <a href="teste2.js" class="botao">Ver Mais</a>
     </div>
-    <div class="card">
+    <div class="card js">
       <h3>carro1.js</h3>
       <p>Outro projeto ou arquivo.</p>
       <a href="carro1.js" class="botao">Ver Mais</a>
     </div>
-    <div class="card">
+    <div class="card js">
       <h3>variaveis.js</h3>
       <a href="variaveis.js" class="botao">Ver Mais</a>
     </div>
-    <div class="card">
+    <div class="card analise">
       <h3>Atividade Gamma</h3>
       <p>Link para Drive ou LinkedIn.</p>
       <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao">Ver Mais</a>
-       <div class="card">
+    </div>
+    <div class="card python">
       <h3>Jogo Pac-man</h3>
       <a href="file:///C:/pacman/.html" class="botao">Ver Mais</a>
     </div>
-    </div>
-  
-  
+  </div>
 
   <footer>
     &copy; 2026 - Desenvolvido por SR Rogério
   </footer>
+
+  <script>
+    function filtrar(categoria) {
+      let cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        if (categoria === 'all') {
+          card.style.display = 'block';
+        } else {
+          if (card.classList.contains(categoria)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        }
+      });
+    }
+  </script>
 </body>
 </html>
