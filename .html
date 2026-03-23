@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Pac-Man: Mega Labyrinth Audio Edition</title>
+    <style>
+        body { background: #050505; color: white; display: flex; flex-direction: column; align-items: center; font-family: 'Arial Black', sans-serif; margin: 0; padding: 10px; overflow-y: auto; }
+        .hud { margin-bottom: 10px; display: flex; gap: 30px; font-size: 20px; text-shadow: 2px 2px #1919A6; }
+        #game-container { border: 4px solid #1919A6; border-radius: 12px; box-shadow: 0 0 40px rgba(25, 25, 166, 0.6); background: #000; position: relative; }
+        canvas { display: block; }
+        
+        /* Estilo para o botão de áudio/início */
+        #audio-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 8px; z-index: 100; cursor: pointer;
+        }
+        #audio-overlay h2 { color: yellow; margin: 0; }
+        #audio-overlay p { color: white; font-size: 14px; }
+
+        .legend { margin-top: 10px; color: #888; font-size: 12px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="hud">
+        <div>PONTOS: <span id="score" style="color: yellow;">0</span></div>
+        <div>NÍVEL: <span id="level" style="color: #00FF00;">1</span></div>
+        <div>VIDAS: <span id="lives-ui">❤️❤️❤️</span></div>
+    </div>
+
+    <div id="game-container">
+        <div id="audio-overlay" onclick="initAudio()">
+            <h2>CLIQUE PARA JOGAR</h2>
+            <p>(Ativa os efeitos sonoros)</p>
+        </div>
+        <canvas id="gameCanvas"></canvas>
+    </div>
+
+    <div class="legend">
+        PEGE AS PASTILHAS GRANDES PARA COMER OS FANTASMAS! <br>
+        USE OS TÚNEIS LATERAIS PARA TELEPORTAR.
+    </div>
+
+    <script>
+        // --- SISTEMA DE ÁUDIO ---
+        let audioCtx = null;
+        let gameStarted = false;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            document.getElementById('audio-overlay').style.display = 'none';
+            gameStarted = true;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            playSound(440, 'sine', 0.1); // Beep de confirmação
+        }
+
+        function playSound(freq, type, duration, vol = 0.1) {
+            if (!audioCtx || !gameStarted) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        // --- CONFIGURAÇÃO DO MAPA E JOGO ---
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const TILE_SIZE = 20;
+
+        const bigMapTemplate = [
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,3,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,3,1],
+            [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1],
+            [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1],
+            [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+            [1,0,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,1],
+            [1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,1],
+            [1,1,1,1,1,1,0,1,1,1,1,1,2,1,1,2,1,1,1,1,1,0,1,1,1,1,1,1],
+            [2,2,2,2,2,1,0,1,1,2,2,2,2,2,2,2,2,2,2,1,1,0,1,2,2,2,2,2],
+            [1,1,1,1,1,1,0,1,1,2,1,1,4,4,4,4,1,1,2,1,1,0,1,1,1,1,1,1],
+            [2,2,2,2,2,2,0,2,2,2,1,2,2,2,2,2,2,1,2,2,2,0,2,2,2,2,2,2],
+            [1,1,1,1,1,1,0,1,1,2,1,1,1,1,1,1,1,1,2,1,1,0,1,1,1,1,1,1],
+            [2,2,2,2,2,1,0,1,1,2,2,2,2,2,2,2,2,2,2,1,1,0,1,2,2,2,2,2],
+            [1,1,1,1,1,1,0,1,1,2,1,1,1,1,1,1,1,1,2,1,1,0,1,1,1,1,1,1],
+            [1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
+            [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1],
+            [1,3,0,0,1,1,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,1,1,0,0,3,1],
+            [1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1],
+            [1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,1],
+            [1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1],
+            [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+        ];
+
+        let map = JSON.parse(JSON.stringify(bigMapTemplate));
+        canvas.width = map[0].length * TILE_SIZE;
+        canvas.height = map.length * TILE_SIZE;
+
+        let score = 0, lives = 3, level = 1, globalTicks = 0;
+        let isDying = false, deathCircle = 1;
+        let powerMode = 0;
+
+        let pacman = { x: 1, y: 1, dir: 0, nextDir: 0, mouth: 0 };
+        let ghosts = [
+            { x: 13, y: 10, dir: 0, color: "#FF0000", startX: 13, startY: 10, state: "normal" },
+            { x: 14, y: 10, dir: 1, color: "#FFB8FF", startX: 14, startY: 10, state: "normal" },
+            { x: 13, y: 11, dir: 2, color: "#00FFFF", startX: 13, startY: 11, state: "normal" },
+            { x: 14, y: 11, dir: 3, color: "#FFB852", startX: 14, startY: 11, state: "normal" }
+        ];
+
+        function drawGhost(g) {
+            const x = g.x * TILE_SIZE + TILE_SIZE / 2;
+            const y = g.y * TILE_SIZE + TILE_SIZE / 2;
+            const r = TILE_SIZE / 2 - 2;
+            if (g.state === "eaten") {
+                ctx.fillStyle = "white";
+                ctx.beginPath(); ctx.arc(x-3, y, 3, 0, 7); ctx.arc(x+3, y, 3, 0, 7); ctx.fill();
+                return;
+            }
+            ctx.fillStyle = (powerMode > 0) ? (powerMode < 20 && globalTicks % 4 < 2 ? "white" : "#2121ff") : g.color;
+            ctx.beginPath();
+            ctx.arc(x, y, r, Math.PI, 0);
+            ctx.lineTo(x + r, y + r);
+            const wave = Math.sin(globalTicks * 0.5) * 2;
+            ctx.lineTo(x + r/2, y + r + wave);
+            ctx.lineTo(x, y + r);
+            ctx.lineTo(x - r/2, y + r + wave);
+            ctx.lineTo(x - r, y + r);
+            ctx.fill();
+            ctx.fillStyle = "white";
+            ctx.beginPath(); ctx.arc(x - 3, y - 2, 2.5, 0, 7); ctx.arc(x + 3, y - 2, 2.5, 0, 7); ctx.fill();
+        }
+
+        function update() {
+            if (!gameStarted || isDying) {
+                if(isDying) {
+                    deathCircle -= 0.1;
+                    if (deathCircle <= 0) { isDying = false; deathCircle = 1; pacman.x = 1; pacman.y = 1; }
+                }
+                return;
+            }
+
+            globalTicks++;
+            if (powerMode > 0) powerMode--;
+            pacman.mouth += 0.3;
+
+            let nDx = [1, 0, -1, 0][pacman.nextDir];
+            let nDy = [0, 1, 0, -1][pacman.nextDir];
+            let nextX = pacman.x + nDx;
+            let nextY = pacman.y + nDy;
+            
+            if (map[nextY] && map[nextY][nextX] !== 1 && map[nextY][nextX] !== 4) pacman.dir = pacman.nextDir;
+
+            let dx = [1, 0, -1, 0][pacman.dir];
+            let dy = [0, 1, 0, -1][pacman.dir];
+            
+            if (map[pacman.y + dy] && map[pacman.y + dy][pacman.x + dx] !== 1 && map[pacman.y + dy][pacman.x + dx] !== 4) {
+                pacman.x += dx; pacman.y += dy;
+                // SOM DE MOVIMENTO (Waka-Waka)
+                if (globalTicks % 2 === 0) playSound(150 + (Math.sin(globalTicks * 0.2) * 20), 'triangle', 0.05, 0.02);
+            }
+
+            if (pacman.x < 0) pacman.x = map[0].length - 1;
+            else if (pacman.x >= map[0].length) pacman.x = 0;
+
+            let currentTile = map[pacman.y][pacman.x];
+            if (currentTile === 0 || currentTile === 3) {
+                if (currentTile === 3) {
+                    powerMode = 60;
+                    playSound(600, 'square', 0.2); // Som de Super Pastilha
+                } else {
+                    playSound(400, 'sine', 0.05, 0.03); // Som de Pastilha normal
+                }
+                map[pacman.y][pacman.x] = 2;
+                score += (currentTile === 3 ? 50 : 10);
+                document.getElementById("score").innerText = score;
+                
+                if (!map.flat().includes(0) && !map.flat().includes(3)) {
+                    level++;
+                    document.getElementById("level").innerText = level;
+                    map = JSON.parse(JSON.stringify(bigMapTemplate));
+                    pacman.x = 1; pacman.y = 1;
+                    playSound(800, 'square', 0.5); // Som de vitória/nível
+                }
+            }
+
+            ghosts.forEach(g => {
+                if (g.state === "eaten") {
+                    if (g.x < g.startX) g.x++; else if (g.x > g.startX) g.x--;
+                    if (g.y < g.startY) g.y++; else if (g.y > g.startY) g.y--;
+                    if (g.x === g.startX && g.y === g.startY) g.state = "normal";
+                    return;
+                }
+
+                let moveProb = (powerMode > 0) ? 0.1 : 0.4;
+                if (Math.random() < moveProb) {
+                    if (powerMode > 0) {
+                        if (pacman.x > g.x) g.dir = 2; else g.dir = 0;
+                    } else {
+                        if (pacman.x > g.x) g.dir = 0; else g.dir = 2;
+                        if (pacman.y > g.y) g.dir = 1; else g.dir = 3;
+                    }
+                }
+
+                let gx = [1, 0, -1, 0][g.dir];
+                let gy = [0, 1, 0, -1][g.dir];
+                if (map[g.y + gy] && map[g.y + gy][g.x + gx] !== 1) {
+                    g.x += gx; g.y += gy;
+                } else {
+                    g.dir = Math.floor(Math.random() * 4);
+                }
+
+                if (g.x === pacman.x && g.y === pacman.y) {
+                    if (powerMode > 0) {
+                        g.state = "eaten";
+                        score += 200;
+                        playSound(1000, 'sawtooth', 0.2); // Som comer fantasma
+                    } else {
+                        lives--;
+                        document.getElementById("lives-ui").innerText = "❤️".repeat(lives);
+                        isDying = true;
+                        playSound(100, 'sawtooth', 0.6, 0.2); // Som de morte
+                        if (lives <= 0) { 
+                            setTimeout(() => { alert("GAME OVER!"); location.reload(); }, 500);
+                        }
+                    }
+                }
+            });
+        }
+
+        function gameLoop() {
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let y = 0; y < map.length; y++) {
+                for (let x = 0; x < map[y].length; x++) {
+                    if (map[y][x] === 1) {
+                        ctx.fillStyle = "#1919A6";
+                        ctx.fillRect(x*TILE_SIZE+1, y*TILE_SIZE+1, TILE_SIZE-2, TILE_SIZE-2);
+                    } else if (map[y][x] === 0) {
+                        ctx.fillStyle = "#FFB8AE";
+                        ctx.beginPath(); ctx.arc(x*TILE_SIZE+TILE_SIZE/2, y*TILE_SIZE+TILE_SIZE/2, 2, 0, 7); ctx.fill();
+                    } else if (map[y][x] === 3) {
+                        ctx.fillStyle = (globalTicks % 10 < 5) ? "#FFB8AE" : "white";
+                        ctx.beginPath(); ctx.arc(x*TILE_SIZE+TILE_SIZE/2, y*TILE_SIZE+TILE_SIZE/2, 6, 0, 7); ctx.fill();
+                    } else if (map[y][x] === 4) {
+                        ctx.fillStyle = "#555";
+                        ctx.fillRect(x*TILE_SIZE, y*TILE_SIZE + TILE_SIZE/2, TILE_SIZE, 4);
+                    }
+                }
+            }
+
+            const px = pacman.x * TILE_SIZE + TILE_SIZE/2;
+            const py = pacman.y * TILE_SIZE + TILE_SIZE/2;
+            if (isDying) {
+                ctx.fillStyle = "yellow";
+                ctx.beginPath(); ctx.arc(px, py, (TILE_SIZE/2) * deathCircle, 0, 7); ctx.fill();
+            } else {
+                const mouth = Math.abs(Math.sin(pacman.mouth) * 0.5);
+                const rot = pacman.dir * (Math.PI / 2);
+                ctx.fillStyle = "yellow";
+                ctx.beginPath();
+                ctx.arc(px, py, TILE_SIZE/2 - 1, rot + mouth, rot + 2 * Math.PI - mouth);
+                ctx.lineTo(px, py); ctx.fill();
+            }
+
+            if (!isDying) ghosts.forEach(drawGhost);
+            update();
+            setTimeout(gameLoop, 130);
+        }
+
+        window.addEventListener("keydown", e => {
+            const keys = { ArrowRight: 0, ArrowDown: 1, ArrowLeft: 2, ArrowUp: 3 };
+            if (keys[e.key] !== undefined) pacman.nextDir = keys[e.key];
+        });
+
+        gameLoop();
+    </script>
+</body>
+</html>
