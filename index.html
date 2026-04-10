@@ -13,14 +13,26 @@
 
     body {
       font-family: 'Poppins', 'Segoe UI', 'Cinema', system-ui, -apple-system, 'Inter', sans-serif;
-      background: radial-gradient(circle at 20% 30%, #0a0c12, #010101);
+      /* IMAGEM DE FUNDO CORRIGIDA - usando uma imagem épica nórdica/mitológica */
+      background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.75)), url('https://images.pexels.com/photos/952670/pexels-photo-952670.jpeg?auto=compress&cs=tinysrgb&w=1600');
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
       min-height: 100vh;
       color: #ece8e1;
       position: relative;
       overflow-x: hidden;
     }
 
-    /* efeito cinza épico com runas sutis */
+    /* caso a imagem de fallback não carregue, mantém o gradiente dramático */
+    @supports (background: url('')) {
+      body {
+        background: radial-gradient(circle at 20% 30%, #0a0c12, #010101);
+      }
+    }
+
+    /* efeito de runas e texturas sobrepostas */
     body::before {
       content: "";
       position: fixed;
@@ -34,7 +46,7 @@
       z-index: 0;
     }
 
-    /* overlay de fogo e fumaça */
+    /* overlay de fumaça nas bordas */
     body::after {
       content: "";
       position: fixed;
@@ -42,7 +54,7 @@
       left: 0;
       width: 100%;
       height: 40%;
-      background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+      background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
       pointer-events: none;
       z-index: 0;
     }
@@ -125,24 +137,49 @@
       margin: 20px auto;
       padding: 20px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
       gap: 30px;
       position: relative;
       z-index: 5;
     }
 
-    /* card — estilo pedra rúnica + vidro flamejante */
+    /* card — estilo pedra rúnica com imagem de fundo por categoria */
     .card {
-      background: radial-gradient(ellipse at 30% 20%, rgba(25, 20, 18, 0.85), rgba(10, 7, 5, 0.95));
+      background: radial-gradient(ellipse at 30% 20%, rgba(20, 18, 22, 0.85), rgba(8, 5, 10, 0.95));
       backdrop-filter: blur(8px);
       border-radius: 32px;
       border: 1px solid rgba(230, 100, 40, 0.5);
-      padding: 1.8rem 1.2rem;
+      padding: 1.6rem 1.2rem;
       transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       color: #f0e2cf;
       box-shadow: 0 15px 25px -12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,215,150,0.2);
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 380px;
+    }
+
+    /* imagem de fundo personalizada por categoria (tema épico) */
+    .card.html {
+      background-image: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-size: cover;
+      background-position: center;
+    }
+    .card.js {
+      background-image: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-size: cover;
+      background-position: center;
+    }
+    .card.jogo {
+      background-image: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-size: cover;
+      background-position: center;
+    }
+    .card.analise {
+      background-image: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-size: cover;
+      background-position: center;
     }
 
     /* efeito de brasa nas bordas */
@@ -161,7 +198,7 @@
     }
 
     .card:hover::before {
-      opacity: 0.5;
+      opacity: 0.6;
     }
 
     .card:hover {
@@ -173,7 +210,7 @@
     .card h3 {
       font-size: 1.8rem;
       font-weight: 700;
-      background: linear-gradient(145deg, #ffb472, #ff7030);
+      background: linear-gradient(145deg, #ffd2a5, #ff9040);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
@@ -184,14 +221,19 @@
       gap: 8px;
       border-left: 4px solid #e65c1e;
       padding-left: 12px;
+      text-shadow: 0 1px 2px black;
     }
 
     .card p {
       font-size: 0.95rem;
       line-height: 1.5;
       margin: 15px 0;
-      opacity: 0.85;
-      font-weight: 300;
+      opacity: 0.9;
+      font-weight: 400;
+      background: rgba(0,0,0,0.4);
+      padding: 6px 10px;
+      border-radius: 16px;
+      backdrop-filter: blur(2px);
     }
 
     /* botão tipo runa */
@@ -200,7 +242,8 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      margin-top: 12px;
+      margin-top: auto;
+      align-self: flex-start;
       padding: 10px 20px;
       background: linear-gradient(95deg, #9b2e0f, #d9541a);
       border: none;
@@ -219,15 +262,14 @@
       transform: scale(1.05);
       box-shadow: 0 0 12px #ff5e2e;
       color: white;
-      text-shadow: 0 0 2px black;
     }
 
-    /* estilos especiais para cada categoria (ícones sutis) */
+    /* ícones decorativos no título (mantém os after originais mas com imagens) */
     .card.html h3::after {
-      content: "🪶";
+      content: "🌐";
       font-size: 1.4rem;
       margin-left: auto;
-      opacity: 0.7;
+      opacity: 0.9;
     }
     .card.js h3::after {
       content: "⚡";
@@ -240,25 +282,28 @@
       margin-left: auto;
     }
     .card.analise h3::after {
-      content: "📐";
+      content: "📊";
       font-size: 1.4rem;
       margin-left: auto;
     }
 
-    /* ícone decorativo */
+    /* badge categoria */
     .card .badge-cat {
       display: inline-block;
-      background: rgba(230, 92, 30, 0.25);
+      background: rgba(230, 92, 30, 0.75);
+      backdrop-filter: blur(4px);
       border-radius: 50px;
-      padding: 2px 12px;
+      padding: 4px 14px;
       font-size: 0.7rem;
       text-transform: uppercase;
-      font-weight: 600;
-      margin-bottom: 8px;
+      font-weight: 700;
+      margin-bottom: 12px;
       letter-spacing: 1px;
+      width: fit-content;
+      color: #fff1df;
     }
 
-    /* rodapé de guerreiro */
+    /* rodapé guerreiro */
     footer {
       margin-top: 70px;
       background: #030202cc;
@@ -274,13 +319,7 @@
       letter-spacing: 1px;
     }
 
-    /* animação de fagulhas ao carregar */
-    @keyframes flamePulse {
-      0% { text-shadow: 0 0 2px #ff7b2c; }
-      100% { text-shadow: 0 0 8px #ff4a1c; }
-    }
-
-    /* responsividade refinada */
+    /* responsividade */
     @media (max-width: 680px) {
       header h1 {
         font-size: 2rem;
@@ -296,17 +335,14 @@
         gap: 20px;
         padding: 12px;
       }
-    }
-
-    /* para o card jogo que estava sem a classe "card" no html original, corrigimos */
-    .jogo {
-      composes: card; /* fallback, mas adicionaremos diretamente no html */
+      .card {
+        min-height: 350px;
+      }
     }
 
     /* tooltip moderno */
     .card a[href^="file"] {
       cursor: pointer;
-      position: relative;
     }
   </style>
 </head>
@@ -325,7 +361,7 @@
   </div>
 
   <div class="container">
-    <!-- cards com categorias e descrições épicas -->
+    <!-- CARD HTML com imagem temática -->
     <div class="card html">
       <div class="badge-cat">🏷️ Estrutura Web</div>
       <h3>teste.html</h3>
@@ -333,6 +369,7 @@
       <a href="teste.html" class="botao">⚔️ EXPLORAR</a>
     </div>
 
+    <!-- CARDS JAVASCRIPT com imagem de código/futurista -->
     <div class="card js">
       <div class="badge-cat">💡 Lógica & Dinamismo</div>
       <h3>teste.js</h3>
@@ -361,6 +398,7 @@
       <a href="variaveis.js" class="botao">📖 ESTUDAR</a>
     </div>
 
+    <!-- CARD ANÁLISE com imagem de dados/estratégia -->
     <div class="card analise">
       <div class="badge-cat">🧠 Propriedade Intelectual</div>
       <h3>Atividade Gamma</h3>
@@ -368,7 +406,7 @@
       <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📄 LER DOC</a>
     </div>
 
-    <!-- card JOGO (antigo jogo sem classe card corrigido) -->
+    <!-- CARD JOGO (PAC-MAN) com imagem arcade nostálgica -->
     <div class="card jogo">
       <div class="badge-cat">👾 ARCADE NOSTALGIA</div>
       <h3>Jogo Pac-man</h3>
@@ -376,7 +414,7 @@
       <a href="file:///C:/pacman/.html" class="botao">🍒 JOGAR AGORA</a>
     </div>
 
-    <!-- card extra + estilo: mais um trabalho analise e jogo pra enriquecer -->
+    <!-- CARD JOGO EXTRA (Battle Fury) -->
     <div class="card jogo">
       <div class="badge-cat">⚡ Ação Imersiva</div>
       <h3>Battle Fury Demo</h3>
@@ -384,6 +422,7 @@
       <a href="#" class="botao" onclick="alert('🎮 Em breve, versão jogável online! Acompanhe as atualizações.'); return false;">🔥 PRÉVIA</a>
     </div>
 
+    <!-- CARD ANÁLISE EXTRA (Dashboard) -->
     <div class="card analise">
       <div class="badge-cat">📈 Data Insights</div>
       <h3>Dashboard Gamma</h3>
@@ -398,25 +437,23 @@
   </footer>
 
   <script>
-    // função de filtro melhorada e robusta, com fade e transição suave
+    // Função de filtro aprimorada com animação suave e efeito visual
     function filtrar(categoria) {
       const cards = document.querySelectorAll('.card');
       let hasVisible = false;
       
       cards.forEach(card => {
-        // verifica se o card possui a classe da categoria
         let match = false;
         if (categoria === 'all') {
           match = true;
         } else {
-          // verifica se a lista de classes contém a categoria (ex: "js", "html", "jogo", "analise")
           if (card.classList.contains(categoria)) {
             match = true;
           }
         }
         
         if (match) {
-          card.style.display = 'block';
+          card.style.display = 'flex';  /* volta ao flex (layout do card) */
           card.style.opacity = '1';
           card.style.transform = 'scale(1)';
           hasVisible = true;
@@ -425,9 +462,8 @@
         }
       });
 
-      // efeito adicional: se nenhum card for encontrado (improvável), mas mensagem amigável
+      // Mensagem amigável se nenhum card aparecer (caso raro)
       if (!hasVisible && categoria !== 'all') {
-        // pequeno aviso sutil (opcional: criar um toast)
         const container = document.querySelector('.container');
         let warnMsg = document.getElementById('filter-warning');
         if (!warnMsg) {
@@ -436,7 +472,7 @@
           warnMsg.style.textAlign = 'center';
           warnMsg.style.gridColumn = '1/-1';
           warnMsg.style.padding = '2rem';
-          warnMsg.style.background = 'rgba(0,0,0,0.6)';
+          warnMsg.style.background = 'rgba(0,0,0,0.7)';
           warnMsg.style.borderRadius = '40px';
           warnMsg.style.backdropFilter = 'blur(8px)';
           warnMsg.style.border = '1px solid #ff6a2e';
@@ -458,26 +494,25 @@
       }
     }
 
-    // inicializar todos os cards visíveis (garantia)
+    // Inicialização e eventos
     document.addEventListener('DOMContentLoaded', () => {
       filtrar('all');
-      // correção extra: para o link "file:///C:/pacman/.html" exibir alerta caso não exista
+      
+      // Tratamento do link local do Pac-Man com confirmação
       const pacmanLink = document.querySelector('.jogo a[href*="C:/pacman"]');
       if (pacmanLink) {
         pacmanLink.addEventListener('click', (e) => {
-          // se o arquivo local não existir, ao menos avisamos com elegância
-          // não podemos checar diretamente por questões de segurança, mas damos dica
           e.preventDefault();
-          const confirmLoad = confirm("🎮 O jogo Pac-Man está disponível localmente no seu sistema? Clique em OK para abrir (certifique-se do caminho).");
+          const confirmLoad = confirm("🎮 O jogo Pac-Man está disponível localmente no seu sistema? Clique em OK para abrir (certifique-se do caminho C:/pacman/.html).");
           if (confirmLoad) {
             window.location.href = pacmanLink.getAttribute('href');
           } else {
-            alert("Dica: verifique se o arquivo está em C:/pacman/.html ou ajuste o caminho. Por enquanto, divirta-se com os outros projetos!");
+            alert("Dica: verifique se o arquivo está em C:/pacman/.html ou ajuste o caminho. Explore os outros projetos!");
           }
         });
       }
-
-      // Adicionar efeito de brilho aleatório nos cards ao passar o mouse
+      
+      // Efeito de rastreamento do mouse para brilho nos cards
       const cards = document.querySelectorAll('.card');
       cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
@@ -487,24 +522,17 @@
           card.style.setProperty('--x-pos', `${x}px`);
           card.style.setProperty('--y-pos', `${y}px`);
         });
-        // já que não usamos var(--x-pos) no css, apenas opcional: adicionar brilho dinâmico
-        // poderia ser um efeito de brilho com js, mas mantemos clean
       });
       
-      // tooltips custom elegante para links de arquivos locais
+      // tooltips para links locais
       const localLinks = document.querySelectorAll('a[href^="file://"]');
       localLinks.forEach(link => {
         link.setAttribute('title', '⚡ Acesso local - certifique-se que o arquivo existe no seu sistema');
       });
     });
     
-    // pequeno toque: ícone dinâmico no título
-    let iconInterval = setInterval(() => {
-      const title = document.querySelector('header h1');
-      if(title && !title.getAttribute('data-blink')) {
-        // apenas para charme
-      }
-    }, 500);
+    // efeito visual extra: troca da imagem de fundo do body de forma dinâmica? (mantém imagem fixa já trocada)
+    // garantia que os estilos de imagem por categoria estão ativos.
   </script>
 </body>
 </html>
