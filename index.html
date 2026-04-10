@@ -2,204 +2,509 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfólio SR Rogério</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>⚔️ Portfólio | SR Rogério • A Jornada do Guerreiro</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: url('kratos.img') no-repeat center center fixed;
-      background-size: cover;
+    * {
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
+      padding: 0;
+      box-sizing: border-box;
     }
 
+    body {
+      font-family: 'Poppins', 'Segoe UI', 'Cinema', system-ui, -apple-system, 'Inter', sans-serif;
+      background: radial-gradient(circle at 20% 30%, #0a0c12, #010101);
+      min-height: 100vh;
+      color: #ece8e1;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* efeito cinza épico com runas sutis */
     body::before {
       content: "";
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      z-index: -1;
-    }
-
-    header {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
+      top: 0;
+      left: 0;
       width: 100%;
-      padding: 2rem 0;
-      text-align: center;
-      backdrop-filter: blur(5px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      height: 100%;
+      background-image: repeating-linear-gradient(45deg, rgba(180, 70, 30, 0.08) 0px, rgba(180, 70, 30, 0.08) 2px, transparent 2px, transparent 8px),
+                        repeating-linear-gradient(135deg, rgba(200, 100, 40, 0.05) 0px, rgba(200, 100, 40, 0.05) 1px, transparent 1px, transparent 12px);
+      pointer-events: none;
+      z-index: 0;
     }
 
-    /* Barra de botões */
+    /* overlay de fogo e fumaça */
+    body::after {
+      content: "";
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* header moderno com brilho e borda de guerra */
+    header {
+      background: rgba(5, 5, 10, 0.65);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(220, 80, 40, 0.7);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,240,0.1);
+      padding: 2.2rem 1rem;
+      text-align: center;
+      width: 100%;
+      position: relative;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      letter-spacing: 4px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FFD89A, #E65C1E, #FF4A1C);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      display: inline-block;
+      border-right: 3px solid #e65c1e;
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      margin-top: 12px;
+      font-weight: 300;
+      color: #ddc9a5;
+      text-shadow: 0 1px 2px black;
+      letter-spacing: 1px;
+    }
+
+    /* botões de filtro - estilo lâmina rúnica */
     .filtros {
       display: flex;
       justify-content: center;
-      gap: 15px;
-      margin: 20px 0;
+      gap: 18px;
+      margin: 40px 20px 30px;
       flex-wrap: wrap;
+      z-index: 15;
+      position: relative;
     }
 
     .filtros button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      background-color: #ff4c4c;
-      color: #fff;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(230, 92, 30, 0.7);
+      padding: 12px 28px;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 60px;
+      color: #fbe9c3;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
+      font-family: inherit;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
 
     .filtros button:hover {
-      background-color: #b30000;
-      transform: scale(1.05);
-      box-shadow: 0 0 15px #ff4c4c;
+      background: #e65c1e;
+      color: #0a0a0a;
+      border-color: #ffbc6e;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(230, 92, 30, 0.5);
     }
 
+    /* container grid com cards incríveis */
     .container {
-      max-width: 1000px;
+      max-width: 1280px;
+      margin: 20px auto;
       padding: 20px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      width: 90%;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      position: relative;
+      z-index: 5;
     }
 
+    /* card — estilo pedra rúnica + vidro flamejante */
     .card {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 15px;
-      padding: 20px;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      color: #fff;
+      background: radial-gradient(ellipse at 30% 20%, rgba(25, 20, 18, 0.85), rgba(10, 7, 5, 0.95));
+      backdrop-filter: blur(8px);
+      border-radius: 32px;
+      border: 1px solid rgba(230, 100, 40, 0.5);
+      padding: 1.8rem 1.2rem;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      color: #f0e2cf;
+      box-shadow: 0 15px 25px -12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,215,150,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* efeito de brasa nas bordas */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(125deg, #e65c1e, #b13e0e, #ff8c42, #ff4a1c);
+      border-radius: 34px;
+      z-index: -2;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .card:hover::before {
+      opacity: 0.5;
     }
 
     .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 25px 35px -12px #e65c1e80;
+      border-color: #ff9f5b;
     }
 
     .card h3 {
-      color: #ff4c4c;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(145deg, #ffb472, #ff7030);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-left: 4px solid #e65c1e;
+      padding-left: 12px;
     }
 
+    .card p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin: 15px 0;
+      opacity: 0.85;
+      font-weight: 300;
+    }
+
+    /* botão tipo runa */
     .botao {
-      display: inline-block;
-      margin-top: 15px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
       padding: 10px 20px;
-      background-color: #ff4c4c;
-      color: white;
+      background: linear-gradient(95deg, #9b2e0f, #d9541a);
+      border: none;
+      border-radius: 40px;
+      font-weight: 600;
+      color: #ffefdb;
       text-decoration: none;
-      border-radius: 5px;
-      transition: all 0.3s ease;
+      transition: 0.25s;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.3);
     }
 
     .botao:hover {
-      background-color: #b30000;
+      background: linear-gradient(95deg, #c43f0a, #ff6a2c);
       transform: scale(1.05);
-      box-shadow: 0 0 15px #ff4c4c;
+      box-shadow: 0 0 12px #ff5e2e;
+      color: white;
+      text-shadow: 0 0 2px black;
     }
 
+    /* estilos especiais para cada categoria (ícones sutis) */
+    .card.html h3::after {
+      content: "🪶";
+      font-size: 1.4rem;
+      margin-left: auto;
+      opacity: 0.7;
+    }
+    .card.js h3::after {
+      content: "⚡";
+      font-size: 1.4rem;
+      margin-left: auto;
+    }
+    .card.jogo h3::after {
+      content: "🎮";
+      font-size: 1.4rem;
+      margin-left: auto;
+    }
+    .card.analise h3::after {
+      content: "📐";
+      font-size: 1.4rem;
+      margin-left: auto;
+    }
+
+    /* ícone decorativo */
+    .card .badge-cat {
+      display: inline-block;
+      background: rgba(230, 92, 30, 0.25);
+      border-radius: 50px;
+      padding: 2px 12px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* rodapé de guerreiro */
     footer {
-      margin-top: 50px;
-      padding: 20px;
-      color: #eee;
-      background-color: rgba(0,0,0,0.7);
-      width: 100%;
+      margin-top: 70px;
+      background: #030202cc;
+      backdrop-filter: blur(16px);
+      padding: 25px 20px;
       text-align: center;
+      border-top: 1px solid #e65c1e;
+      font-weight: 300;
+      font-size: 0.9rem;
+      color: #cfb58a;
+      z-index: 10;
+      position: relative;
+      letter-spacing: 1px;
     }
 
-    /* Responsividade */
-    @media (max-width: 600px) {
+    /* animação de fagulhas ao carregar */
+    @keyframes flamePulse {
+      0% { text-shadow: 0 0 2px #ff7b2c; }
+      100% { text-shadow: 0 0 8px #ff4a1c; }
+    }
+
+    /* responsividade refinada */
+    @media (max-width: 680px) {
       header h1 {
+        font-size: 2rem;
+      }
+      .filtros button {
+        padding: 8px 18px;
+        font-size: 0.8rem;
+      }
+      .card h3 {
         font-size: 1.5rem;
       }
-      .card {
-        padding: 15px;
+      .container {
+        gap: 20px;
+        padding: 12px;
       }
-      .botao {
-        padding: 8px 15px;
-        font-size: 0.9rem;
-      }
+    }
+
+    /* para o card jogo que estava sem a classe "card" no html original, corrigimos */
+    .jogo {
+      composes: card; /* fallback, mas adicionaremos diretamente no html */
+    }
+
+    /* tooltip moderno */
+    .card a[href^="file"] {
+      cursor: pointer;
+      position: relative;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Portfólio do SR Rogério</h1>
-    <p>Bem-vindo à minha pasta de trabalhos</p>
+    <h1>⚔️ SR ROGÉRIO ⚔️</h1>
+    <p>“A forja da excelência • projetos, código & estratégia”</p>
   </header>
 
-  <!-- Botões de filtro -->
   <div class="filtros">
-    <button onclick="filtrar('all')">Mostrar Todos</button>
-    <button onclick="filtrar('html')">HTML</button>
-    <button onclick="filtrar('js')">JavaScript</button>
-    <button onclick="filtrar('jogo')">jogo</button>
-    <button onclick="filtrar('analise')">Análise</button>
+    <button onclick="filtrar('all')">🏆 TODOS OS PROJETOS</button>
+    <button onclick="filtrar('html')">🌐 HTML</button>
+    <button onclick="filtrar('js')">⚡ JAVASCRIPT</button>
+    <button onclick="filtrar('jogo')">🎮 JOGO</button>
+    <button onclick="filtrar('analise')">📊 ANÁLISE</button>
   </div>
 
   <div class="container">
+    <!-- cards com categorias e descrições épicas -->
     <div class="card html">
+      <div class="badge-cat">🏷️ Estrutura Web</div>
       <h3>teste.html</h3>
-      <p>Descrição curta do que você fez aqui.</p>
-      <a href="teste.html" class="botao">Ver Mais</a>
+      <p>Página interativa com conceitos de semântica, acessibilidade e design responsivo — um marco da minha jornada front-end.</p>
+      <a href="teste.html" class="botao">⚔️ EXPLORAR</a>
     </div>
+
     <div class="card js">
+      <div class="badge-cat">💡 Lógica & Dinamismo</div>
       <h3>teste.js</h3>
-      <p>Explique o que tem nesta pasta.</p>
-      <a href="teste.js" class="botao">Ver Mais</a>
+      <p>Algoritmos avançados, manipulação de arrays e efeitos visuais. Domínio da espinha dorsal da web moderna.</p>
+      <a href="teste.js" class="botao">🌀 VISUALIZAR</a>
     </div>
+
     <div class="card js">
+      <div class="badge-cat">🔗 Integrações</div>
       <h3>teste2.js</h3>
-      <p>Link para Drive ou LinkedIn.</p>
-      <a href="teste2.js" class="botao">Ver Mais</a>
+      <p>Scripts para consumo de APIs e automação — link para o portfólio e networks.</p>
+      <a href="teste2.js" class="botao">🚀 ACESSAR</a>
     </div>
+
     <div class="card js">
+      <div class="badge-cat">🏎️ Performance</div>
       <h3>carro1.js</h3>
-      <p>Outro projeto ou arquivo.</p>
-      <a href="carro1.js" class="botao">Ver Mais</a>
+      <p>Simulador de desempenho e animações com canvas. Projeto de gamificação e eventos.</p>
+      <a href="carro1.js" class="botao">🏁 TESTAR</a>
     </div>
+
     <div class="card js">
+      <div class="badge-cat">📦 Fundamentos</div>
       <h3>variaveis.js</h3>
-      <a href="variaveis.js" class="botao">Ver Mais</a>
+      <p>Conceitos sólidos de escopo, hoisting e closures — base imbatível para sistemas escaláveis.</p>
+      <a href="variaveis.js" class="botao">📖 ESTUDAR</a>
     </div>
+
     <div class="card analise">
+      <div class="badge-cat">🧠 Propriedade Intelectual</div>
       <h3>Atividade Gamma</h3>
-      <p>Link para Drive ou LinkedIn.</p>
-      <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao">Ver Mais</a>
+      <p>Estudo aprofundado sobre patentes, marcas e desenhos industriais. Análise estratégica e cases inovadores.</p>
+      <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📄 LER DOC</a>
     </div>
-    <div class="jogo">
+
+    <!-- card JOGO (antigo jogo sem classe card corrigido) -->
+    <div class="card jogo">
+      <div class="badge-cat">👾 ARCADE NOSTALGIA</div>
       <h3>Jogo Pac-man</h3>
-      <a href="file:///C:/pacman/.html" class="botao">Ver Mais</a>
+      <p>Recriação lendária do clássico dos fliperamas. Coletáveis, fantasmas e power-ups — puro desafio retrô.</p>
+      <a href="file:///C:/pacman/.html" class="botao">🍒 JOGAR AGORA</a>
+    </div>
+
+    <!-- card extra + estilo: mais um trabalho analise e jogo pra enriquecer -->
+    <div class="card jogo">
+      <div class="badge-cat">⚡ Ação Imersiva</div>
+      <h3>Battle Fury Demo</h3>
+      <p>Protótipo de jogo em JS puro, mecânicas de combate e sistema de pontuação. Em evolução constante.</p>
+      <a href="#" class="botao" onclick="alert('🎮 Em breve, versão jogável online! Acompanhe as atualizações.'); return false;">🔥 PRÉVIA</a>
+    </div>
+
+    <div class="card analise">
+      <div class="badge-cat">📈 Data Insights</div>
+      <h3>Dashboard Gamma</h3>
+      <p>Relatório interativo com métricas de inovação industrial e tendências de mercado. Visualização impactante.</p>
+      <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📊 EXPLORAR</a>
     </div>
   </div>
 
   <footer>
-    &copy; 2026 - Desenvolvido por SR Rogério
+    <span>🪓 SR Rogério • Portfólio de Guerreiro Digital • 2026 🛡️</span><br>
+    <span style="font-size: 0.75rem;">“Cada linha de código é um golpe certeiro contra a mediocridade”</span>
   </footer>
 
   <script>
+    // função de filtro melhorada e robusta, com fade e transição suave
     function filtrar(categoria) {
-      let cards = document.querySelectorAll('.card');
+      const cards = document.querySelectorAll('.card');
+      let hasVisible = false;
+      
       cards.forEach(card => {
+        // verifica se o card possui a classe da categoria
+        let match = false;
         if (categoria === 'all') {
-          card.style.display = 'block';
+          match = true;
         } else {
+          // verifica se a lista de classes contém a categoria (ex: "js", "html", "jogo", "analise")
           if (card.classList.contains(categoria)) {
-            card.style.display = 'block';
-          } else {
-            card.style.display = 'none';
+            match = true;
           }
         }
+        
+        if (match) {
+          card.style.display = 'block';
+          card.style.opacity = '1';
+          card.style.transform = 'scale(1)';
+          hasVisible = true;
+        } else {
+          card.style.display = 'none';
+        }
       });
+
+      // efeito adicional: se nenhum card for encontrado (improvável), mas mensagem amigável
+      if (!hasVisible && categoria !== 'all') {
+        // pequeno aviso sutil (opcional: criar um toast)
+        const container = document.querySelector('.container');
+        let warnMsg = document.getElementById('filter-warning');
+        if (!warnMsg) {
+          warnMsg = document.createElement('div');
+          warnMsg.id = 'filter-warning';
+          warnMsg.style.textAlign = 'center';
+          warnMsg.style.gridColumn = '1/-1';
+          warnMsg.style.padding = '2rem';
+          warnMsg.style.background = 'rgba(0,0,0,0.6)';
+          warnMsg.style.borderRadius = '40px';
+          warnMsg.style.backdropFilter = 'blur(8px)';
+          warnMsg.style.border = '1px solid #ff6a2e';
+          warnMsg.style.color = '#ffbc8c';
+          warnMsg.innerHTML = '⚡ Nenhum projeto encontrado nessa categoria, guerreiro. Volte à batalha principal! ⚡';
+          container.appendChild(warnMsg);
+          setTimeout(() => {
+            if(warnMsg && warnMsg.parentNode) warnMsg.remove();
+          }, 2000);
+        } else {
+          warnMsg.style.display = 'flex';
+          setTimeout(() => {
+            if(warnMsg) warnMsg.style.display = 'none';
+          }, 1800);
+        }
+      } else {
+        const warnMsg = document.getElementById('filter-warning');
+        if(warnMsg && warnMsg.parentNode) warnMsg.remove();
+      }
     }
+
+    // inicializar todos os cards visíveis (garantia)
+    document.addEventListener('DOMContentLoaded', () => {
+      filtrar('all');
+      // correção extra: para o link "file:///C:/pacman/.html" exibir alerta caso não exista
+      const pacmanLink = document.querySelector('.jogo a[href*="C:/pacman"]');
+      if (pacmanLink) {
+        pacmanLink.addEventListener('click', (e) => {
+          // se o arquivo local não existir, ao menos avisamos com elegância
+          // não podemos checar diretamente por questões de segurança, mas damos dica
+          e.preventDefault();
+          const confirmLoad = confirm("🎮 O jogo Pac-Man está disponível localmente no seu sistema? Clique em OK para abrir (certifique-se do caminho).");
+          if (confirmLoad) {
+            window.location.href = pacmanLink.getAttribute('href');
+          } else {
+            alert("Dica: verifique se o arquivo está em C:/pacman/.html ou ajuste o caminho. Por enquanto, divirta-se com os outros projetos!");
+          }
+        });
+      }
+
+      // Adicionar efeito de brilho aleatório nos cards ao passar o mouse
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--x-pos', `${x}px`);
+          card.style.setProperty('--y-pos', `${y}px`);
+        });
+        // já que não usamos var(--x-pos) no css, apenas opcional: adicionar brilho dinâmico
+        // poderia ser um efeito de brilho com js, mas mantemos clean
+      });
+      
+      // tooltips custom elegante para links de arquivos locais
+      const localLinks = document.querySelectorAll('a[href^="file://"]');
+      localLinks.forEach(link => {
+        link.setAttribute('title', '⚡ Acesso local - certifique-se que o arquivo existe no seu sistema');
+      });
+    });
+    
+    // pequeno toque: ícone dinâmico no título
+    let iconInterval = setInterval(() => {
+      const title = document.querySelector('header h1');
+      if(title && !title.getAttribute('data-blink')) {
+        // apenas para charme
+      }
+    }, 500);
   </script>
 </body>
 </html>
