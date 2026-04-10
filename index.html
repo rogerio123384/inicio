@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>⚔️ Portfólio | SR Rogério • A Jornada do Guerreiro</title>
+  <title>🕷️ Portfólio | SR Rogério • O Espetacular Dev</title>
   <style>
     * {
       margin: 0;
@@ -13,26 +13,19 @@
 
     body {
       font-family: 'Poppins', 'Segoe UI', 'Cinema', system-ui, -apple-system, 'Inter', sans-serif;
-      /* IMAGEM DE FUNDO CORRIGIDA - usando uma imagem épica nórdica/mitológica */
-      background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.75)), url('https://images.pexels.com/photos/952670/pexels-photo-952670.jpeg?auto=compress&cs=tinysrgb&w=1600');
+      /* FUNDO HOMEM-ARANHA ÉPICO */
+      background: linear-gradient(135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.85)), url('https://images.pexels.com/photos/691668/pexels-photo-691668.jpeg?auto=compress&cs=tinysrgb&w=1600');
       background-size: cover;
-      background-position: center center;
+      background-position: center 30%;
       background-attachment: fixed;
       background-repeat: no-repeat;
       min-height: 100vh;
-      color: #ece8e1;
+      color: #f0f0f0;
       position: relative;
       overflow-x: hidden;
     }
 
-    /* caso a imagem de fallback não carregue, mantém o gradiente dramático */
-    @supports (background: url('')) {
-      body {
-        background: radial-gradient(circle at 20% 30%, #0a0c12, #010101);
-      }
-    }
-
-    /* efeito de runas e texturas sobrepostas */
+    /* teia de fundo sutil */
     body::before {
       content: "";
       position: fixed;
@@ -40,32 +33,32 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: repeating-linear-gradient(45deg, rgba(180, 70, 30, 0.08) 0px, rgba(180, 70, 30, 0.08) 2px, transparent 2px, transparent 8px),
-                        repeating-linear-gradient(135deg, rgba(200, 100, 40, 0.05) 0px, rgba(200, 100, 40, 0.05) 1px, transparent 1px, transparent 12px);
+      background-image: radial-gradient(circle at 10% 20%, rgba(220, 40, 40, 0.08) 1px, transparent 1px);
+      background-size: 30px 30px;
       pointer-events: none;
       z-index: 0;
     }
 
-    /* overlay de fumaça nas bordas */
+    /* overlay aranha */
     body::after {
-      content: "";
+      content: "🕷️";
       position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 40%;
-      background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+      bottom: 20px;
+      right: 20px;
+      font-size: 70px;
+      opacity: 0.15;
       pointer-events: none;
       z-index: 0;
+      transform: rotate(-15deg);
     }
 
-    /* header moderno com brilho e borda de guerra */
+    /* header estilo herói */
     header {
-      background: rgba(5, 5, 10, 0.65);
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(220, 80, 40, 0.7);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,240,0.1);
-      padding: 2.2rem 1rem;
+      border-bottom: 2px solid #e62429;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(230, 36, 41, 0.3);
+      padding: 2rem 1rem;
       text-align: center;
       width: 100%;
       position: relative;
@@ -74,15 +67,15 @@
 
     header h1 {
       font-size: 3rem;
-      letter-spacing: 4px;
+      letter-spacing: 3px;
       font-weight: 800;
-      background: linear-gradient(135deg, #FFD89A, #E65C1E, #FF4A1C);
+      background: linear-gradient(135deg, #E62429, #FF5E5E, #B22222);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      text-shadow: 0 2px 10px rgba(230, 36, 41, 0.4);
       display: inline-block;
-      border-right: 3px solid #e65c1e;
+      border-right: 3px solid #e62429;
       padding-right: 20px;
       padding-left: 20px;
     }
@@ -90,13 +83,13 @@
     header p {
       font-size: 1.1rem;
       margin-top: 12px;
-      font-weight: 300;
-      color: #ddc9a5;
-      text-shadow: 0 1px 2px black;
+      font-weight: 400;
+      color: #e0e0e0;
+      text-shadow: 0 1px 3px black;
       letter-spacing: 1px;
     }
 
-    /* botões de filtro - estilo lâmina rúnica */
+    /* botões estilo teia */
     .filtros {
       display: flex;
       justify-content: center;
@@ -108,14 +101,14 @@
     }
 
     .filtros button {
-      background: rgba(0, 0, 0, 0.55);
+      background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(8px);
-      border: 1px solid rgba(230, 92, 30, 0.7);
+      border: 1px solid #e62429;
       padding: 12px 28px;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 1rem;
       border-radius: 60px;
-      color: #fbe9c3;
+      color: #ffe6e6;
       cursor: pointer;
       transition: all 0.25s ease;
       font-family: inherit;
@@ -124,14 +117,14 @@
     }
 
     .filtros button:hover {
-      background: #e65c1e;
-      color: #0a0a0a;
-      border-color: #ffbc6e;
+      background: #e62429;
+      color: #ffffff;
+      border-color: #ff7b7b;
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(230, 92, 30, 0.5);
+      box-shadow: 0 8px 20px rgba(230, 36, 41, 0.6);
     }
 
-    /* container grid com cards incríveis */
+    /* container grid */
     .container {
       max-width: 1280px;
       margin: 20px auto;
@@ -143,46 +136,46 @@
       z-index: 5;
     }
 
-    /* card — estilo pedra rúnica com imagem de fundo por categoria */
+    /* CARD ARANHA - visual teia + vidro vermelho */
     .card {
-      background: radial-gradient(ellipse at 30% 20%, rgba(20, 18, 22, 0.85), rgba(8, 5, 10, 0.95));
+      background: radial-gradient(ellipse at 30% 20%, rgba(20, 20, 30, 0.9), rgba(5, 5, 12, 0.95));
       backdrop-filter: blur(8px);
       border-radius: 32px;
-      border: 1px solid rgba(230, 100, 40, 0.5);
+      border: 1px solid rgba(230, 36, 41, 0.6);
       padding: 1.6rem 1.2rem;
       transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-      color: #f0e2cf;
-      box-shadow: 0 15px 25px -12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,215,150,0.2);
+      color: #f5f5f5;
+      box-shadow: 0 15px 25px -12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(230,36,41,0.2);
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      min-height: 380px;
+      min-height: 390px;
     }
 
-    /* imagem de fundo personalizada por categoria (tema épico) */
+    /* imagens temáticas POR CATEGORIA - Homem-Aranha style */
     .card.html {
-      background-image: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-image: linear-gradient(125deg, rgba(0,0,0,0.7), rgba(50,0,0,0.8)), url('https://images.pexels.com/photos/270360/pexels-photo-270360.jpeg?auto=compress&cs=tinysrgb&w=600');
       background-size: cover;
       background-position: center;
     }
     .card.js {
-      background-image: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-image: linear-gradient(125deg, rgba(0,0,0,0.7), rgba(30,0,0,0.85)), url('https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=600');
       background-size: cover;
       background-position: center;
     }
     .card.jogo {
-      background-image: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-image: linear-gradient(125deg, rgba(0,0,0,0.7), rgba(70,0,0,0.8)), url('https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=600');
       background-size: cover;
       background-position: center;
     }
     .card.analise {
-      background-image: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-image: linear-gradient(125deg, rgba(0,0,0,0.7), rgba(40,0,0,0.85)), url('https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=600');
       background-size: cover;
       background-position: center;
     }
 
-    /* efeito de brasa nas bordas */
+    /* efeito borda teia */
     .card::before {
       content: '';
       position: absolute;
@@ -190,7 +183,7 @@
       left: -2px;
       right: -2px;
       bottom: -2px;
-      background: linear-gradient(125deg, #e65c1e, #b13e0e, #ff8c42, #ff4a1c);
+      background: linear-gradient(125deg, #e62429, #b01018, #ff4d4d, #e62429);
       border-radius: 34px;
       z-index: -2;
       opacity: 0;
@@ -198,19 +191,19 @@
     }
 
     .card:hover::before {
-      opacity: 0.6;
+      opacity: 0.7;
     }
 
     .card:hover {
       transform: translateY(-12px) scale(1.02);
-      box-shadow: 0 25px 35px -12px #e65c1e80;
-      border-color: #ff9f5b;
+      box-shadow: 0 25px 35px -12px #e62429cc;
+      border-color: #ff6b6b;
     }
 
     .card h3 {
       font-size: 1.8rem;
       font-weight: 700;
-      background: linear-gradient(145deg, #ffd2a5, #ff9040);
+      background: linear-gradient(145deg, #ffa2a2, #e62429);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
@@ -219,24 +212,23 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      border-left: 4px solid #e65c1e;
+      border-left: 4px solid #e62429;
       padding-left: 12px;
-      text-shadow: 0 1px 2px black;
     }
 
     .card p {
       font-size: 0.95rem;
       line-height: 1.5;
       margin: 15px 0;
-      opacity: 0.9;
+      opacity: 0.92;
       font-weight: 400;
-      background: rgba(0,0,0,0.4);
-      padding: 6px 10px;
-      border-radius: 16px;
+      background: rgba(0,0,0,0.5);
+      padding: 8px 12px;
+      border-radius: 20px;
       backdrop-filter: blur(2px);
     }
 
-    /* botão tipo runa */
+    /* botão estilo teia */
     .botao {
       display: inline-flex;
       align-items: center;
@@ -244,76 +236,77 @@
       gap: 8px;
       margin-top: auto;
       align-self: flex-start;
-      padding: 10px 20px;
-      background: linear-gradient(95deg, #9b2e0f, #d9541a);
+      padding: 10px 22px;
+      background: linear-gradient(95deg, #8b0000, #e62429);
       border: none;
       border-radius: 40px;
-      font-weight: 600;
-      color: #ffefdb;
+      font-weight: 700;
+      color: #ffffff;
       text-decoration: none;
       transition: 0.25s;
       font-size: 0.85rem;
       letter-spacing: 1px;
-      box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 5px 12px rgba(0,0,0,0.4);
     }
 
     .botao:hover {
-      background: linear-gradient(95deg, #c43f0a, #ff6a2c);
+      background: linear-gradient(95deg, #c41e1e, #ff4c4c);
       transform: scale(1.05);
-      box-shadow: 0 0 12px #ff5e2e;
+      box-shadow: 0 0 14px #e62429;
       color: white;
     }
 
-    /* ícones decorativos no título (mantém os after originais mas com imagens) */
+    /* ícone após o título personalizado */
     .card.html h3::after {
-      content: "🌐";
-      font-size: 1.4rem;
+      content: "🕸️";
+      font-size: 1.5rem;
       margin-left: auto;
       opacity: 0.9;
     }
     .card.js h3::after {
       content: "⚡";
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       margin-left: auto;
     }
     .card.jogo h3::after {
       content: "🎮";
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       margin-left: auto;
     }
     .card.analise h3::after {
-      content: "📊";
-      font-size: 1.4rem;
+      content: "📈";
+      font-size: 1.5rem;
       margin-left: auto;
     }
 
-    /* badge categoria */
+    /* badge aranha */
     .card .badge-cat {
       display: inline-block;
-      background: rgba(230, 92, 30, 0.75);
+      background: rgba(230, 36, 41, 0.85);
       backdrop-filter: blur(4px);
       border-radius: 50px;
-      padding: 4px 14px;
+      padding: 5px 16px;
       font-size: 0.7rem;
       text-transform: uppercase;
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 12px;
       letter-spacing: 1px;
       width: fit-content;
-      color: #fff1df;
+      color: #fff2f2;
+      border: 0.5px solid #ffa2a2;
     }
 
-    /* rodapé guerreiro */
+    /* rodapé */
     footer {
       margin-top: 70px;
-      background: #030202cc;
+      background: #0a0101cc;
       backdrop-filter: blur(16px);
       padding: 25px 20px;
       text-align: center;
-      border-top: 1px solid #e65c1e;
+      border-top: 2px solid #e62429;
       font-weight: 300;
       font-size: 0.9rem;
-      color: #cfb58a;
+      color: #ddb8b8;
       z-index: 10;
       position: relative;
       letter-spacing: 1px;
@@ -336,108 +329,109 @@
         padding: 12px;
       }
       .card {
-        min-height: 350px;
+        min-height: 370px;
       }
     }
 
-    /* tooltip moderno */
-    .card a[href^="file"] {
-      cursor: pointer;
+    /* animação sutil */
+    @keyframes spiderPulse {
+      0% { text-shadow: 0 0 0px #e62429; }
+      100% { text-shadow: 0 0 8px #ff5e5e; }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>⚔️ SR ROGÉRIO ⚔️</h1>
-    <p>“A forja da excelência • projetos, código & estratégia”</p>
+    <h1>🕷️ SR ROGÉRIO • HOMEM-ARANHA 🕸️</h1>
+    <p>“Com grandes códigos vêm grandes responsabilidades — projetos, jogos e análises”</p>
   </header>
 
   <div class="filtros">
     <button onclick="filtrar('all')">🏆 TODOS OS PROJETOS</button>
     <button onclick="filtrar('html')">🌐 HTML</button>
     <button onclick="filtrar('js')">⚡ JAVASCRIPT</button>
-    <button onclick="filtrar('jogo')">🎮 JOGO</button>
+    <button onclick="filtrar('jogo')">🎮 JOGOS</button>
     <button onclick="filtrar('analise')">📊 ANÁLISE</button>
   </div>
 
   <div class="container">
-    <!-- CARD HTML com imagem temática -->
+    <!-- CARD HTML (teia) -->
     <div class="card html">
-      <div class="badge-cat">🏷️ Estrutura Web</div>
+      <div class="badge-cat">🕸️ ESTRUTURA WEB</div>
       <h3>teste.html</h3>
-      <p>Página interativa com conceitos de semântica, acessibilidade e design responsivo — um marco da minha jornada front-end.</p>
-      <a href="teste.html" class="botao">⚔️ EXPLORAR</a>
+      <p>Página com semântica, design responsivo e acessibilidade — o poder da teia front-end.</p>
+      <a href="teste.html" class="botao">🕷️ EXPLORAR</a>
     </div>
 
-    <!-- CARDS JAVASCRIPT com imagem de código/futurista -->
+    <!-- CARDS JS -->
     <div class="card js">
-      <div class="badge-cat">💡 Lógica & Dinamismo</div>
+      <div class="badge-cat">⚡ SENTIDO ARANHA</div>
       <h3>teste.js</h3>
-      <p>Algoritmos avançados, manipulação de arrays e efeitos visuais. Domínio da espinha dorsal da web moderna.</p>
+      <p>Algoritmos avançados, lógica de herói e manipulação de dados.</p>
       <a href="teste.js" class="botao">🌀 VISUALIZAR</a>
     </div>
 
     <div class="card js">
-      <div class="badge-cat">🔗 Integrações</div>
+      <div class="badge-cat">🔗 INTEGRAÇÕES</div>
       <h3>teste2.js</h3>
-      <p>Scripts para consumo de APIs e automação — link para o portfólio e networks.</p>
+      <p>APIs e automação — conectando o universo como o Homem-Aranha conecta Queens.</p>
       <a href="teste2.js" class="botao">🚀 ACESSAR</a>
     </div>
 
     <div class="card js">
-      <div class="badge-cat">🏎️ Performance</div>
+      <div class="badge-cat">🏎️ VELOCIDADE</div>
       <h3>carro1.js</h3>
-      <p>Simulador de desempenho e animações com canvas. Projeto de gamificação e eventos.</p>
+      <p>Simulações e animações com canvas, desempenho digno de um herói ágil.</p>
       <a href="carro1.js" class="botao">🏁 TESTAR</a>
     </div>
 
     <div class="card js">
-      <div class="badge-cat">📦 Fundamentos</div>
+      <div class="badge-cat">📦 FUNDAMENTOS</div>
       <h3>variaveis.js</h3>
-      <p>Conceitos sólidos de escopo, hoisting e closures — base imbatível para sistemas escaláveis.</p>
+      <p>Escopo, hoisting e closures — a base de todo grande vingador do código.</p>
       <a href="variaveis.js" class="botao">📖 ESTUDAR</a>
     </div>
 
-    <!-- CARD ANÁLISE com imagem de dados/estratégia -->
+    <!-- ANÁLISE -->
     <div class="card analise">
-      <div class="badge-cat">🧠 Propriedade Intelectual</div>
+      <div class="badge-cat">🧠 ESTRATÉGIA</div>
       <h3>Atividade Gamma</h3>
-      <p>Estudo aprofundado sobre patentes, marcas e desenhos industriais. Análise estratégica e cases inovadores.</p>
+      <p>Estudo de patentes, marcas e propriedade industrial — visão tática de mercado.</p>
       <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📄 LER DOC</a>
     </div>
 
-    <!-- CARD JOGO (PAC-MAN) com imagem arcade nostálgica -->
+    <!-- JOGO PAC-MAN (estilo arcade) -->
     <div class="card jogo">
       <div class="badge-cat">👾 ARCADE NOSTALGIA</div>
       <h3>Jogo Pac-man</h3>
-      <p>Recriação lendária do clássico dos fliperamas. Coletáveis, fantasmas e power-ups — puro desafio retrô.</p>
+      <p>Recriação lendária do clássico — labirinto, fantasmas e power-ups!</p>
       <a href="file:///C:/pacman/.html" class="botao">🍒 JOGAR AGORA</a>
     </div>
 
-    <!-- CARD JOGO EXTRA (Battle Fury) -->
+    <!-- JOGO EXTRA -->
     <div class="card jogo">
-      <div class="badge-cat">⚡ Ação Imersiva</div>
+      <div class="badge-cat">⚡ AÇÃO TOTAL</div>
       <h3>Battle Fury Demo</h3>
-      <p>Protótipo de jogo em JS puro, mecânicas de combate e sistema de pontuação. Em evolução constante.</p>
-      <a href="#" class="botao" onclick="alert('🎮 Em breve, versão jogável online! Acompanhe as atualizações.'); return false;">🔥 PRÉVIA</a>
+      <p>Protótipo de combate em JS, sistema de pontuação e mecânicas rápidas.</p>
+      <a href="#" class="botao" onclick="alert('🎮 Demo em desenvolvimento — Em breve, mais poder!'); return false;">🔥 PRÉVIA</a>
     </div>
 
-    <!-- CARD ANÁLISE EXTRA (Dashboard) -->
+    <!-- ANÁLISE EXTRA -->
     <div class="card analise">
-      <div class="badge-cat">📈 Data Insights</div>
+      <div class="badge-cat">📈 DATA INSIGHTS</div>
       <h3>Dashboard Gamma</h3>
-      <p>Relatório interativo com métricas de inovação industrial e tendências de mercado. Visualização impactante.</p>
+      <p>Métricas de inovação industrial e tendências — relatório interativo.</p>
       <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📊 EXPLORAR</a>
     </div>
   </div>
 
   <footer>
-    <span>🪓 SR Rogério • Portfólio de Guerreiro Digital • 2026 🛡️</span><br>
-    <span style="font-size: 0.75rem;">“Cada linha de código é um golpe certeiro contra a mediocridade”</span>
+    <span>🕸️ SR Rogério • Portfólio Espetacular • 2026 🕷️</span><br>
+    <span style="font-size: 0.75rem;">“Com grandes poderes (e códigos) vêm grandes responsabilidades”</span>
   </footer>
 
   <script>
-    // Função de filtro aprimorada com animação suave e efeito visual
+    // Função de filtro aprimorada com transição e aviso amigável
     function filtrar(categoria) {
       const cards = document.querySelectorAll('.card');
       let hasVisible = false;
@@ -453,16 +447,15 @@
         }
         
         if (match) {
-          card.style.display = 'flex';  /* volta ao flex (layout do card) */
+          card.style.display = 'flex';
           card.style.opacity = '1';
-          card.style.transform = 'scale(1)';
           hasVisible = true;
         } else {
           card.style.display = 'none';
         }
       });
 
-      // Mensagem amigável se nenhum card aparecer (caso raro)
+      // Exibe aviso se nenhum projeto na categoria (caso raro)
       if (!hasVisible && categoria !== 'all') {
         const container = document.querySelector('.container');
         let warnMsg = document.getElementById('filter-warning');
@@ -472,12 +465,12 @@
           warnMsg.style.textAlign = 'center';
           warnMsg.style.gridColumn = '1/-1';
           warnMsg.style.padding = '2rem';
-          warnMsg.style.background = 'rgba(0,0,0,0.7)';
+          warnMsg.style.background = 'rgba(0,0,0,0.8)';
           warnMsg.style.borderRadius = '40px';
           warnMsg.style.backdropFilter = 'blur(8px)';
-          warnMsg.style.border = '1px solid #ff6a2e';
-          warnMsg.style.color = '#ffbc8c';
-          warnMsg.innerHTML = '⚡ Nenhum projeto encontrado nessa categoria, guerreiro. Volte à batalha principal! ⚡';
+          warnMsg.style.border = '2px solid #e62429';
+          warnMsg.style.color = '#ffbcbc';
+          warnMsg.innerHTML = '🕸️ Nenhum projeto do Homem-Aranha nessa categoria... tente outro filtro, herói! 🕷️';
           container.appendChild(warnMsg);
           setTimeout(() => {
             if(warnMsg && warnMsg.parentNode) warnMsg.remove();
@@ -494,25 +487,25 @@
       }
     }
 
-    // Inicialização e eventos
+    // Inicialização
     document.addEventListener('DOMContentLoaded', () => {
       filtrar('all');
-      
-      // Tratamento do link local do Pac-Man com confirmação
+
+      // Ajuste do link do Pac-Man local
       const pacmanLink = document.querySelector('.jogo a[href*="C:/pacman"]');
       if (pacmanLink) {
         pacmanLink.addEventListener('click', (e) => {
           e.preventDefault();
-          const confirmLoad = confirm("🎮 O jogo Pac-Man está disponível localmente no seu sistema? Clique em OK para abrir (certifique-se do caminho C:/pacman/.html).");
+          const confirmLoad = confirm("🕷️ O jogo Pac-Man está disponível localmente? Clique em OK para abrir (caminho: C:/pacman/.html).");
           if (confirmLoad) {
             window.location.href = pacmanLink.getAttribute('href');
           } else {
-            alert("Dica: verifique se o arquivo está em C:/pacman/.html ou ajuste o caminho. Explore os outros projetos!");
+            alert("Dica: verifique o arquivo em C:/pacman/.html ou explore outros projetos incríveis!");
           }
         });
       }
-      
-      // Efeito de rastreamento do mouse para brilho nos cards
+
+      // Efeito de movimento nos cards (para sentir o poder)
       const cards = document.querySelectorAll('.card');
       cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
@@ -523,16 +516,13 @@
           card.style.setProperty('--y-pos', `${y}px`);
         });
       });
-      
-      // tooltips para links locais
+
+      // Tooltip para links locais
       const localLinks = document.querySelectorAll('a[href^="file://"]');
       localLinks.forEach(link => {
-        link.setAttribute('title', '⚡ Acesso local - certifique-se que o arquivo existe no seu sistema');
+        link.setAttribute('title', '🕸️ Arquivo local — certifique-se do caminho');
       });
     });
-    
-    // efeito visual extra: troca da imagem de fundo do body de forma dinâmica? (mantém imagem fixa já trocada)
-    // garantia que os estilos de imagem por categoria estão ativos.
   </script>
 </body>
 </html>
