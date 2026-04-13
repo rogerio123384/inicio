@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>🕷️ Portfólio | SR Rogério • O Espetacular Dev</title>
+  <title>🕷️ Portfólio | SR Rogério • Homem-Aranha (Desenho Animado)</title>
   <style>
     * {
       margin: 0;
@@ -13,10 +13,10 @@
 
     body {
       font-family: 'Poppins', 'Segoe UI', 'Cinema', system-ui, -apple-system, 'Inter', sans-serif;
-      /* FUNDO HOMEM-ARANHA ÉPICO */
-      background: linear-gradient(135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.85)), url('https://images.pexels.com/photos/691668/pexels-photo-691668.jpeg?auto=compress&cs=tinysrgb&w=1600');
+      /* FUNDO HOMEM-ARANHA DESENHO ANIMADO - estilo 90's */
+      background: linear-gradient(145deg, rgba(0,0,0,0.82), rgba(10,0,0,0.88)), url('https://i.pinimg.com/originals/8f/1e/6b/8f1e6be1e8e2a1f0b5c3d4e5f6a7b8c9.jpg');
       background-size: cover;
-      background-position: center 30%;
+      background-position: center 20%;
       background-attachment: fixed;
       background-repeat: no-repeat;
       min-height: 100vh;
@@ -25,7 +25,14 @@
       overflow-x: hidden;
     }
 
-    /* teia de fundo sutil */
+    /* Se a imagem não carregar, fallback com gradiente vermelho/azul */
+    @supports (background: url('')) {
+      body {
+        background: linear-gradient(135deg, #0a0a1a, #1a0505), radial-gradient(circle at 30% 40%, rgba(230,36,41,0.2), transparent);
+      }
+    }
+
+    /* teia de fundo sutil estilo desenho */
     body::before {
       content: "";
       position: fixed;
@@ -33,31 +40,32 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: radial-gradient(circle at 10% 20%, rgba(220, 40, 40, 0.08) 1px, transparent 1px);
-      background-size: 30px 30px;
+      background-image: repeating-linear-gradient(0deg, rgba(220, 40, 40, 0.06) 0px, rgba(220, 40, 40, 0.06) 2px, transparent 2px, transparent 12px),
+                        repeating-linear-gradient(90deg, rgba(220, 40, 40, 0.06) 0px, rgba(220, 40, 40, 0.06) 2px, transparent 2px, transparent 12px);
       pointer-events: none;
       z-index: 0;
     }
 
-    /* overlay aranha */
+    /* overlay do herói */
     body::after {
-      content: "🕷️";
+      content: "🕸️";
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      font-size: 70px;
-      opacity: 0.15;
+      bottom: 25px;
+      left: 25px;
+      font-size: 85px;
+      opacity: 0.12;
       pointer-events: none;
       z-index: 0;
-      transform: rotate(-15deg);
+      transform: rotate(10deg);
+      font-family: monospace;
     }
 
-    /* header estilo herói */
+    /* header estilo desenho animado */
     header {
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(0, 0, 0, 0.82);
       backdrop-filter: blur(12px);
-      border-bottom: 2px solid #e62429;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(230, 36, 41, 0.3);
+      border-bottom: 3px solid #e62429;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(230, 36, 41, 0.4);
       padding: 2rem 1rem;
       text-align: center;
       width: 100%;
@@ -66,14 +74,14 @@
     }
 
     header h1 {
-      font-size: 3rem;
+      font-size: 2.8rem;
       letter-spacing: 3px;
       font-weight: 800;
-      background: linear-gradient(135deg, #E62429, #FF5E5E, #B22222);
+      background: linear-gradient(135deg, #E62429, #FF6B6B, #C41E3A);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      text-shadow: 0 2px 10px rgba(230, 36, 41, 0.4);
+      text-shadow: 0 2px 15px rgba(230, 36, 41, 0.5);
       display: inline-block;
       border-right: 3px solid #e62429;
       padding-right: 20px;
@@ -81,15 +89,15 @@
     }
 
     header p {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       margin-top: 12px;
       font-weight: 400;
-      color: #e0e0e0;
-      text-shadow: 0 1px 3px black;
+      color: #f5c6c6;
+      text-shadow: 0 1px 4px black;
       letter-spacing: 1px;
     }
 
-    /* botões estilo teia */
+    /* botões estilo quadrinhos */
     .filtros {
       display: flex;
       justify-content: center;
@@ -101,27 +109,27 @@
     }
 
     .filtros button {
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(8px);
-      border: 1px solid #e62429;
+      border: 2px solid #e62429;
       padding: 12px 28px;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 1rem;
-      border-radius: 60px;
-      color: #ffe6e6;
+      border-radius: 50px;
+      color: #ffe0e0;
       cursor: pointer;
       transition: all 0.25s ease;
       font-family: inherit;
       letter-spacing: 1px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
 
     .filtros button:hover {
       background: #e62429;
       color: #ffffff;
-      border-color: #ff7b7b;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(230, 36, 41, 0.6);
+      border-color: #ffbcbc;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 22px rgba(230, 36, 41, 0.7);
     }
 
     /* container grid */
@@ -136,46 +144,46 @@
       z-index: 5;
     }
 
-    /* CARD ARANHA - visual teia + vidro vermelho */
+    /* CARD ARANHA - visual desenho animado */
     .card {
-      background: radial-gradient(ellipse at 30% 20%, rgba(20, 20, 30, 0.9), rgba(5, 5, 12, 0.95));
+      background: radial-gradient(ellipse at 30% 20%, rgba(25, 20, 30, 0.92), rgba(8, 2, 12, 0.97));
       backdrop-filter: blur(8px);
-      border-radius: 32px;
-      border: 1px solid rgba(230, 36, 41, 0.6);
+      border-radius: 28px;
+      border: 2px solid rgba(230, 36, 41, 0.7);
       padding: 1.6rem 1.2rem;
       transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       color: #f5f5f5;
-      box-shadow: 0 15px 25px -12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(230,36,41,0.2);
+      box-shadow: 0 15px 25px -12px rgba(0,0,0,0.7), inset 0 1px 0 rgba(230,36,41,0.3);
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      min-height: 390px;
+      min-height: 400px;
     }
 
-    /* imagens temáticas POR CATEGORIA - Homem-Aranha style */
+    /* imagens temáticas inspiradas no desenho dos anos 90 */
     .card.html {
-      background-image: linear-gradient(125deg, rgba(0,0,0,0.7), rgba(50,0,0,0.8)), url('https://images.pexels.com/photos/270360/pexels-photo-270360.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-image: linear-gradient(125deg, rgba(0,0,0,0.75), rgba(70,0,0,0.85)), url('https://images.pexels.com/photos/270360/pexels-photo-270360.jpeg?auto=compress&cs=tinysrgb&w=600');
       background-size: cover;
       background-position: center;
     }
     .card.js {
-      background-image: linear-gradient(125deg, rgba(0,0,0,0.7), rgba(30,0,0,0.85)), url('https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-image: linear-gradient(125deg, rgba(0,0,0,0.75), rgba(40,0,0,0.85)), url('https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=600');
       background-size: cover;
       background-position: center;
     }
     .card.jogo {
-      background-image: linear-gradient(125deg, rgba(0,0,0,0.7), rgba(70,0,0,0.8)), url('https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-image: linear-gradient(125deg, rgba(0,0,0,0.75), rgba(80,0,0,0.85)), url('https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=600');
       background-size: cover;
       background-position: center;
     }
     .card.analise {
-      background-image: linear-gradient(125deg, rgba(0,0,0,0.7), rgba(40,0,0,0.85)), url('https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-image: linear-gradient(125deg, rgba(0,0,0,0.75), rgba(50,0,0,0.85)), url('https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=600');
       background-size: cover;
       background-position: center;
     }
 
-    /* efeito borda teia */
+    /* efeito borda estilo cartum */
     .card::before {
       content: '';
       position: absolute;
@@ -184,51 +192,51 @@
       right: -2px;
       bottom: -2px;
       background: linear-gradient(125deg, #e62429, #b01018, #ff4d4d, #e62429);
-      border-radius: 34px;
+      border-radius: 30px;
       z-index: -2;
       opacity: 0;
       transition: opacity 0.4s ease;
     }
 
     .card:hover::before {
-      opacity: 0.7;
+      opacity: 0.65;
     }
 
     .card:hover {
       transform: translateY(-12px) scale(1.02);
-      box-shadow: 0 25px 35px -12px #e62429cc;
-      border-color: #ff6b6b;
+      box-shadow: 0 25px 35px -10px #e62429dd;
+      border-color: #ff8a8a;
     }
 
     .card h3 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      background: linear-gradient(145deg, #ffa2a2, #e62429);
+      font-size: 1.9rem;
+      font-weight: 800;
+      background: linear-gradient(145deg, #ffc2c2, #e62429);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       letter-spacing: -0.5px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      border-left: 4px solid #e62429;
-      padding-left: 12px;
+      gap: 10px;
+      border-left: 5px solid #e62429;
+      padding-left: 14px;
     }
 
     .card p {
       font-size: 0.95rem;
       line-height: 1.5;
       margin: 15px 0;
-      opacity: 0.92;
+      opacity: 0.95;
       font-weight: 400;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.55);
       padding: 8px 12px;
       border-radius: 20px;
-      backdrop-filter: blur(2px);
+      backdrop-filter: blur(3px);
     }
 
-    /* botão estilo teia */
+    /* botão estilo HQ */
     .botao {
       display: inline-flex;
       align-items: center;
@@ -236,77 +244,78 @@
       gap: 8px;
       margin-top: auto;
       align-self: flex-start;
-      padding: 10px 22px;
+      padding: 10px 24px;
       background: linear-gradient(95deg, #8b0000, #e62429);
-      border: none;
-      border-radius: 40px;
-      font-weight: 700;
+      border: 1px solid #ff8c8c;
+      border-radius: 50px;
+      font-weight: 800;
       color: #ffffff;
       text-decoration: none;
       transition: 0.25s;
       font-size: 0.85rem;
       letter-spacing: 1px;
-      box-shadow: 0 5px 12px rgba(0,0,0,0.4);
+      box-shadow: 0 5px 12px rgba(0,0,0,0.5);
     }
 
     .botao:hover {
-      background: linear-gradient(95deg, #c41e1e, #ff4c4c);
+      background: linear-gradient(95deg, #c41e1e, #ff5a5a);
       transform: scale(1.05);
-      box-shadow: 0 0 14px #e62429;
-      color: white;
+      box-shadow: 0 0 16px #e62429;
+      color: #fff;
     }
 
-    /* ícone após o título personalizado */
+    /* ícones após título */
     .card.html h3::after {
       content: "🕸️";
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       margin-left: auto;
       opacity: 0.9;
     }
     .card.js h3::after {
       content: "⚡";
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       margin-left: auto;
     }
     .card.jogo h3::after {
       content: "🎮";
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       margin-left: auto;
     }
     .card.analise h3::after {
-      content: "📈";
-      font-size: 1.5rem;
+      content: "📊";
+      font-size: 1.6rem;
       margin-left: auto;
     }
 
-    /* badge aranha */
+    /* badge temático */
     .card .badge-cat {
       display: inline-block;
-      background: rgba(230, 36, 41, 0.85);
+      background: #e62429dd;
       backdrop-filter: blur(4px);
       border-radius: 50px;
-      padding: 5px 16px;
+      padding: 5px 18px;
       font-size: 0.7rem;
       text-transform: uppercase;
       font-weight: 800;
-      margin-bottom: 12px;
-      letter-spacing: 1px;
+      margin-bottom: 14px;
+      letter-spacing: 1.5px;
       width: fit-content;
-      color: #fff2f2;
-      border: 0.5px solid #ffa2a2;
+      color: #fff7f7;
+      border: 0.5px solid #ffb3b3;
+      box-shadow: 0 2px 6px black;
     }
 
     /* rodapé */
     footer {
       margin-top: 70px;
-      background: #0a0101cc;
+      background: #0a0202dd;
       backdrop-filter: blur(16px);
       padding: 25px 20px;
       text-align: center;
-      border-top: 2px solid #e62429;
+      border-top: 3px solid #e62429;
       font-weight: 300;
       font-size: 0.9rem;
-      color: #ddb8b8;
+      color: #e2c2c2;
       z-index: 10;
       position: relative;
       letter-spacing: 1px;
@@ -333,17 +342,17 @@
       }
     }
 
-    /* animação sutil */
-    @keyframes spiderPulse {
-      0% { text-shadow: 0 0 0px #e62429; }
-      100% { text-shadow: 0 0 8px #ff5e5e; }
+    /* animação */
+    @keyframes swingWeb {
+      0% { text-shadow: 0 0 0 #e62429; }
+      100% { text-shadow: 0 0 8px #ff6b6b; }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>🕷️ SR ROGÉRIO • HOMEM-ARANHA 🕸️</h1>
-    <p>“Com grandes códigos vêm grandes responsabilidades — projetos, jogos e análises”</p>
+    <h1>🕷️ SR ROGÉRIO • O ESPETACULAR HOMEM-ARANHA 🕸️</h1>
+    <p>“Com grandes códigos vêm grandes responsabilidades — poder, agilidade e teias de inovação”</p>
   </header>
 
   <div class="filtros">
@@ -355,11 +364,11 @@
   </div>
 
   <div class="container">
-    <!-- CARD HTML (teia) -->
+    <!-- CARD HTML -->
     <div class="card html">
-      <div class="badge-cat">🕸️ ESTRUTURA WEB</div>
+      <div class="badge-cat">🕸️ PODER DA TEIA</div>
       <h3>teste.html</h3>
-      <p>Página com semântica, design responsivo e acessibilidade — o poder da teia front-end.</p>
+      <p>Página responsiva, semântica e acessível — a base de um herói front-end.</p>
       <a href="teste.html" class="botao">🕷️ EXPLORAR</a>
     </div>
 
@@ -367,28 +376,28 @@
     <div class="card js">
       <div class="badge-cat">⚡ SENTIDO ARANHA</div>
       <h3>teste.js</h3>
-      <p>Algoritmos avançados, lógica de herói e manipulação de dados.</p>
+      <p>Algoritmos e lógica digna do Homem-Aranha: rápido e preciso.</p>
       <a href="teste.js" class="botao">🌀 VISUALIZAR</a>
     </div>
 
     <div class="card js">
       <div class="badge-cat">🔗 INTEGRAÇÕES</div>
       <h3>teste2.js</h3>
-      <p>APIs e automação — conectando o universo como o Homem-Aranha conecta Queens.</p>
+      <p>APIs e conexões — como o Homem-Aranha se conecta ao mundo.</p>
       <a href="teste2.js" class="botao">🚀 ACESSAR</a>
     </div>
 
     <div class="card js">
       <div class="badge-cat">🏎️ VELOCIDADE</div>
       <h3>carro1.js</h3>
-      <p>Simulações e animações com canvas, desempenho digno de um herói ágil.</p>
+      <p>Simulações e canvas com agilidade de teia.</p>
       <a href="carro1.js" class="botao">🏁 TESTAR</a>
     </div>
 
     <div class="card js">
       <div class="badge-cat">📦 FUNDAMENTOS</div>
       <h3>variaveis.js</h3>
-      <p>Escopo, hoisting e closures — a base de todo grande vingador do código.</p>
+      <p>Escopo e closures — o verdadeiro poder por trás do código.</p>
       <a href="variaveis.js" class="botao">📖 ESTUDAR</a>
     </div>
 
@@ -396,15 +405,15 @@
     <div class="card analise">
       <div class="badge-cat">🧠 ESTRATÉGIA</div>
       <h3>Atividade Gamma</h3>
-      <p>Estudo de patentes, marcas e propriedade industrial — visão tática de mercado.</p>
+      <p>Estudo sobre patentes e propriedade intelectual — visão de herói nos negócios.</p>
       <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📄 LER DOC</a>
     </div>
 
-    <!-- JOGO PAC-MAN (estilo arcade) -->
+    <!-- JOGO PAC-MAN -->
     <div class="card jogo">
       <div class="badge-cat">👾 ARCADE NOSTALGIA</div>
       <h3>Jogo Pac-man</h3>
-      <p>Recriação lendária do clássico — labirinto, fantasmas e power-ups!</p>
+      <p>Clássico dos fliperamas, com labirinto e fantasmas — diversão retrô.</p>
       <a href="file:///C:/pacman/.html" class="botao">🍒 JOGAR AGORA</a>
     </div>
 
@@ -412,26 +421,26 @@
     <div class="card jogo">
       <div class="badge-cat">⚡ AÇÃO TOTAL</div>
       <h3>Battle Fury Demo</h3>
-      <p>Protótipo de combate em JS, sistema de pontuação e mecânicas rápidas.</p>
-      <a href="#" class="botao" onclick="alert('🎮 Demo em desenvolvimento — Em breve, mais poder!'); return false;">🔥 PRÉVIA</a>
+      <p>Protótipo de combate em JS, sistema de pontuação e adrenalina.</p>
+      <a href="#" class="botao" onclick="alert('🎮 Demo em breve — O Homem-Aranha está tecendo essa batalha!'); return false;">🔥 PRÉVIA</a>
     </div>
 
     <!-- ANÁLISE EXTRA -->
     <div class="card analise">
       <div class="badge-cat">📈 DATA INSIGHTS</div>
       <h3>Dashboard Gamma</h3>
-      <p>Métricas de inovação industrial e tendências — relatório interativo.</p>
+      <p>Métricas e tendências de mercado — inteligência de dados nível herói.</p>
       <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📊 EXPLORAR</a>
     </div>
   </div>
 
   <footer>
-    <span>🕸️ SR Rogério • Portfólio Espetacular • 2026 🕷️</span><br>
-    <span style="font-size: 0.75rem;">“Com grandes poderes (e códigos) vêm grandes responsabilidades”</span>
+    <span>🕸️ SR Rogério • O Espetacular Homem-Aranha • 2026 🕷️</span><br>
+    <span style="font-size: 0.75rem;">“Com grandes poderes (e códigos) vêm grandes responsabilidades” — Stan Lee</span>
   </footer>
 
   <script>
-    // Função de filtro aprimorada com transição e aviso amigável
+    // Função de filtro com estilo
     function filtrar(categoria) {
       const cards = document.querySelectorAll('.card');
       let hasVisible = false;
@@ -455,7 +464,6 @@
         }
       });
 
-      // Exibe aviso se nenhum projeto na categoria (caso raro)
       if (!hasVisible && categoria !== 'all') {
         const container = document.querySelector('.container');
         let warnMsg = document.getElementById('filter-warning');
@@ -465,16 +473,17 @@
           warnMsg.style.textAlign = 'center';
           warnMsg.style.gridColumn = '1/-1';
           warnMsg.style.padding = '2rem';
-          warnMsg.style.background = 'rgba(0,0,0,0.8)';
-          warnMsg.style.borderRadius = '40px';
-          warnMsg.style.backdropFilter = 'blur(8px)';
+          warnMsg.style.background = 'rgba(0,0,0,0.85)';
+          warnMsg.style.borderRadius = '50px';
+          warnMsg.style.backdropFilter = 'blur(12px)';
           warnMsg.style.border = '2px solid #e62429';
-          warnMsg.style.color = '#ffbcbc';
-          warnMsg.innerHTML = '🕸️ Nenhum projeto do Homem-Aranha nessa categoria... tente outro filtro, herói! 🕷️';
+          warnMsg.style.color = '#ffc6c6';
+          warnMsg.style.fontWeight = 'bold';
+          warnMsg.innerHTML = '🕸️ Nenhum projeto do Aranha nessa categoria... tente outro filtro, amigão! 🕷️';
           container.appendChild(warnMsg);
           setTimeout(() => {
             if(warnMsg && warnMsg.parentNode) warnMsg.remove();
-          }, 2000);
+          }, 2200);
         } else {
           warnMsg.style.display = 'flex';
           setTimeout(() => {
@@ -491,12 +500,12 @@
     document.addEventListener('DOMContentLoaded', () => {
       filtrar('all');
 
-      // Ajuste do link do Pac-Man local
+      // Link Pac-Man local
       const pacmanLink = document.querySelector('.jogo a[href*="C:/pacman"]');
       if (pacmanLink) {
         pacmanLink.addEventListener('click', (e) => {
           e.preventDefault();
-          const confirmLoad = confirm("🕷️ O jogo Pac-Man está disponível localmente? Clique em OK para abrir (caminho: C:/pacman/.html).");
+          const confirmLoad = confirm("🕷️ O jogo Pac-Man está disponível localmente? Clique em OK para abrir (C:/pacman/.html).");
           if (confirmLoad) {
             window.location.href = pacmanLink.getAttribute('href');
           } else {
@@ -505,7 +514,7 @@
         });
       }
 
-      // Efeito de movimento nos cards (para sentir o poder)
+      // Efeito dinâmico
       const cards = document.querySelectorAll('.card');
       cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
@@ -517,10 +526,10 @@
         });
       });
 
-      // Tooltip para links locais
+      // Tooltips
       const localLinks = document.querySelectorAll('a[href^="file://"]');
       localLinks.forEach(link => {
-        link.setAttribute('title', '🕸️ Arquivo local — certifique-se do caminho');
+        link.setAttribute('title', '🕸️ Arquivo local — verifique o caminho');
       });
     });
   </script>
