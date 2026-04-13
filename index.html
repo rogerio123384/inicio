@@ -13,10 +13,10 @@
 
     body {
       font-family: 'Poppins', 'Segoe UI', 'Cinema', system-ui, -apple-system, 'Inter', sans-serif;
-      /* FUNDO HOMEM-ARANHA DESENHO ANIMADO - estilo 90's */
-      background: linear-gradient(145deg, rgba(0,0,0,0.82), rgba(10,0,0,0.88)), url('https://i.pinimg.com/originals/8f/1e/6b/8f1e6be1e8e2a1f0b5c3d4e5f6a7b8c9.jpg');
+      /* FUNDO HOMEM-ARANHA DESENHO ANIMADO - IMAGEM ESTÁVEL E DIRETA */
+      background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(15,0,0,0.85)), url('https://wallpapercave.com/wp/wp5004459.jpg');
       background-size: cover;
-      background-position: center 20%;
+      background-position: center 25%;
       background-attachment: fixed;
       background-repeat: no-repeat;
       min-height: 100vh;
@@ -25,14 +25,17 @@
       overflow-x: hidden;
     }
 
-    /* Se a imagem não carregar, fallback com gradiente vermelho/azul */
+    /* Fallback caso a imagem principal não carregue - imagem alternativa do desenho */
     @supports (background: url('')) {
       body {
-        background: linear-gradient(135deg, #0a0a1a, #1a0505), radial-gradient(circle at 30% 40%, rgba(230,36,41,0.2), transparent);
+        background: linear-gradient(145deg, #0a0510, #1a0303), url('https://images6.alphacoders.com/133/1338275.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
       }
     }
 
-    /* teia de fundo sutil estilo desenho */
+    /* teia de fundo sutil estilo desenho animado */
     body::before {
       content: "";
       position: fixed;
@@ -40,29 +43,29 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: repeating-linear-gradient(0deg, rgba(220, 40, 40, 0.06) 0px, rgba(220, 40, 40, 0.06) 2px, transparent 2px, transparent 12px),
-                        repeating-linear-gradient(90deg, rgba(220, 40, 40, 0.06) 0px, rgba(220, 40, 40, 0.06) 2px, transparent 2px, transparent 12px);
+      background-image: repeating-linear-gradient(0deg, rgba(230, 36, 41, 0.07) 0px, rgba(230, 36, 41, 0.07) 2px, transparent 2px, transparent 14px),
+                        repeating-linear-gradient(90deg, rgba(230, 36, 41, 0.07) 0px, rgba(230, 36, 41, 0.07) 2px, transparent 2px, transparent 14px);
       pointer-events: none;
       z-index: 0;
     }
 
-    /* overlay do herói */
+    /* overlay aranha clássico */
     body::after {
-      content: "🕸️";
+      content: "🕷️";
       position: fixed;
-      bottom: 25px;
-      left: 25px;
-      font-size: 85px;
-      opacity: 0.12;
+      bottom: 30px;
+      left: 30px;
+      font-size: 90px;
+      opacity: 0.1;
       pointer-events: none;
       z-index: 0;
-      transform: rotate(10deg);
+      transform: rotate(-8deg);
       font-family: monospace;
     }
 
-    /* header estilo desenho animado */
+    /* header estilo desenho animado anos 90 */
     header {
-      background: rgba(0, 0, 0, 0.82);
+      background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(12px);
       border-bottom: 3px solid #e62429;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(230, 36, 41, 0.4);
@@ -81,7 +84,7 @@
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      text-shadow: 0 2px 15px rgba(230, 36, 41, 0.5);
+      text-shadow: 0 2px 15px rgba(230, 36, 41, 0.6);
       display: inline-block;
       border-right: 3px solid #e62429;
       padding-right: 20px;
@@ -92,7 +95,7 @@
       font-size: 1.15rem;
       margin-top: 12px;
       font-weight: 400;
-      color: #f5c6c6;
+      color: #ffd9d9;
       text-shadow: 0 1px 4px black;
       letter-spacing: 1px;
     }
@@ -109,13 +112,13 @@
     }
 
     .filtros button {
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(8px);
       border: 2px solid #e62429;
       padding: 12px 28px;
       font-weight: 800;
       font-size: 1rem;
-      border-radius: 50px;
+      border-radius: 60px;
       color: #ffe0e0;
       cursor: pointer;
       transition: all 0.25s ease;
@@ -129,7 +132,7 @@
       color: #ffffff;
       border-color: #ffbcbc;
       transform: translateY(-4px);
-      box-shadow: 0 10px 22px rgba(230, 36, 41, 0.7);
+      box-shadow: 0 10px 22px rgba(230, 36, 41, 0.8);
     }
 
     /* container grid */
@@ -144,12 +147,12 @@
       z-index: 5;
     }
 
-    /* CARD ARANHA - visual desenho animado */
+    /* CARD ARANHA - estilo desenho animado vibrante */
     .card {
-      background: radial-gradient(ellipse at 30% 20%, rgba(25, 20, 30, 0.92), rgba(8, 2, 12, 0.97));
+      background: radial-gradient(ellipse at 30% 20%, rgba(28, 20, 30, 0.94), rgba(10, 4, 14, 0.98));
       backdrop-filter: blur(8px);
       border-radius: 28px;
-      border: 2px solid rgba(230, 36, 41, 0.7);
+      border: 2px solid rgba(230, 36, 41, 0.75);
       padding: 1.6rem 1.2rem;
       transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       color: #f5f5f5;
@@ -161,24 +164,24 @@
       min-height: 400px;
     }
 
-    /* imagens temáticas inspiradas no desenho dos anos 90 */
+    /* imagens temáticas inspiradas nos quadrinhos e desenho */
     .card.html {
-      background-image: linear-gradient(125deg, rgba(0,0,0,0.75), rgba(70,0,0,0.85)), url('https://images.pexels.com/photos/270360/pexels-photo-270360.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-image: linear-gradient(125deg, rgba(0,0,0,0.7), rgba(80,0,0,0.85)), url('https://images.pexels.com/photos/270360/pexels-photo-270360.jpeg?auto=compress&cs=tinysrgb&w=600');
       background-size: cover;
       background-position: center;
     }
     .card.js {
-      background-image: linear-gradient(125deg, rgba(0,0,0,0.75), rgba(40,0,0,0.85)), url('https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-image: linear-gradient(125deg, rgba(0,0,0,0.7), rgba(60,0,0,0.85)), url('https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=600');
       background-size: cover;
       background-position: center;
     }
     .card.jogo {
-      background-image: linear-gradient(125deg, rgba(0,0,0,0.75), rgba(80,0,0,0.85)), url('https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-image: linear-gradient(125deg, rgba(0,0,0,0.7), rgba(90,0,0,0.85)), url('https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=600');
       background-size: cover;
       background-position: center;
     }
     .card.analise {
-      background-image: linear-gradient(125deg, rgba(0,0,0,0.75), rgba(50,0,0,0.85)), url('https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=600');
+      background-image: linear-gradient(125deg, rgba(0,0,0,0.7), rgba(70,0,0,0.85)), url('https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=600');
       background-size: cover;
       background-position: center;
     }
@@ -199,19 +202,19 @@
     }
 
     .card:hover::before {
-      opacity: 0.65;
+      opacity: 0.7;
     }
 
     .card:hover {
       transform: translateY(-12px) scale(1.02);
       box-shadow: 0 25px 35px -10px #e62429dd;
-      border-color: #ff8a8a;
+      border-color: #ff9a9a;
     }
 
     .card h3 {
       font-size: 1.9rem;
       font-weight: 800;
-      background: linear-gradient(145deg, #ffc2c2, #e62429);
+      background: linear-gradient(145deg, #ffcaca, #e62429);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
@@ -228,9 +231,9 @@
       font-size: 0.95rem;
       line-height: 1.5;
       margin: 15px 0;
-      opacity: 0.95;
+      opacity: 0.96;
       font-weight: 400;
-      background: rgba(0,0,0,0.55);
+      background: rgba(0,0,0,0.6);
       padding: 8px 12px;
       border-radius: 20px;
       backdrop-filter: blur(3px);
@@ -246,7 +249,7 @@
       align-self: flex-start;
       padding: 10px 24px;
       background: linear-gradient(95deg, #8b0000, #e62429);
-      border: 1px solid #ff8c8c;
+      border: 1px solid #ff9e9e;
       border-radius: 50px;
       font-weight: 800;
       color: #ffffff;
@@ -340,12 +343,6 @@
       .card {
         min-height: 370px;
       }
-    }
-
-    /* animação */
-    @keyframes swingWeb {
-      0% { text-shadow: 0 0 0 #e62429; }
-      100% { text-shadow: 0 0 8px #ff6b6b; }
     }
   </style>
 </head>
@@ -514,7 +511,7 @@
         });
       }
 
-      // Efeito dinâmico
+      // Efeito dinâmico nos cards
       const cards = document.querySelectorAll('.card');
       cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
@@ -526,7 +523,7 @@
         });
       });
 
-      // Tooltips
+      // Tooltips para links locais
       const localLinks = document.querySelectorAll('a[href^="file://"]');
       localLinks.forEach(link => {
         link.setAttribute('title', '🕸️ Arquivo local — verifique o caminho');
