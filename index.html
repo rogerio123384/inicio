@@ -13,10 +13,10 @@
 
     body {
       font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, 'Inter', sans-serif;
-      /* FUNDO PALMEIRAS - IMAGEM DO ESTÁDIO / ESCUDO */
-      background: linear-gradient(135deg, rgba(0, 40, 0, 0.85), rgba(0, 80, 0, 0.9)), url('https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=1600');
+      /* FUNDO PALMEIRAS - IMAGEM LEVE E RÁPIDA (Allianz Parque / Escudo) */
+      background: linear-gradient(135deg, rgba(0, 35, 0, 0.88), rgba(0, 65, 0, 0.92)), url('https://i.imgur.com/7XpG3cD.jpeg');
       background-size: cover;
-      background-position: center 30%;
+      background-position: center 25%;
       background-attachment: fixed;
       background-repeat: no-repeat;
       min-height: 100vh;
@@ -25,10 +25,10 @@
       overflow-x: hidden;
     }
 
-    /* Fallback caso a imagem não carregue */
+    /* Fallback gradiente caso imagem não carregue */
     @supports (background: url('')) {
       body {
-        background: linear-gradient(145deg, #0a2a0a, #003300), repeating-linear-gradient(45deg, #1a5a1a 0px, #1a5a1a 2px, #003300 2px, #003300 8px);
+        background: linear-gradient(145deg, #0a2a0a, #003300);
       }
     }
 
@@ -40,28 +40,28 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: radial-gradient(circle at 10% 20%, rgba(0, 255, 0, 0.05) 1px, transparent 1px);
+      background-image: radial-gradient(circle at 10% 20%, rgba(0, 255, 0, 0.06) 1px, transparent 1px);
       background-size: 35px 35px;
       pointer-events: none;
       z-index: 0;
     }
 
-    /* overlay do porco (símbolo) */
+    /* overlay do porco */
     body::after {
       content: "🐷";
       position: fixed;
-      bottom: 30px;
-      right: 30px;
-      font-size: 90px;
-      opacity: 0.1;
+      bottom: 25px;
+      right: 25px;
+      font-size: 80px;
+      opacity: 0.12;
       pointer-events: none;
       z-index: 0;
-      transform: rotate(5deg);
+      transform: rotate(-5deg);
     }
 
-    /* header estilo palmeiras */
+    /* header palmeiras */
     header {
-      background: rgba(0, 30, 0, 0.9);
+      background: rgba(0, 25, 0, 0.92);
       backdrop-filter: blur(12px);
       border-bottom: 3px solid #2e8b57;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(46, 139, 86, 0.4);
@@ -91,12 +91,12 @@
       font-size: 1.15rem;
       margin-top: 12px;
       font-weight: 400;
-      color: #b8f0b8;
+      color: #c8e6c8;
       text-shadow: 0 1px 4px black;
       letter-spacing: 1px;
     }
 
-    /* botões estilo verde e branco */
+    /* botões */
     .filtros {
       display: flex;
       justify-content: center;
@@ -108,7 +108,7 @@
     }
 
     .filtros button {
-      background: rgba(0, 30, 0, 0.85);
+      background: rgba(0, 30, 0, 0.88);
       backdrop-filter: blur(8px);
       border: 2px solid #2e8b57;
       padding: 12px 28px;
@@ -143,7 +143,7 @@
       z-index: 5;
     }
 
-    /* CARD PALMEIRAS - estilo campo */
+    /* CARD PALMEIRAS */
     .card {
       background: radial-gradient(ellipse at 30% 20%, rgba(10, 50, 10, 0.94), rgba(0, 25, 0, 0.98));
       backdrop-filter: blur(8px);
@@ -160,7 +160,7 @@
       min-height: 400px;
     }
 
-    /* imagens temáticas por categoria - estilo futebolístico */
+    /* imagens temáticas */
     .card.html {
       background-image: linear-gradient(125deg, rgba(0,30,0,0.7), rgba(0,60,0,0.85)), url('https://images.pexels.com/photos/270360/pexels-photo-270360.jpeg?auto=compress&cs=tinysrgb&w=600');
       background-size: cover;
@@ -182,7 +182,6 @@
       background-position: center;
     }
 
-    /* efeito borda verde */
     .card::before {
       content: '';
       position: absolute;
@@ -235,7 +234,6 @@
       backdrop-filter: blur(3px);
     }
 
-    /* botão estilo camisa */
     .botao {
       display: inline-flex;
       align-items: center;
@@ -263,30 +261,11 @@
       color: #fff;
     }
 
-    /* ícones após título */
-    .card.html h3::after {
-      content: "🌐";
-      font-size: 1.6rem;
-      margin-left: auto;
-      opacity: 0.9;
-    }
-    .card.js h3::after {
-      content: "⚡";
-      font-size: 1.6rem;
-      margin-left: auto;
-    }
-    .card.jogo h3::after {
-      content: "🎮";
-      font-size: 1.6rem;
-      margin-left: auto;
-    }
-    .card.analise h3::after {
-      content: "📊";
-      font-size: 1.6rem;
-      margin-left: auto;
-    }
+    .card.html h3::after { content: "🌐"; font-size: 1.6rem; margin-left: auto; opacity: 0.9; }
+    .card.js h3::after { content: "⚡"; font-size: 1.6rem; margin-left: auto; }
+    .card.jogo h3::after { content: "🎮"; font-size: 1.6rem; margin-left: auto; }
+    .card.analise h3::after { content: "📊"; font-size: 1.6rem; margin-left: auto; }
 
-    /* badge palmeiras */
     .card .badge-cat {
       display: inline-block;
       background: #2e8b57dd;
@@ -304,7 +283,6 @@
       box-shadow: 0 2px 6px black;
     }
 
-    /* rodapé */
     footer {
       margin-top: 70px;
       background: #001a00dd;
@@ -320,25 +298,40 @@
       letter-spacing: 1px;
     }
 
-    /* responsividade */
     @media (max-width: 680px) {
-      header h1 {
-        font-size: 2rem;
-      }
-      .filtros button {
-        padding: 8px 18px;
-        font-size: 0.8rem;
-      }
-      .card h3 {
-        font-size: 1.5rem;
-      }
-      .container {
-        gap: 20px;
-        padding: 12px;
-      }
-      .card {
-        min-height: 370px;
-      }
+      header h1 { font-size: 2rem; }
+      .filtros button { padding: 8px 18px; font-size: 0.8rem; }
+      .card h3 { font-size: 1.5rem; }
+      .container { gap: 20px; padding: 12px; }
+      .card { min-height: 370px; }
+    }
+
+    /* Botão de download da imagem de fundo */
+    .download-bg {
+      position: fixed;
+      bottom: 25px;
+      left: 25px;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid #2e8b57;
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #c8e6c8;
+      cursor: pointer;
+      z-index: 20;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: inherit;
+      text-decoration: none;
+    }
+    .download-bg:hover {
+      background: #2e8b57;
+      color: white;
+      transform: scale(1.02);
     }
   </style>
 </head>
@@ -357,7 +350,6 @@
   </div>
 
   <div class="container">
-    <!-- CARD HTML -->
     <div class="card html">
       <div class="badge-cat">🌐 ESTRUTURA WEB</div>
       <h3>teste.html</h3>
@@ -365,7 +357,6 @@
       <a href="teste.html" class="botao">🐷 EXPLORAR</a>
     </div>
 
-    <!-- CARDS JS -->
     <div class="card js">
       <div class="badge-cat">⚡ JOGADA CERTA</div>
       <h3>teste.js</h3>
@@ -394,7 +385,6 @@
       <a href="variaveis.js" class="botao">📖 ESTUDAR</a>
     </div>
 
-    <!-- ANÁLISE -->
     <div class="card analise">
       <div class="badge-cat">🧠 ESTRATÉGIA</div>
       <h3>Atividade Gamma</h3>
@@ -402,7 +392,6 @@
       <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📄 LER DOC</a>
     </div>
 
-    <!-- JOGO PAC-MAN -->
     <div class="card jogo">
       <div class="badge-cat">👾 ARCADE NOSTALGIA</div>
       <h3>Jogo Pac-man</h3>
@@ -410,7 +399,6 @@
       <a href="file:///C:/pacman/.html" class="botao">🍒 JOGAR AGORA</a>
     </div>
 
-    <!-- JOGO EXTRA -->
     <div class="card jogo">
       <div class="badge-cat">⚡ AÇÃO TOTAL</div>
       <h3>Battle Fury Demo</h3>
@@ -418,7 +406,6 @@
       <a href="#" class="botao" onclick="alert('🎮 Demo em desenvolvimento — Em breve mais ação!'); return false;">🔥 PRÉVIA</a>
     </div>
 
-    <!-- ANÁLISE EXTRA -->
     <div class="card analise">
       <div class="badge-cat">📈 DATA INSIGHTS</div>
       <h3>Dashboard Gamma</h3>
@@ -431,6 +418,11 @@
     <span>🐷 SR Rogério • Palmeiras • 2026 🏆</span><br>
     <span style="font-size: 0.75rem;">“Com grandes códigos vêm grandes responsabilidades — como vestir essa camisa”</span>
   </footer>
+
+  <!-- Botão para baixar a imagem de fundo -->
+  <div class="download-bg" id="downloadBgBtn">
+    ⬇️ Baixar imagem de fundo (Palmeiras)
+  </div>
 
   <script>
     // Função de filtro
@@ -524,6 +516,33 @@
       localLinks.forEach(link => {
         link.setAttribute('title', '🐷 Arquivo local — verifique o caminho');
       });
+    });
+
+    // Função para baixar a imagem de fundo
+    document.getElementById('downloadBgBtn').addEventListener('click', function() {
+      // URL da imagem de fundo atual (a mesma usada no CSS)
+      const imageUrl = 'https://i.imgur.com/7XpG3cD.jpeg';
+      
+      // Criar um link temporário para download
+      const link = document.createElement('a');
+      link.href = imageUrl;
+      link.download = 'fundo_palmeiras_allianz_parque.jpg';
+      link.target = '_blank';
+      
+      // Se falhar, abrir em nova aba como fallback
+      try {
+        link.click();
+      } catch(e) {
+        window.open(imageUrl, '_blank');
+      }
+      
+      // Feedback visual
+      const btn = document.getElementById('downloadBgBtn');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '✅ Download iniciado!';
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+      }, 2000);
     });
   </script>
 </body>
