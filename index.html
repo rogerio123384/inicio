@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
@@ -13,7 +13,8 @@
 
     body {
       font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, 'Inter', sans-serif;
-      background: linear-gradient(135deg, rgba(0, 30, 0, 0.85), rgba(0, 60, 0, 0.9)), url('https://i.imgur.com/7XpG3cD.jpeg');
+      /* IMAGEM DE FUNDO DO PALMEIRAS - ALLIANZ PARQUE */
+      background: url('https://i.imgur.com/7XpG3cD.jpeg');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
@@ -24,8 +25,21 @@
       overflow-x: hidden;
     }
 
-    /* efeito de gramado sutil */
+    /* overlay escuro para contraste do texto */
     body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.65);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* efeito de gramado sutil */
+    body::after {
       content: "";
       position: fixed;
       top: 0;
@@ -39,13 +53,12 @@
     }
 
     /* overlay do porco */
-    body::after {
-      content: "🐷";
+    .porco-overlay {
       position: fixed;
       bottom: 25px;
       right: 25px;
       font-size: 80px;
-      opacity: 0.1;
+      opacity: 0.15;
       pointer-events: none;
       z-index: 0;
       transform: rotate(-5deg);
@@ -53,7 +66,7 @@
 
     /* header */
     header {
-      background: rgba(0, 25, 0, 0.92);
+      background: rgba(0, 25, 0, 0.85);
       backdrop-filter: blur(12px);
       border-bottom: 3px solid #2e8b57;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
@@ -98,7 +111,7 @@
     }
 
     .filtros button {
-      background: rgba(0, 30, 0, 0.88);
+      background: rgba(0, 30, 0, 0.85);
       backdrop-filter: blur(8px);
       border: 2px solid #2e8b57;
       padding: 12px 28px;
@@ -132,7 +145,7 @@
 
     /* cards */
     .card {
-      background: radial-gradient(ellipse at 30% 20%, rgba(10, 50, 10, 0.94), rgba(0, 25, 0, 0.98));
+      background: radial-gradient(ellipse at 30% 20%, rgba(10, 50, 10, 0.9), rgba(0, 25, 0, 0.95));
       backdrop-filter: blur(8px);
       border-radius: 28px;
       border: 2px solid rgba(46, 139, 86, 0.8);
@@ -190,7 +203,7 @@
       font-size: 0.95rem;
       line-height: 1.5;
       margin: 15px 0;
-      background: rgba(0,20,0,0.65);
+      background: rgba(0,20,0,0.7);
       padding: 8px 12px;
       border-radius: 20px;
     }
@@ -240,7 +253,7 @@
 
     footer {
       margin-top: 70px;
-      background: #001a00dd;
+      background: #001a00cc;
       backdrop-filter: blur(16px);
       padding: 25px 20px;
       text-align: center;
@@ -260,6 +273,8 @@
   </style>
 </head>
 <body>
+  <div class="porco-overlay">🐷</div>
+
   <header>
     <h1>🐷 SR ROGÉRIO • PALMEIRAS 🏆</h1>
     <p>“Acima de tudo — código, paixão e tradição alviverde”</p>
