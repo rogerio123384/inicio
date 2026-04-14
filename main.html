@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio | Desenvolvedor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+            --accent: #38bdf8;
+            --code-bg: #000000;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .subtitle { color: var(--accent); font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
+
+        .project-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid #334155;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Estilização da área de Código */
+        .code-window {
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            overflow-x: auto;
+            border-left: 4px solid var(--accent);
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #a5f3fc;
+            font-size: 0.9rem;
+            white-space: pre;
+        }
+
+        .tags {
+            margin: 20px 0;
+        }
+
+        .tag {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+            border: 1px solid var(--accent);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg);
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 100px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Seu Nome</h1>
+        <div class="subtitle">Software Developer</div>
+        <p>Transformando café em código eficiente e escalável.</p>
+    </header>
+
+    <main>
+        <section class="project-card">
+            <h2>🚀 Projeto em Destaque</h2>
+            <p>Este é o lugar para descrever o que o seu código faz. Explique o problema que você resolveu e a lógica principal utilizada.</p>
+            
+            <div class="tags">
+                <span class="tag">HTML5</span>
+                <span class="tag">CSS3</span>
+                <span class="tag">JavaScript</span>
+            </div>
+
+            <div class="code-window">
+<code>// Cole aqui um trecho importante do seu código
+function resolverProblema(dados) {
+    return dados.map(item => {
+        return { ...item, processado: true };
+    });
+}</code>
+            </div>
+
+            <a href="#" class="btn">Ver Repositório Completo</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 - Desenvolvido por Você</p>
+    </footer>
+</div>
+
+</body>
+</html>
