@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>🐷 Portfólio | SR Rogério • Palmeiras - Acima de Tudo</title>
+  <title>🐷 Portfólio | SR Rogério • Palmeiras</title>
   <style>
     * {
       margin: 0;
@@ -13,23 +13,15 @@
 
     body {
       font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, 'Inter', sans-serif;
-      /* FUNDO PALMEIRAS - IMAGEM ESTÁVEL DO ALLIANZ PARQUE */
-      background: linear-gradient(135deg, rgba(0, 35, 0, 0.85), rgba(0, 65, 0, 0.9)), url('https://i.imgur.com/7XpG3cD.jpeg');
+      background: linear-gradient(135deg, rgba(0, 30, 0, 0.85), rgba(0, 60, 0, 0.9)), url('https://i.imgur.com/7XpG3cD.jpeg');
       background-size: cover;
-      background-position: center 25%;
+      background-position: center;
       background-attachment: fixed;
       background-repeat: no-repeat;
       min-height: 100vh;
       color: #f5f5f5;
       position: relative;
       overflow-x: hidden;
-    }
-
-    /* Fallback gradiente caso imagem não carregue */
-    @supports (background: url('')) {
-      body {
-        background: linear-gradient(145deg, #0a2a0a, #003300);
-      }
     }
 
     /* efeito de gramado sutil */
@@ -40,7 +32,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: radial-gradient(circle at 10% 20%, rgba(0, 255, 0, 0.06) 1px, transparent 1px);
+      background-image: radial-gradient(circle at 10% 20%, rgba(0, 255, 0, 0.05) 1px, transparent 1px);
       background-size: 35px 35px;
       pointer-events: none;
       z-index: 0;
@@ -53,18 +45,18 @@
       bottom: 25px;
       right: 25px;
       font-size: 80px;
-      opacity: 0.12;
+      opacity: 0.1;
       pointer-events: none;
       z-index: 0;
       transform: rotate(-5deg);
     }
 
-    /* header palmeiras */
+    /* header */
     header {
       background: rgba(0, 25, 0, 0.92);
       backdrop-filter: blur(12px);
       border-bottom: 3px solid #2e8b57;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(46, 139, 86, 0.4);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
       padding: 2rem 1rem;
       text-align: center;
       width: 100%;
@@ -80,7 +72,6 @@
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      text-shadow: 0 2px 15px rgba(46, 139, 86, 0.6);
       display: inline-block;
       border-right: 3px solid #2e8b57;
       padding-right: 20px;
@@ -93,10 +84,9 @@
       font-weight: 400;
       color: #c8e6c8;
       text-shadow: 0 1px 4px black;
-      letter-spacing: 1px;
     }
 
-    /* botões */
+    /* botões filtro */
     .filtros {
       display: flex;
       justify-content: center;
@@ -119,19 +109,16 @@
       cursor: pointer;
       transition: all 0.25s ease;
       font-family: inherit;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
 
     .filtros button:hover {
       background: #2e8b57;
       color: #ffffff;
-      border-color: #a5d6a5;
       transform: translateY(-4px);
       box-shadow: 0 10px 22px rgba(46, 139, 86, 0.7);
     }
 
-    /* container grid */
+    /* container */
     .container {
       max-width: 1280px;
       margin: 20px auto;
@@ -143,7 +130,7 @@
       z-index: 5;
     }
 
-    /* CARD PALMEIRAS */
+    /* cards */
     .card {
       background: radial-gradient(ellipse at 30% 20%, rgba(10, 50, 10, 0.94), rgba(0, 25, 0, 0.98));
       backdrop-filter: blur(8px);
@@ -152,34 +139,12 @@
       padding: 1.6rem 1.2rem;
       transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       color: #f0fff0;
-      box-shadow: 0 15px 25px -12px rgba(0,0,0,0.7), inset 0 1px 0 rgba(46,139,86,0.3);
+      box-shadow: 0 15px 25px -12px rgba(0,0,0,0.7);
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      min-height: 400px;
-    }
-
-    /* imagens temáticas */
-    .card.html {
-      background-image: linear-gradient(125deg, rgba(0,30,0,0.7), rgba(0,60,0,0.85)), url('https://images.pexels.com/photos/270360/pexels-photo-270360.jpeg?auto=compress&cs=tinysrgb&w=600');
-      background-size: cover;
-      background-position: center;
-    }
-    .card.js {
-      background-image: linear-gradient(125deg, rgba(0,30,0,0.7), rgba(0,70,0,0.85)), url('https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=600');
-      background-size: cover;
-      background-position: center;
-    }
-    .card.jogo {
-      background-image: linear-gradient(125deg, rgba(0,30,0,0.7), rgba(0,80,0,0.85)), url('https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=600');
-      background-size: cover;
-      background-position: center;
-    }
-    .card.analise {
-      background-image: linear-gradient(125deg, rgba(0,30,0,0.7), rgba(0,65,0,0.85)), url('https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=600');
-      background-size: cover;
-      background-position: center;
+      min-height: 380px;
     }
 
     .card::before {
@@ -197,7 +162,7 @@
     }
 
     .card:hover::before {
-      opacity: 0.7;
+      opacity: 0.6;
     }
 
     .card:hover {
@@ -214,7 +179,6 @@
       -webkit-background-clip: text;
       color: transparent;
       margin-bottom: 14px;
-      letter-spacing: -0.5px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -226,12 +190,9 @@
       font-size: 0.95rem;
       line-height: 1.5;
       margin: 15px 0;
-      opacity: 0.96;
-      font-weight: 400;
       background: rgba(0,20,0,0.65);
       padding: 8px 12px;
       border-radius: 20px;
-      backdrop-filter: blur(3px);
     }
 
     .botao {
@@ -250,18 +211,15 @@
       text-decoration: none;
       transition: 0.25s;
       font-size: 0.85rem;
-      letter-spacing: 1px;
-      box-shadow: 0 5px 12px rgba(0,0,0,0.5);
     }
 
     .botao:hover {
       background: linear-gradient(95deg, #2e7d32, #4caf50);
       transform: scale(1.05);
       box-shadow: 0 0 16px #2e8b57;
-      color: #fff;
     }
 
-    .card.html h3::after { content: "🌐"; font-size: 1.6rem; margin-left: auto; opacity: 0.9; }
+    .card.html h3::after { content: "🌐"; font-size: 1.6rem; margin-left: auto; }
     .card.js h3::after { content: "⚡"; font-size: 1.6rem; margin-left: auto; }
     .card.jogo h3::after { content: "🎮"; font-size: 1.6rem; margin-left: auto; }
     .card.analise h3::after { content: "📊"; font-size: 1.6rem; margin-left: auto; }
@@ -269,18 +227,15 @@
     .card .badge-cat {
       display: inline-block;
       background: #2e8b57dd;
-      backdrop-filter: blur(4px);
       border-radius: 50px;
       padding: 5px 18px;
       font-size: 0.7rem;
       text-transform: uppercase;
       font-weight: 800;
       margin-bottom: 14px;
-      letter-spacing: 1.5px;
       width: fit-content;
       color: #ffffff;
       border: 0.5px solid #a5d6a5;
-      box-shadow: 0 2px 6px black;
     }
 
     footer {
@@ -290,20 +245,17 @@
       padding: 25px 20px;
       text-align: center;
       border-top: 3px solid #2e8b57;
-      font-weight: 300;
       font-size: 0.9rem;
       color: #c8e6c8;
-      z-index: 10;
       position: relative;
-      letter-spacing: 1px;
+      z-index: 10;
     }
 
     @media (max-width: 680px) {
       header h1 { font-size: 2rem; }
       .filtros button { padding: 8px 18px; font-size: 0.8rem; }
       .card h3 { font-size: 1.5rem; }
-      .container { gap: 20px; padding: 12px; }
-      .card { min-height: 370px; }
+      .card { min-height: 360px; }
     }
   </style>
 </head>
@@ -314,9 +266,9 @@
   </header>
 
   <div class="filtros">
-    <button onclick="filtrar('all')">🏆 TODOS OS PROJETOS</button>
+    <button onclick="filtrar('all')">🏆 TODOS</button>
     <button onclick="filtrar('html')">🌐 HTML</button>
-    <button onclick="filtrar('js')">⚡ JAVASCRIPT</button>
+    <button onclick="filtrar('js')">⚡ JS</button>
     <button onclick="filtrar('jogo')">🎮 JOGOS</button>
     <button onclick="filtrar('analise')">📊 ANÁLISE</button>
   </div>
@@ -365,21 +317,21 @@
     </div>
 
     <div class="card jogo">
-      <div class="badge-cat">👾 ARCADE NOSTALGIA</div>
+      <div class="badge-cat">👾 ARCADE</div>
       <h3>Jogo Pac-man</h3>
       <p>Clássico dos fliperamas — labirinto, fantasmas e diversão retrô.</p>
-      <a href="file:///C:/pacman/.html" class="botao">🍒 JOGAR AGORA</a>
+      <a href="file:///C:/pacman/.html" class="botao">🍒 JOGAR</a>
     </div>
 
     <div class="card jogo">
-      <div class="badge-cat">⚡ AÇÃO TOTAL</div>
+      <div class="badge-cat">⚡ AÇÃO</div>
       <h3>Battle Fury Demo</h3>
       <p>Protótipo de combate em JS, sistema de pontuação e adrenalina.</p>
-      <a href="#" class="botao" onclick="alert('🎮 Demo em desenvolvimento — Em breve mais ação!'); return false;">🔥 PRÉVIA</a>
+      <a href="#" class="botao" onclick="alert('🎮 Demo em desenvolvimento!'); return false;">🔥 PRÉVIA</a>
     </div>
 
     <div class="card analise">
-      <div class="badge-cat">📈 DATA INSIGHTS</div>
+      <div class="badge-cat">📈 INSIGHTS</div>
       <h3>Dashboard Gamma</h3>
       <p>Métricas de inovação e tendências — inteligência de dados nível campeão.</p>
       <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📊 EXPLORAR</a>
@@ -392,7 +344,6 @@
   </footer>
 
   <script>
-    // Função de filtro
     function filtrar(categoria) {
       const cards = document.querySelectorAll('.card');
       let hasVisible = false;
@@ -409,7 +360,6 @@
         
         if (match) {
           card.style.display = 'flex';
-          card.style.opacity = '1';
           hasVisible = true;
         } else {
           card.style.display = 'none';
@@ -427,20 +377,13 @@
           warnMsg.style.padding = '2rem';
           warnMsg.style.background = 'rgba(0,30,0,0.9)';
           warnMsg.style.borderRadius = '50px';
-          warnMsg.style.backdropFilter = 'blur(12px)';
           warnMsg.style.border = '2px solid #2e8b57';
           warnMsg.style.color = '#c8ffc8';
-          warnMsg.style.fontWeight = 'bold';
-          warnMsg.innerHTML = '🐷 Nenhum projeto nessa categoria, torcedor! Tente outro filtro. 🏆';
+          warnMsg.innerHTML = '🐷 Nenhum projeto nessa categoria! 🏆';
           container.appendChild(warnMsg);
           setTimeout(() => {
             if(warnMsg && warnMsg.parentNode) warnMsg.remove();
-          }, 2200);
-        } else {
-          warnMsg.style.display = 'flex';
-          setTimeout(() => {
-            if(warnMsg) warnMsg.style.display = 'none';
-          }, 1800);
+          }, 2000);
         }
       } else {
         const warnMsg = document.getElementById('filter-warning');
@@ -448,41 +391,19 @@
       }
     }
 
-    // Inicialização
     document.addEventListener('DOMContentLoaded', () => {
       filtrar('all');
 
-      // Link Pac-Man local
       const pacmanLink = document.querySelector('.jogo a[href*="C:/pacman"]');
       if (pacmanLink) {
         pacmanLink.addEventListener('click', (e) => {
           e.preventDefault();
-          const confirmLoad = confirm("🐷 O jogo Pac-Man está disponível localmente? Clique em OK para abrir (C:/pacman/.html).");
+          const confirmLoad = confirm("🐷 O jogo Pac-Man está disponível localmente?");
           if (confirmLoad) {
             window.location.href = pacmanLink.getAttribute('href');
-          } else {
-            alert("Dica: verifique o arquivo em C:/pacman/.html ou explore outros projetos!");
           }
         });
       }
-
-      // Efeito dinâmico nos cards
-      const cards = document.querySelectorAll('.card');
-      cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          card.style.setProperty('--x-pos', `${x}px`);
-          card.style.setProperty('--y-pos', `${y}px`);
-        });
-      });
-
-      // Tooltips para links locais
-      const localLinks = document.querySelectorAll('a[href^="file://"]');
-      localLinks.forEach(link => {
-        link.setAttribute('title', '🐷 Arquivo local — verifique o caminho');
-      });
     });
   </script>
 </body>
