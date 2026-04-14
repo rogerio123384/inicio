@@ -13,8 +13,8 @@
 
     body {
       font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, 'Inter', sans-serif;
-      /* FUNDO PALMEIRAS - IMAGEM LEVE E RÁPIDA (Allianz Parque / Escudo) */
-      background: linear-gradient(135deg, rgba(0, 35, 0, 0.88), rgba(0, 65, 0, 0.92)), url('https://i.imgur.com/7XpG3cD.jpeg');
+      /* FUNDO PALMEIRAS - IMAGEM ESTÁVEL DO ALLIANZ PARQUE */
+      background: linear-gradient(135deg, rgba(0, 35, 0, 0.85), rgba(0, 65, 0, 0.9)), url('https://i.imgur.com/7XpG3cD.jpeg');
       background-size: cover;
       background-position: center 25%;
       background-attachment: fixed;
@@ -305,34 +305,6 @@
       .container { gap: 20px; padding: 12px; }
       .card { min-height: 370px; }
     }
-
-    /* Botão de download da imagem de fundo */
-    .download-bg {
-      position: fixed;
-      bottom: 25px;
-      left: 25px;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(8px);
-      border: 1px solid #2e8b57;
-      border-radius: 50px;
-      padding: 8px 18px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #c8e6c8;
-      cursor: pointer;
-      z-index: 20;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: inherit;
-      text-decoration: none;
-    }
-    .download-bg:hover {
-      background: #2e8b57;
-      color: white;
-      transform: scale(1.02);
-    }
   </style>
 </head>
 <body>
@@ -418,11 +390,6 @@
     <span>🐷 SR Rogério • Palmeiras • 2026 🏆</span><br>
     <span style="font-size: 0.75rem;">“Com grandes códigos vêm grandes responsabilidades — como vestir essa camisa”</span>
   </footer>
-
-  <!-- Botão para baixar a imagem de fundo -->
-  <div class="download-bg" id="downloadBgBtn">
-    ⬇️ Baixar imagem de fundo (Palmeiras)
-  </div>
 
   <script>
     // Função de filtro
@@ -516,33 +483,6 @@
       localLinks.forEach(link => {
         link.setAttribute('title', '🐷 Arquivo local — verifique o caminho');
       });
-    });
-
-    // Função para baixar a imagem de fundo
-    document.getElementById('downloadBgBtn').addEventListener('click', function() {
-      // URL da imagem de fundo atual (a mesma usada no CSS)
-      const imageUrl = 'https://i.imgur.com/7XpG3cD.jpeg';
-      
-      // Criar um link temporário para download
-      const link = document.createElement('a');
-      link.href = imageUrl;
-      link.download = 'fundo_palmeiras_allianz_parque.jpg';
-      link.target = '_blank';
-      
-      // Se falhar, abrir em nova aba como fallback
-      try {
-        link.click();
-      } catch(e) {
-        window.open(imageUrl, '_blank');
-      }
-      
-      // Feedback visual
-      const btn = document.getElementById('downloadBgBtn');
-      const originalText = btn.innerHTML;
-      btn.innerHTML = '✅ Download iniciado!';
-      setTimeout(() => {
-        btn.innerHTML = originalText;
-      }, 2000);
     });
   </script>
 </body>
