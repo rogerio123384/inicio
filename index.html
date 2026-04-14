@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>🐷 Portfólio | SR Rogério • Palmeiras</title>
+  <title>⚔️ Portfólio | SR Rogério • A Jornada do Guerreiro</title>
   <style>
     * {
       margin: 0;
@@ -12,19 +12,15 @@
     }
 
     body {
-      font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, 'Inter', sans-serif;
-      /* ⬇️ TROQUE AQUI PELO NOME DA SUA IMAGEM ⬇️ */
-      background: url('SUA-IMAGEM-AQUI.jpg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      background-repeat: no-repeat;
+      font-family: 'Poppins', 'Segoe UI', 'Cinema', system-ui, -apple-system, 'Inter', sans-serif;
+      background: radial-gradient(circle at 20% 30%, #0a0c12, #010101);
       min-height: 100vh;
-      color: #f5f5f5;
+      color: #ece8e1;
       position: relative;
       overflow-x: hidden;
     }
 
+    /* efeito cinza épico com runas sutis */
     body::before {
       content: "";
       position: fixed;
@@ -32,41 +28,32 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.7);
+      background-image: repeating-linear-gradient(45deg, rgba(180, 70, 30, 0.08) 0px, rgba(180, 70, 30, 0.08) 2px, transparent 2px, transparent 8px),
+                        repeating-linear-gradient(135deg, rgba(200, 100, 40, 0.05) 0px, rgba(200, 100, 40, 0.05) 1px, transparent 1px, transparent 12px);
       pointer-events: none;
       z-index: 0;
     }
 
+    /* overlay de fogo e fumaça */
     body::after {
       content: "";
       position: fixed;
-      top: 0;
+      bottom: 0;
       left: 0;
       width: 100%;
-      height: 100%;
-      background-image: radial-gradient(circle at 10% 20%, rgba(0, 255, 0, 0.05) 1px, transparent 1px);
-      background-size: 35px 35px;
+      height: 40%;
+      background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
       pointer-events: none;
       z-index: 0;
     }
 
-    .porco-overlay {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      font-size: 80px;
-      opacity: 0.15;
-      pointer-events: none;
-      z-index: 0;
-      transform: rotate(-5deg);
-    }
-
+    /* header moderno com brilho e borda de guerra */
     header {
-      background: rgba(0, 25, 0, 0.85);
+      background: rgba(5, 5, 10, 0.65);
       backdrop-filter: blur(12px);
-      border-bottom: 3px solid #2e8b57;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-      padding: 2rem 1rem;
+      border-bottom: 1px solid rgba(220, 80, 40, 0.7);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,240,0.1);
+      padding: 2.2rem 1rem;
       text-align: center;
       width: 100%;
       position: relative;
@@ -74,27 +61,30 @@
     }
 
     header h1 {
-      font-size: 2.8rem;
-      letter-spacing: 3px;
+      font-size: 3rem;
+      letter-spacing: 4px;
       font-weight: 800;
-      background: linear-gradient(135deg, #2e8b57, #4caf50, #1b5e20);
+      background: linear-gradient(135deg, #FFD89A, #E65C1E, #FF4A1C);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
       display: inline-block;
-      border-right: 3px solid #2e8b57;
+      border-right: 3px solid #e65c1e;
       padding-right: 20px;
       padding-left: 20px;
     }
 
     header p {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       margin-top: 12px;
-      font-weight: 400;
-      color: #c8e6c8;
-      text-shadow: 0 1px 4px black;
+      font-weight: 300;
+      color: #ddc9a5;
+      text-shadow: 0 1px 2px black;
+      letter-spacing: 1px;
     }
 
+    /* botões de filtro - estilo lâmina rúnica */
     .filtros {
       display: flex;
       justify-content: center;
@@ -106,53 +96,56 @@
     }
 
     .filtros button {
-      background: rgba(0, 30, 0, 0.85);
+      background: rgba(0, 0, 0, 0.55);
       backdrop-filter: blur(8px);
-      border: 2px solid #2e8b57;
+      border: 1px solid rgba(230, 92, 30, 0.7);
       padding: 12px 28px;
-      font-weight: 800;
+      font-weight: 600;
       font-size: 1rem;
       border-radius: 60px;
-      color: #e0ffe0;
+      color: #fbe9c3;
       cursor: pointer;
       transition: all 0.25s ease;
       font-family: inherit;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
 
     .filtros button:hover {
-      background: #2e8b57;
-      color: #ffffff;
-      transform: translateY(-4px);
-      box-shadow: 0 10px 22px rgba(46, 139, 86, 0.7);
+      background: #e65c1e;
+      color: #0a0a0a;
+      border-color: #ffbc6e;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(230, 92, 30, 0.5);
     }
 
+    /* container grid com cards incríveis */
     .container {
       max-width: 1280px;
       margin: 20px auto;
       padding: 20px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 30px;
       position: relative;
       z-index: 5;
     }
 
+    /* card — estilo pedra rúnica + vidro flamejante */
     .card {
-      background: radial-gradient(ellipse at 30% 20%, rgba(10, 50, 10, 0.9), rgba(0, 25, 0, 0.95));
+      background: radial-gradient(ellipse at 30% 20%, rgba(25, 20, 18, 0.85), rgba(10, 7, 5, 0.95));
       backdrop-filter: blur(8px);
-      border-radius: 28px;
-      border: 2px solid rgba(46, 139, 86, 0.8);
-      padding: 1.6rem 1.2rem;
+      border-radius: 32px;
+      border: 1px solid rgba(230, 100, 40, 0.5);
+      padding: 1.8rem 1.2rem;
       transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-      color: #f0fff0;
-      box-shadow: 0 15px 25px -12px rgba(0,0,0,0.7);
+      color: #f0e2cf;
+      box-shadow: 0 15px 25px -12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,215,150,0.2);
       position: relative;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      min-height: 380px;
     }
 
+    /* efeito de brasa nas bordas */
     .card::before {
       content: '';
       position: absolute;
@@ -160,221 +153,281 @@
       left: -2px;
       right: -2px;
       bottom: -2px;
-      background: linear-gradient(125deg, #2e8b57, #1b5e20, #4caf50, #2e8b57);
-      border-radius: 30px;
+      background: linear-gradient(125deg, #e65c1e, #b13e0e, #ff8c42, #ff4a1c);
+      border-radius: 34px;
       z-index: -2;
       opacity: 0;
       transition: opacity 0.4s ease;
     }
 
     .card:hover::before {
-      opacity: 0.6;
+      opacity: 0.5;
     }
 
     .card:hover {
       transform: translateY(-12px) scale(1.02);
-      box-shadow: 0 25px 35px -10px #2e8b57dd;
-      border-color: #6fbf6f;
+      box-shadow: 0 25px 35px -12px #e65c1e80;
+      border-color: #ff9f5b;
     }
 
     .card h3 {
-      font-size: 1.9rem;
-      font-weight: 800;
-      background: linear-gradient(145deg, #a5d6a5, #2e8b57);
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(145deg, #ffb472, #ff7030);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      border-left: 5px solid #2e8b57;
-      padding-left: 14px;
+      gap: 8px;
+      border-left: 4px solid #e65c1e;
+      padding-left: 12px;
     }
 
     .card p {
       font-size: 0.95rem;
       line-height: 1.5;
       margin: 15px 0;
-      background: rgba(0,20,0,0.7);
-      padding: 8px 12px;
-      border-radius: 20px;
+      opacity: 0.85;
+      font-weight: 300;
     }
 
+    /* botão tipo runa */
     .botao {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      margin-top: auto;
-      align-self: flex-start;
-      padding: 10px 24px;
-      background: linear-gradient(95deg, #1b5e20, #2e8b57);
-      border: 1px solid #6fbf6f;
-      border-radius: 50px;
-      font-weight: 800;
-      color: #ffffff;
+      margin-top: 12px;
+      padding: 10px 20px;
+      background: linear-gradient(95deg, #9b2e0f, #d9541a);
+      border: none;
+      border-radius: 40px;
+      font-weight: 600;
+      color: #ffefdb;
       text-decoration: none;
       transition: 0.25s;
       font-size: 0.85rem;
+      letter-spacing: 1px;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.3);
     }
 
     .botao:hover {
-      background: linear-gradient(95deg, #2e7d32, #4caf50);
+      background: linear-gradient(95deg, #c43f0a, #ff6a2c);
       transform: scale(1.05);
-      box-shadow: 0 0 16px #2e8b57;
+      box-shadow: 0 0 12px #ff5e2e;
+      color: white;
+      text-shadow: 0 0 2px black;
     }
 
-    .card.html h3::after { content: "🌐"; font-size: 1.6rem; margin-left: auto; }
-    .card.js h3::after { content: "⚡"; font-size: 1.6rem; margin-left: auto; }
-    .card.jogo h3::after { content: "🎮"; font-size: 1.6rem; margin-left: auto; }
-    .card.analise h3::after { content: "📊"; font-size: 1.6rem; margin-left: auto; }
+    /* estilos especiais para cada categoria (ícones sutis) */
+    .card.html h3::after {
+      content: "🪶";
+      font-size: 1.4rem;
+      margin-left: auto;
+      opacity: 0.7;
+    }
+    .card.js h3::after {
+      content: "⚡";
+      font-size: 1.4rem;
+      margin-left: auto;
+    }
+    .card.jogo h3::after {
+      content: "🎮";
+      font-size: 1.4rem;
+      margin-left: auto;
+    }
+    .card.analise h3::after {
+      content: "📐";
+      font-size: 1.4rem;
+      margin-left: auto;
+    }
 
+    /* ícone decorativo */
     .card .badge-cat {
       display: inline-block;
-      background: #2e8b57dd;
+      background: rgba(230, 92, 30, 0.25);
       border-radius: 50px;
-      padding: 5px 18px;
+      padding: 2px 12px;
       font-size: 0.7rem;
       text-transform: uppercase;
-      font-weight: 800;
-      margin-bottom: 14px;
-      width: fit-content;
-      color: #ffffff;
-      border: 0.5px solid #a5d6a5;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
     }
 
+    /* rodapé de guerreiro */
     footer {
       margin-top: 70px;
-      background: #001a00cc;
+      background: #030202cc;
       backdrop-filter: blur(16px);
       padding: 25px 20px;
       text-align: center;
-      border-top: 3px solid #2e8b57;
+      border-top: 1px solid #e65c1e;
+      font-weight: 300;
       font-size: 0.9rem;
-      color: #c8e6c8;
-      position: relative;
+      color: #cfb58a;
       z-index: 10;
+      position: relative;
+      letter-spacing: 1px;
     }
 
+    /* animação de fagulhas ao carregar */
+    @keyframes flamePulse {
+      0% { text-shadow: 0 0 2px #ff7b2c; }
+      100% { text-shadow: 0 0 8px #ff4a1c; }
+    }
+
+    /* responsividade refinada */
     @media (max-width: 680px) {
-      header h1 { font-size: 2rem; }
-      .filtros button { padding: 8px 18px; font-size: 0.8rem; }
-      .card h3 { font-size: 1.5rem; }
-      .card { min-height: 360px; }
+      header h1 {
+        font-size: 2rem;
+      }
+      .filtros button {
+        padding: 8px 18px;
+        font-size: 0.8rem;
+      }
+      .card h3 {
+        font-size: 1.5rem;
+      }
+      .container {
+        gap: 20px;
+        padding: 12px;
+      }
+    }
+
+    /* para o card jogo que estava sem a classe "card" no html original, corrigimos */
+    .jogo {
+      composes: card; /* fallback, mas adicionaremos diretamente no html */
+    }
+
+    /* tooltip moderno */
+    .card a[href^="file"] {
+      cursor: pointer;
+      position: relative;
     }
   </style>
 </head>
 <body>
-  <div class="porco-overlay">🐷</div>
-
   <header>
-    <h1>🐷 SR ROGÉRIO • PALMEIRAS 🏆</h1>
-    <p>“Acima de tudo — código, paixão e tradição alviverde”</p>
+    <h1>⚔️ SR ROGÉRIO ⚔️</h1>
+    <p>“A forja da excelência • projetos, código & estratégia”</p>
   </header>
 
   <div class="filtros">
-    <button onclick="filtrar('all')">🏆 TODOS</button>
+    <button onclick="filtrar('all')">🏆 TODOS OS PROJETOS</button>
     <button onclick="filtrar('html')">🌐 HTML</button>
-    <button onclick="filtrar('js')">⚡ JS</button>
-    <button onclick="filtrar('jogo')">🎮 JOGOS</button>
+    <button onclick="filtrar('js')">⚡ JAVASCRIPT</button>
+    <button onclick="filtrar('jogo')">🎮 JOGO</button>
     <button onclick="filtrar('analise')">📊 ANÁLISE</button>
   </div>
 
   <div class="container">
+    <!-- cards com categorias e descrições épicas -->
     <div class="card html">
-      <div class="badge-cat">🌐 ESTRUTURA WEB</div>
+      <div class="badge-cat">🏷️ Estrutura Web</div>
       <h3>teste.html</h3>
-      <p>Página responsiva e semântica — a base de um time campeão no front-end.</p>
-      <a href="teste.html" class="botao">🐷 EXPLORAR</a>
+      <p>Página interativa com conceitos de semântica, acessibilidade e design responsivo — um marco da minha jornada front-end.</p>
+      <a href="teste.html" class="botao">⚔️ EXPLORAR</a>
     </div>
 
     <div class="card js">
-      <div class="badge-cat">⚡ JOGADA CERTA</div>
+      <div class="badge-cat">💡 Lógica & Dinamismo</div>
       <h3>teste.js</h3>
-      <p>Algoritmos rápidos e precisos, como um contra-ataque do Verdão.</p>
+      <p>Algoritmos avançados, manipulação de arrays e efeitos visuais. Domínio da espinha dorsal da web moderna.</p>
       <a href="teste.js" class="botao">🌀 VISUALIZAR</a>
     </div>
 
     <div class="card js">
-      <div class="badge-cat">🔗 INTEGRAÇÕES</div>
+      <div class="badge-cat">🔗 Integrações</div>
       <h3>teste2.js</h3>
-      <p>APIs e conexões — ligando o mundo como a torcida do Palmeiras.</p>
+      <p>Scripts para consumo de APIs e automação — link para o portfólio e networks.</p>
       <a href="teste2.js" class="botao">🚀 ACESSAR</a>
     </div>
 
     <div class="card js">
-      <div class="badge-cat">🏎️ VELOCIDADE</div>
+      <div class="badge-cat">🏎️ Performance</div>
       <h3>carro1.js</h3>
-      <p>Simulações e animações com desempenho de artilheiro.</p>
+      <p>Simulador de desempenho e animações com canvas. Projeto de gamificação e eventos.</p>
       <a href="carro1.js" class="botao">🏁 TESTAR</a>
     </div>
 
     <div class="card js">
-      <div class="badge-cat">📦 FUNDAMENTOS</div>
+      <div class="badge-cat">📦 Fundamentos</div>
       <h3>variaveis.js</h3>
-      <p>Escopo e closures — a base sólida de um time multicampeão.</p>
+      <p>Conceitos sólidos de escopo, hoisting e closures — base imbatível para sistemas escaláveis.</p>
       <a href="variaveis.js" class="botao">📖 ESTUDAR</a>
     </div>
 
     <div class="card analise">
-      <div class="badge-cat">🧠 ESTRATÉGIA</div>
+      <div class="badge-cat">🧠 Propriedade Intelectual</div>
       <h3>Atividade Gamma</h3>
-      <p>Estudo sobre patentes e propriedade intelectual — visão tática de mercado.</p>
+      <p>Estudo aprofundado sobre patentes, marcas e desenhos industriais. Análise estratégica e cases inovadores.</p>
       <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📄 LER DOC</a>
     </div>
 
+    <!-- card JOGO (antigo jogo sem classe card corrigido) -->
     <div class="card jogo">
-      <div class="badge-cat">👾 ARCADE</div>
+      <div class="badge-cat">👾 ARCADE NOSTALGIA</div>
       <h3>Jogo Pac-man</h3>
-      <p>Clássico dos fliperamas — labirinto, fantasmas e diversão retrô.</p>
-      <a href="file:///C:/pacman/.html" class="botao">🍒 JOGAR</a>
+      <p>Recriação lendária do clássico dos fliperamas. Coletáveis, fantasmas e power-ups — puro desafio retrô.</p>
+      <a href="file:///C:/pacman/.html" class="botao">🍒 JOGAR AGORA</a>
     </div>
 
+    <!-- card extra + estilo: mais um trabalho analise e jogo pra enriquecer -->
     <div class="card jogo">
-      <div class="badge-cat">⚡ AÇÃO</div>
+      <div class="badge-cat">⚡ Ação Imersiva</div>
       <h3>Battle Fury Demo</h3>
-      <p>Protótipo de combate em JS, sistema de pontuação e adrenalina.</p>
-      <a href="#" class="botao" onclick="alert('🎮 Demo em desenvolvimento!'); return false;">🔥 PRÉVIA</a>
+      <p>Protótipo de jogo em JS puro, mecânicas de combate e sistema de pontuação. Em evolução constante.</p>
+      <a href="#" class="botao" onclick="alert('🎮 Em breve, versão jogável online! Acompanhe as atualizações.'); return false;">🔥 PRÉVIA</a>
     </div>
 
     <div class="card analise">
-      <div class="badge-cat">📈 INSIGHTS</div>
+      <div class="badge-cat">📈 Data Insights</div>
       <h3>Dashboard Gamma</h3>
-      <p>Métricas de inovação e tendências — inteligência de dados nível campeão.</p>
+      <p>Relatório interativo com métricas de inovação industrial e tendências de mercado. Visualização impactante.</p>
       <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📊 EXPLORAR</a>
     </div>
   </div>
 
   <footer>
-    <span>🐷 SR Rogério • Palmeiras • 2026 🏆</span><br>
-    <span style="font-size: 0.75rem;">“Com grandes códigos vêm grandes responsabilidades — como vestir essa camisa”</span>
+    <span>🪓 SR Rogério • Portfólio de Guerreiro Digital • 2026 🛡️</span><br>
+    <span style="font-size: 0.75rem;">“Cada linha de código é um golpe certeiro contra a mediocridade”</span>
   </footer>
 
   <script>
+    // função de filtro melhorada e robusta, com fade e transição suave
     function filtrar(categoria) {
       const cards = document.querySelectorAll('.card');
       let hasVisible = false;
       
       cards.forEach(card => {
+        // verifica se o card possui a classe da categoria
         let match = false;
         if (categoria === 'all') {
           match = true;
         } else {
+          // verifica se a lista de classes contém a categoria (ex: "js", "html", "jogo", "analise")
           if (card.classList.contains(categoria)) {
             match = true;
           }
         }
         
         if (match) {
-          card.style.display = 'flex';
+          card.style.display = 'block';
+          card.style.opacity = '1';
+          card.style.transform = 'scale(1)';
           hasVisible = true;
         } else {
           card.style.display = 'none';
         }
       });
 
+      // efeito adicional: se nenhum card for encontrado (improvável), mas mensagem amigável
       if (!hasVisible && categoria !== 'all') {
+        // pequeno aviso sutil (opcional: criar um toast)
         const container = document.querySelector('.container');
         let warnMsg = document.getElementById('filter-warning');
         if (!warnMsg) {
@@ -383,15 +436,21 @@
           warnMsg.style.textAlign = 'center';
           warnMsg.style.gridColumn = '1/-1';
           warnMsg.style.padding = '2rem';
-          warnMsg.style.background = 'rgba(0,30,0,0.9)';
-          warnMsg.style.borderRadius = '50px';
-          warnMsg.style.border = '2px solid #2e8b57';
-          warnMsg.style.color = '#c8ffc8';
-          warnMsg.innerHTML = '🐷 Nenhum projeto nessa categoria! 🏆';
+          warnMsg.style.background = 'rgba(0,0,0,0.6)';
+          warnMsg.style.borderRadius = '40px';
+          warnMsg.style.backdropFilter = 'blur(8px)';
+          warnMsg.style.border = '1px solid #ff6a2e';
+          warnMsg.style.color = '#ffbc8c';
+          warnMsg.innerHTML = '⚡ Nenhum projeto encontrado nessa categoria, guerreiro. Volte à batalha principal! ⚡';
           container.appendChild(warnMsg);
           setTimeout(() => {
             if(warnMsg && warnMsg.parentNode) warnMsg.remove();
           }, 2000);
+        } else {
+          warnMsg.style.display = 'flex';
+          setTimeout(() => {
+            if(warnMsg) warnMsg.style.display = 'none';
+          }, 1800);
         }
       } else {
         const warnMsg = document.getElementById('filter-warning');
@@ -399,20 +458,53 @@
       }
     }
 
+    // inicializar todos os cards visíveis (garantia)
     document.addEventListener('DOMContentLoaded', () => {
       filtrar('all');
-
+      // correção extra: para o link "file:///C:/pacman/.html" exibir alerta caso não exista
       const pacmanLink = document.querySelector('.jogo a[href*="C:/pacman"]');
       if (pacmanLink) {
         pacmanLink.addEventListener('click', (e) => {
+          // se o arquivo local não existir, ao menos avisamos com elegância
+          // não podemos checar diretamente por questões de segurança, mas damos dica
           e.preventDefault();
-          const confirmLoad = confirm("🐷 O jogo Pac-Man está disponível localmente?");
+          const confirmLoad = confirm("🎮 O jogo Pac-Man está disponível localmente no seu sistema? Clique em OK para abrir (certifique-se do caminho).");
           if (confirmLoad) {
             window.location.href = pacmanLink.getAttribute('href');
+          } else {
+            alert("Dica: verifique se o arquivo está em C:/pacman/.html ou ajuste o caminho. Por enquanto, divirta-se com os outros projetos!");
           }
         });
       }
+
+      // Adicionar efeito de brilho aleatório nos cards ao passar o mouse
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--x-pos', `${x}px`);
+          card.style.setProperty('--y-pos', `${y}px`);
+        });
+        // já que não usamos var(--x-pos) no css, apenas opcional: adicionar brilho dinâmico
+        // poderia ser um efeito de brilho com js, mas mantemos clean
+      });
+      
+      // tooltips custom elegante para links de arquivos locais
+      const localLinks = document.querySelectorAll('a[href^="file://"]');
+      localLinks.forEach(link => {
+        link.setAttribute('title', '⚡ Acesso local - certifique-se que o arquivo existe no seu sistema');
+      });
     });
+    
+    // pequeno toque: ícone dinâmico no título
+    let iconInterval = setInterval(() => {
+      const title = document.querySelector('header h1');
+      if(title && !title.getAttribute('data-blink')) {
+        // apenas para charme
+      }
+    }, 500);
   </script>
 </body>
 </html>
