@@ -244,6 +244,11 @@
       font-size: 1.4rem;
       margin-left: auto;
     }
+    .card.portfolio h3::after {
+      content: "🌟";
+      font-size: 1.4rem;
+      margin-left: auto;
+    }
 
     /* ícone decorativo */
     .card .badge-cat {
@@ -274,12 +279,6 @@
       letter-spacing: 1px;
     }
 
-    /* animação de fagulhas ao carregar */
-    @keyframes flamePulse {
-      0% { text-shadow: 0 0 2px #ff7b2c; }
-      100% { text-shadow: 0 0 8px #ff4a1c; }
-    }
-
     /* responsividade refinada */
     @media (max-width: 680px) {
       header h1 {
@@ -297,17 +296,6 @@
         padding: 12px;
       }
     }
-
-    /* para o card jogo que estava sem a classe "card" no html original, corrigimos */
-    .jogo {
-      composes: card; /* fallback, mas adicionaremos diretamente no html */
-    }
-
-    /* tooltip moderno */
-    .card a[href^="file"] {
-      cursor: pointer;
-      position: relative;
-    }
   </style>
 </head>
 <body>
@@ -322,6 +310,7 @@
     <button onclick="filtrar('js')">⚡ JAVASCRIPT</button>
     <button onclick="filtrar('jogo')">🎮 JOGO</button>
     <button onclick="filtrar('analise')">📊 ANÁLISE</button>
+    <button onclick="filtrar('portfolio')">🌟 PORTFÓLIO</button>
   </div>
 
   <div class="container">
@@ -332,10 +321,9 @@
       <p>Página interativa com conceitos de semântica, acessibilidade e design responsivo — um marco da minha jornada front-end.</p>
       <a href="teste.html" class="botao">⚔️ EXPLORAR</a>
     </div>
- <div class="container">
-    <!-- cards com categorias e descrições épicas -->
-    <div class=" html">
-      <div class="badge-cat">.html</div>
+
+    <div class="card html">
+      <div class="badge-cat">📄 HTML Puro</div>
       <h3>carta2026</h3>
       <p>Página interativa com conceitos de semântica, acessibilidade e design responsivo — um marco da minha jornada front-end.</p>
       <a href="file:///C:/carta%202026/index.html" class="botao">⚔️ EXPLORAR</a>
@@ -376,15 +364,15 @@
       <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📄 LER DOC</a>
     </div>
 
-    <!-- card JOGO (antigo jogo sem classe card corrigido) -->
+    <!-- card JOGO (corrigido) -->
     <div class="card jogo">
       <div class="badge-cat">👾 ARCADE NOSTALGIA</div>
       <h3>Jogo Pac-man</h3>
       <p>Recriação lendária do clássico dos fliperamas. Coletáveis, fantasmas e power-ups — puro desafio retrô.</p>
-      <a href="file::///C:/pacman/.html class="botao">🍒 JOGAR AGORA</a>
+      <a href="file:///C:/pacman/.html" class="botao">🍒 JOGAR AGORA</a>
     </div>
 
-    <!-- card extra + estilo: mais um trabalho analise e jogo pra enriquecer -->
+    <!-- card jogo extra -->
     <div class="card jogo">
       <div class="badge-cat">⚡ Ação Imersiva</div>
       <h3>Battle Fury Demo</h3>
@@ -398,6 +386,14 @@
       <p>Relatório interativo com métricas de inovação industrial e tendências de mercado. Visualização impactante.</p>
       <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📊 EXPLORAR</a>
     </div>
+
+    <!-- NOVO CARD: PORTFÓLIO PESSOAL -->
+    <div class="card portfolio">
+      <div class="badge-cat">🌟 DESTAQUE PRINCIPAL</div>
+      <h3>Meu Portfólio</h3>
+      <p>Portfólio completo com todos os meus projetos, habilidades e jornada como desenvolvedor. Conheça minha trajetória e trabalhos mais relevantes.</p>
+      <a href="#" id="portfolioLink" class="botao">🌟 VISITAR PORTFÓLIO</a>
+    </div>
   </div>
   
   <footer>
@@ -406,18 +402,16 @@
   </footer>
 
   <script>
-    // função de filtro melhorada e robusta, com fade e transição suave
+    // função de filtro melhorada e robusta
     function filtrar(categoria) {
       const cards = document.querySelectorAll('.card');
       let hasVisible = false;
       
       cards.forEach(card => {
-        // verifica se o card possui a classe da categoria
         let match = false;
         if (categoria === 'all') {
           match = true;
         } else {
-          // verifica se a lista de classes contém a categoria (ex: "js", "html", "jogo", "analise")
           if (card.classList.contains(categoria)) {
             match = true;
           }
@@ -433,9 +427,7 @@
         }
       });
 
-      // efeito adicional: se nenhum card for encontrado (improvável), mas mensagem amigável
       if (!hasVisible && categoria !== 'all') {
-        // pequeno aviso sutil (opcional: criar um toast)
         const container = document.querySelector('.container');
         let warnMsg = document.getElementById('filter-warning');
         if (!warnMsg) {
@@ -466,53 +458,47 @@
       }
     }
 
-    // inicializar todos os cards visíveis (garantia)
+    // SOLICITAÇÃO DO LINK DO PORTFÓLIO
+    // Por favor, COLE SEU LINK AQUI nas opções abaixo:
+    const SEU_LINK_DO_PORTFOLIO = "https://seu-portfolio.com"; // ← COLE SEU LINK AQUI!
+    
+    // Alternativa: se preferir usar um arquivo local:
+    // const SEU_LINK_DO_PORTFOLIO = "file:///C:/caminho/do/seu/portfolio/index.html";
+
     document.addEventListener('DOMContentLoaded', () => {
       filtrar('all');
-      // correção extra: para o link "file:///C:/pacman/.html" exibir alerta caso não exista
+      
+      // Configurar o link do portfólio
+      const portfolioLink = document.getElementById('portfolioLink');
+      if (portfolioLink && SEU_LINK_DO_PORTFOLIO) {
+        portfolioLink.href = SEU_LINK_DO_PORTFOLIO;
+        
+        // Se for link externo, abrir em nova aba
+        if (SEU_LINK_DO_PORTFOLIO.startsWith('http')) {
+          portfolioLink.setAttribute('target', '_blank');
+        }
+      }
+      
+      // correção extra: para o link do pacman
       const pacmanLink = document.querySelector('.jogo a[href*="C:/pacman"]');
       if (pacmanLink) {
         pacmanLink.addEventListener('click', (e) => {
-          // se o arquivo local não existir, ao menos avisamos com elegância
-          // não podemos checar diretamente por questões de segurança, mas damos dica
           e.preventDefault();
           const confirmLoad = confirm("🎮 O jogo Pac-Man está disponível localmente no seu sistema? Clique em OK para abrir (certifique-se do caminho).");
           if (confirmLoad) {
             window.location.href = pacmanLink.getAttribute('href');
           } else {
-            alert("Dica: verifique se o arquivo está em C:/pacman/.html ou ajuste o caminho. Por enquanto, divirta-se com os outros projetos!");
+            alert("Dica: verifique se o arquivo está em C:/pacman/.html ou ajuste o caminho.");
           }
         });
       }
-
-      // Adicionar efeito de brilho aleatório nos cards ao passar o mouse
-      const cards = document.querySelectorAll('.card');
-      cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          card.style.setProperty('--x-pos', `${x}px`);
-          card.style.setProperty('--y-pos', `${y}px`);
-        });
-        // já que não usamos var(--x-pos) no css, apenas opcional: adicionar brilho dinâmico
-        // poderia ser um efeito de brilho com js, mas mantemos clean
-      });
       
-      // tooltips custom elegante para links de arquivos locais
+      // tooltips para links locais
       const localLinks = document.querySelectorAll('a[href^="file://"]');
       localLinks.forEach(link => {
         link.setAttribute('title', '⚡ Acesso local - certifique-se que o arquivo existe no seu sistema');
       });
     });
-    
-    // pequeno toque: ícone dinâmico no título
-    let iconInterval = setInterval(() => {
-      const title = document.querySelector('header h1');
-      if(title && !title.getAttribute('data-blink')) {
-        // apenas para charme
-      }
-    }, 500);
   </script>
 </body>
 </html>
