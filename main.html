@@ -12,7 +12,7 @@
     }
 
     body {
-      font-family: 'Poppins', 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Poppins', 'Segoe UI', 'Cinema', system-ui, -apple-system, 'Inter', sans-serif;
       background: radial-gradient(circle at 20% 30%, #0a0c12, #010101);
       min-height: 100vh;
       color: #ece8e1;
@@ -125,7 +125,7 @@
       margin: 20px auto;
       padding: 20px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 30px;
       position: relative;
       z-index: 5;
@@ -212,7 +212,6 @@
       font-size: 0.85rem;
       letter-spacing: 1px;
       box-shadow: 0 5px 12px rgba(0,0,0,0.3);
-      cursor: pointer;
     }
 
     .botao:hover {
@@ -223,12 +222,12 @@
       text-shadow: 0 0 2px black;
     }
 
-    /* ícones decorativos por categoria (sutis) */
+    /* estilos especiais para cada categoria (ícones sutis) */
     .card.html h3::after {
       content: "🪶";
       font-size: 1.4rem;
       margin-left: auto;
-      opacity: 0.8;
+      opacity: 0.7;
     }
     .card.js h3::after {
       content: "⚡";
@@ -246,6 +245,7 @@
       margin-left: auto;
     }
 
+    /* ícone decorativo */
     .card .badge-cat {
       display: inline-block;
       background: rgba(230, 92, 30, 0.25);
@@ -274,7 +274,13 @@
       letter-spacing: 1px;
     }
 
-    /* responsividade */
+    /* animação de fagulhas ao carregar */
+    @keyframes flamePulse {
+      0% { text-shadow: 0 0 2px #ff7b2c; }
+      100% { text-shadow: 0 0 8px #ff4a1c; }
+    }
+
+    /* responsividade refinada */
     @media (max-width: 680px) {
       header h1 {
         font-size: 2rem;
@@ -292,9 +298,15 @@
       }
     }
 
-    /* transição de filtro suave */
-    .card {
-      transition: opacity 0.25s ease, transform 0.3s ease, display 0.2s allow-discrete;
+    /* para o card jogo que estava sem a classe "card" no html original, corrigimos */
+    .jogo {
+      composes: card; /* fallback, mas adicionaremos diretamente no html */
+    }
+
+    /* tooltip moderno */
+    .card a[href^="file"] {
+      cursor: pointer;
+      position: relative;
     }
   </style>
 </head>
@@ -313,22 +325,22 @@
   </div>
 
   <div class="container">
-    <!-- ================= CATEGORIA HTML ================= -->
+    <!-- cards com categorias e descrições épicas -->
     <div class="card html">
       <div class="badge-cat">🏷️ Estrutura Web</div>
       <h3>teste.html</h3>
-      <p>Página interativa com semântica, acessibilidade e design responsivo — um marco da jornada front-end.</p>
+      <p>Página interativa com conceitos de semântica, acessibilidade e design responsivo — um marco da minha jornada front-end.</p>
       <a href="teste.html" class="botao">⚔️ EXPLORAR</a>
     </div>
-
-    <div class="card html">
-      <div class="badge-cat">📜 Landing Page</div>
+ <div class="container">
+    <!-- cards com categorias e descrições épicas -->
+    <div class=" html">
+      <div class="badge-cat">.html</div>
       <h3>carta2026</h3>
-      <p>Projeto imersivo com animações e storytelling visual. Experiência única para apresentar conteúdo.</p>
-      <a href="file:///C:/carta%202026/index.html" class="botao">📬 VISITAR</a>
+      <p>Página interativa com conceitos de semântica, acessibilidade e design responsivo — um marco da minha jornada front-end.</p>
+      <a href="file:///C:/carta%202026/index.html" class="botao">⚔️ EXPLORAR</a>
     </div>
 
-    <!-- ================= CATEGORIA JAVASCRIPT ================= -->
     <div class="card js">
       <div class="badge-cat">💡 Lógica & Dinamismo</div>
       <h3>teste.js</h3>
@@ -339,14 +351,14 @@
     <div class="card js">
       <div class="badge-cat">🔗 Integrações</div>
       <h3>teste2.js</h3>
-      <p>Scripts para consumo de APIs, automação e conexão com redes externas.</p>
+      <p>Scripts para consumo de APIs e automação — link para o portfólio e networks.</p>
       <a href="teste2.js" class="botao">🚀 ACESSAR</a>
     </div>
 
     <div class="card js">
       <div class="badge-cat">🏎️ Performance</div>
       <h3>carro1.js</h3>
-      <p>Simulador de desempenho e animações com canvas. Gamificação e eventos interativos.</p>
+      <p>Simulador de desempenho e animações com canvas. Projeto de gamificação e eventos.</p>
       <a href="carro1.js" class="botao">🏁 TESTAR</a>
     </div>
 
@@ -357,12 +369,27 @@
       <a href="variaveis.js" class="botao">📖 ESTUDAR</a>
     </div>
 
-    <!-- ================= CATEGORIA ANÁLISE ================= -->
     <div class="card analise">
       <div class="badge-cat">🧠 Propriedade Intelectual</div>
       <h3>Atividade Gamma</h3>
       <p>Estudo aprofundado sobre patentes, marcas e desenhos industriais. Análise estratégica e cases inovadores.</p>
       <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📄 LER DOC</a>
+    </div>
+
+    <!-- card JOGO (antigo jogo sem classe card corrigido) -->
+    <div class="card jogo">
+      <div class="badge-cat">👾 ARCADE NOSTALGIA</div>
+      <h3>Jogo Pac-man</h3>
+      <p>Recriação lendária do clássico dos fliperamas. Coletáveis, fantasmas e power-ups — puro desafio retrô.</p>
+      <a href="file::///C:/pacman/.html class="botao">🍒 JOGAR AGORA</a>
+    </div>
+
+    <!-- card extra + estilo: mais um trabalho analise e jogo pra enriquecer -->
+    <div class="card jogo">
+      <div class="badge-cat">⚡ Ação Imersiva</div>
+      <h3>Battle Fury Demo</h3>
+      <p>Protótipo de jogo em JS puro, mecânicas de combate e sistema de pontuação. Em evolução constante.</p>
+      <a href="#" class="botao" onclick="alert('🎮 Em breve, versão jogável online! Acompanhe as atualizações.'); return false;">🔥 PRÉVIA</a>
     </div>
 
     <div class="card analise">
@@ -371,175 +398,121 @@
       <p>Relatório interativo com métricas de inovação industrial e tendências de mercado. Visualização impactante.</p>
       <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📊 EXPLORAR</a>
     </div>
-
-    <div class="card analise">
-      <div class="badge-cat">⚙️ Estratégia Tech</div>
-      <h3>Mapeamento de Patentes</h3>
-      <p>Estudo de tecnologias emergentes e análise de concorrência. Ferramenta para tomada de decisão.</p>
-      <a href="#" class="botao" onclick="alert('📡 Documento exclusivo disponível sob consulta. Guerreiro, entre em contato!'); return false;">🔍 SINOPSE</a>
-    </div>
-
-    <!-- ================= CATEGORIA JOGO ================= -->
-    <div class="card jogo">
-      <div class="badge-cat">👾 ARCADE NOSTALGIA</div>
-      <h3>Pac-Man Clássico</h3>
-      <p>Recriação lendária do icônico fliperama. Coletáveis, fantasmas e power-ups — puro desafio retrô.</p>
-      <a href="file:///C:/pacman/index.html" class="botao" id="pacmanLink">🍒 JOGAR AGORA</a>
-    </div>
-
-    <div class="card jogo">
-      <div class="badge-cat">⚡ Ação Imersiva</div>
-      <h3>Battle Fury Demo</h3>
-      <p>Protótipo de jogo em JS puro, mecânicas de combate e sistema de pontuação. Em evolução constante.</p>
-      <a href="#" class="botao" onclick="alert('🎮 Em breve, versão jogável online! Acompanhe as atualizações do guerreiro SR Rogério.'); return false;">🔥 PRÉVIA</a>
-    </div>
-
-    <div class="card jogo">
-      <div class="badge-cat">🧙 RPG Tático</div>
-      <h3>Espírito da Forja</h3>
-      <p>Jogo baseado em turnos com decisões estratégicas e lore medieval. Feito com HTML, CSS e JS puro.</p>
-      <a href="#" class="botao" onclick="alert('⚔️ O reino te aguarda! Demo em desenvolvimento. Em breve você empunhará esta espada.'); return false;">🛡️ TESTAR BETA</a>
-    </div>
-
-    <!-- card extra para demonstrar riqueza de categorias (HTML extra) -->
-    <div class="card html">
-      <div class="badge-cat">🎨 UI/UX Artesanal</div>
-      <h3>Portfólio Interativo</h3>
-      <p>Galeria de projetos com filtros dinâmicos e transições cinematográficas. Código modular e responsivo.</p>
-      <a href="#" class="botao" onclick="alert('✨ Este é o próprio portfólio que você está navegando! Um exemplo vivo da minha arte.'); return false;">🌟 DEMO VIVA</a>
-    </div>
-
-    <!-- card JS extra com ferramenta criativa -->
-    <div class="card js">
-      <div class="badge-cat">🧩 Utilitário</div>
-      <h3>calculadora-rúnica.js</h3>
-      <p>Ferramenta de cálculos avançados com interface CLI e visual web. Lógica pura e eficiente.</p>
-      <a href="#" class="botao" onclick="alert('🔢 Exemplo: 2+2 = 4. Mas em versão final terá interface completa!'); return false;">⚙️ EXECUTAR</a>
-    </div>
   </div>
-
+  
   <footer>
     <span>🪓 SR Rogério • Portfólio de Guerreiro Digital • 2026 🛡️</span><br>
     <span style="font-size: 0.75rem;">“Cada linha de código é um golpe certeiro contra a mediocridade”</span>
   </footer>
 
   <script>
-    // Função de filtro robusta com categorização precisa
+    // função de filtro melhorada e robusta, com fade e transição suave
     function filtrar(categoria) {
       const cards = document.querySelectorAll('.card');
       let hasVisible = false;
-      // remove aviso de nenhum resultado se existir
-      const oldWarning = document.getElementById('filter-warning');
-      if(oldWarning) oldWarning.remove();
-
+      
       cards.forEach(card => {
+        // verifica se o card possui a classe da categoria
         let match = false;
         if (categoria === 'all') {
           match = true;
         } else {
-          // checagem direta da classe (html, js, jogo, analise)
+          // verifica se a lista de classes contém a categoria (ex: "js", "html", "jogo", "analise")
           if (card.classList.contains(categoria)) {
             match = true;
           }
         }
         
         if (match) {
-          card.style.display = '';
+          card.style.display = 'block';
           card.style.opacity = '1';
-          card.style.transform = '';
+          card.style.transform = 'scale(1)';
           hasVisible = true;
         } else {
           card.style.display = 'none';
         }
       });
 
-      // caso nenhum card seja encontrado (categoria sem projetos, mas todas tem ao menos 1)
+      // efeito adicional: se nenhum card for encontrado (improvável), mas mensagem amigável
       if (!hasVisible && categoria !== 'all') {
+        // pequeno aviso sutil (opcional: criar um toast)
         const container = document.querySelector('.container');
-        const warnMsg = document.createElement('div');
-        warnMsg.id = 'filter-warning';
-        warnMsg.style.textAlign = 'center';
-        warnMsg.style.gridColumn = '1/-1';
-        warnMsg.style.padding = '2rem';
-        warnMsg.style.background = 'rgba(0,0,0,0.7)';
-        warnMsg.style.borderRadius = '40px';
-        warnMsg.style.backdropFilter = 'blur(12px)';
-        warnMsg.style.border = '1px solid #ff6a2e';
-        warnMsg.style.color = '#ffbc8c';
-        warnMsg.innerHTML = '⚔️ Nenhum projeto encontrado nessa categoria, guerreiro. Volte à batalha principal! ⚔️';
-        container.appendChild(warnMsg);
-        setTimeout(() => {
-          if(warnMsg && warnMsg.parentNode) warnMsg.remove();
-        }, 2200);
+        let warnMsg = document.getElementById('filter-warning');
+        if (!warnMsg) {
+          warnMsg = document.createElement('div');
+          warnMsg.id = 'filter-warning';
+          warnMsg.style.textAlign = 'center';
+          warnMsg.style.gridColumn = '1/-1';
+          warnMsg.style.padding = '2rem';
+          warnMsg.style.background = 'rgba(0,0,0,0.6)';
+          warnMsg.style.borderRadius = '40px';
+          warnMsg.style.backdropFilter = 'blur(8px)';
+          warnMsg.style.border = '1px solid #ff6a2e';
+          warnMsg.style.color = '#ffbc8c';
+          warnMsg.innerHTML = '⚡ Nenhum projeto encontrado nessa categoria, guerreiro. Volte à batalha principal! ⚡';
+          container.appendChild(warnMsg);
+          setTimeout(() => {
+            if(warnMsg && warnMsg.parentNode) warnMsg.remove();
+          }, 2000);
+        } else {
+          warnMsg.style.display = 'flex';
+          setTimeout(() => {
+            if(warnMsg) warnMsg.style.display = 'none';
+          }, 1800);
+        }
+      } else {
+        const warnMsg = document.getElementById('filter-warning');
+        if(warnMsg && warnMsg.parentNode) warnMsg.remove();
       }
     }
 
-    // Adicionar interações elegantes e prevenção de links locais com falha
+    // inicializar todos os cards visíveis (garantia)
     document.addEventListener('DOMContentLoaded', () => {
-      // Inicializa mostrando todos
       filtrar('all');
-
-      // Tratamento especial para o link do Pac-Man (validação amigável)
-      const pacmanBtn = document.getElementById('pacmanLink');
-      if (pacmanBtn) {
-        pacmanBtn.addEventListener('click', (e) => {
+      // correção extra: para o link "file:///C:/pacman/.html" exibir alerta caso não exista
+      const pacmanLink = document.querySelector('.jogo a[href*="C:/pacman"]');
+      if (pacmanLink) {
+        pacmanLink.addEventListener('click', (e) => {
+          // se o arquivo local não existir, ao menos avisamos com elegância
+          // não podemos checar diretamente por questões de segurança, mas damos dica
           e.preventDefault();
-          const userConfirmed = confirm("🎮 ATENÇÃO GUERREIRO: O jogo Pac-Man está disponível localmente? Verifique o caminho C:/pacman/index.html\nClique em OK para tentar abrir (se o arquivo existir).");
-          if (userConfirmed) {
-            window.location.href = pacmanBtn.getAttribute('href');
+          const confirmLoad = confirm("🎮 O jogo Pac-Man está disponível localmente no seu sistema? Clique em OK para abrir (certifique-se do caminho).");
+          if (confirmLoad) {
+            window.location.href = pacmanLink.getAttribute('href');
           } else {
-            alert("Dica: Você pode baixar o jogo ou ajustar o caminho. Enquanto isso, explore os outros projetos épicos!");
+            alert("Dica: verifique se o arquivo está em C:/pacman/.html ou ajuste o caminho. Por enquanto, divirta-se com os outros projetos!");
           }
         });
       }
 
-      // Adicionar tooltips dinâmicos para links locais e externos
-      const localLinks = document.querySelectorAll('a[href^="file://"]');
-      localLinks.forEach(link => {
-        link.setAttribute('title', '📁 Arquivo local - certifique-se que o caminho existe no seu sistema');
-      });
-      
-      const externalLinks = document.querySelectorAll('a[href^="https://"]');
-      externalLinks.forEach(link => {
-        link.setAttribute('target', '_blank');
-        link.setAttribute('rel', 'noopener noreferrer');
-        link.setAttribute('title', '🔗 Abre em nova aba - conteúdo externo');
-      });
-
-      // Efeito de fagulha nos cards: adicionar brilho dinâmico no mouse (opcional)
+      // Adicionar efeito de brilho aleatório nos cards ao passar o mouse
       const cards = document.querySelectorAll('.card');
       cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
           const rect = card.getBoundingClientRect();
-          const x = ((e.clientX - rect.left) / rect.width) * 100;
-          const y = ((e.clientY - rect.top) / rect.height) * 100;
-          card.style.setProperty('--mouse-x', `${x}%`);
-          card.style.setProperty('--mouse-y', `${y}%`);
-          // efeito de leve brilho radial custom (se quiser adicionar no CSS mas opcional)
-          card.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(230,92,30,0.2), rgba(10,7,5,0.95))`;
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--x-pos', `${x}px`);
+          card.style.setProperty('--y-pos', `${y}px`);
         });
-        card.addEventListener('mouseleave', () => {
-          card.style.background = '';
-        });
+        // já que não usamos var(--x-pos) no css, apenas opcional: adicionar brilho dinâmico
+        // poderia ser um efeito de brilho com js, mas mantemos clean
       });
-
-      // Ajustar o título com interação
-      const headerTitle = document.querySelector('header h1');
-      if (headerTitle) {
-        headerTitle.addEventListener('click', () => {
-          filtrar('all');
-          // pequeno efeito sonoro imaginário + notificação
-          console.log("⚔️ Forjando todos os projetos novamente!");
-        });
-      }
       
-      // Mostrar mensagem de boas-vindas sutil no console
-      console.log("%c⚔️ SR Rogério • Portfólio do Guerreiro Ativo • Sistema de Categorias Online ⚔️", "color: #ff8c42; font-size: 16px; font-weight: bold;");
-      console.log("🛡️ Filtros por categoria: HTML | JS | JOGO | ANÁLISE — use os botões acima.");
+      // tooltips custom elegante para links de arquivos locais
+      const localLinks = document.querySelectorAll('a[href^="file://"]');
+      localLinks.forEach(link => {
+        link.setAttribute('title', '⚡ Acesso local - certifique-se que o arquivo existe no seu sistema');
+      });
     });
-
-    // Adicionar evento também para os botões que porventura sejam clicados dinamicamente (garantia)
-    window.filtrar = filtrar;
+    
+    // pequeno toque: ícone dinâmico no título
+    let iconInterval = setInterval(() => {
+      const title = document.querySelector('header h1');
+      if(title && !title.getAttribute('data-blink')) {
+        // apenas para charme
+      }
+    }, 500);
   </script>
-</body>
+</body>      
 </html>
