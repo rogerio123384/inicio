@@ -458,12 +458,15 @@
       }
     }
 
-    // SOLICITAÇÃO DO LINK DO PORTFÓLIO
-    // Por favor, COLE SEU LINK AQUI nas opções abaixo:
-    const SEU_LINK_DO_PORTFOLIO = "https://seu-portfolio.com"; // ← COLE SEU LINK AQUI!
+    // 🔥 COLE SEU LINK DO PORTFÓLIO AQUI 🔥
+    // Substitua o link abaixo pelo seu endereço do portfólio
+    const SEU_LINK_DO_PORTFOLIO = "https://seu-portfolio.com"; // ← MUDE AQUI!
     
-    // Alternativa: se preferir usar um arquivo local:
-    // const SEU_LINK_DO_PORTFOLIO = "file:///C:/caminho/do/seu/portfolio/index.html";
+    // Exemplos de como colocar seu link:
+    // Para GitHub Pages: const SEU_LINK_DO_PORTFOLIO = "https://seuusuario.github.io/meu-portfolio";
+    // Para Vercel: const SEU_LINK_DO_PORTFOLIO = "https://meu-portfolio.vercel.app";
+    // Para Netlify: const SEU_LINK_DO_PORTFOLIO = "https://meuportfolio.netlify.app";
+    // Para arquivo local: const SEU_LINK_DO_PORTFOLIO = "file:///C:/caminho/para/seu/index.html";
 
     document.addEventListener('DOMContentLoaded', () => {
       filtrar('all');
@@ -473,10 +476,16 @@
       if (portfolioLink && SEU_LINK_DO_PORTFOLIO) {
         portfolioLink.href = SEU_LINK_DO_PORTFOLIO;
         
-        // Se for link externo, abrir em nova aba
+        // Se for link externo (http ou https), abrir em nova aba
         if (SEU_LINK_DO_PORTFOLIO.startsWith('http')) {
           portfolioLink.setAttribute('target', '_blank');
         }
+      } else if (portfolioLink) {
+        // Caso não tenha configurado o link, mostra um alerta amigável
+        portfolioLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          alert('⚙️ Configure seu link do portfólio no código!\n\nProcure por "SEU_LINK_DO_PORTFOLIO" no JavaScript e cole seu endereço.');
+        });
       }
       
       // correção extra: para o link do pacman
