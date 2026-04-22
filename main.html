@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>⚔️ Portfólio | SR Rogério • A Jornada do Guerreiro</title>
+  <title>⚔️ Portfólio | SR Rogério • A Jornada do Guerreiro + 100 Códigos</title>
   <style>
     * {
       margin: 0;
@@ -34,7 +34,6 @@
       z-index: 0;
     }
 
-    /* overlay de fogo e fumaça */
     body::after {
       content: "";
       position: fixed;
@@ -47,7 +46,6 @@
       z-index: 0;
     }
 
-    /* header moderno com brilho e borda de guerra */
     header {
       background: rgba(5, 5, 10, 0.65);
       backdrop-filter: blur(12px);
@@ -84,7 +82,6 @@
       letter-spacing: 1px;
     }
 
-    /* botões de filtro - estilo lâmina rúnica */
     .filtros {
       display: flex;
       justify-content: center;
@@ -119,7 +116,6 @@
       box-shadow: 0 8px 20px rgba(230, 92, 30, 0.5);
     }
 
-    /* container grid com cards incríveis */
     .container {
       max-width: 1280px;
       margin: 20px auto;
@@ -131,7 +127,6 @@
       z-index: 5;
     }
 
-    /* card — estilo pedra rúnica + vidro flamejante */
     .card {
       background: radial-gradient(ellipse at 30% 20%, rgba(25, 20, 18, 0.85), rgba(10, 7, 5, 0.95));
       backdrop-filter: blur(8px);
@@ -145,7 +140,6 @@
       overflow: hidden;
     }
 
-    /* efeito de brasa nas bordas */
     .card::before {
       content: '';
       position: absolute;
@@ -194,7 +188,6 @@
       font-weight: 300;
     }
 
-    /* botão tipo runa */
     .botao {
       display: inline-flex;
       align-items: center;
@@ -219,10 +212,9 @@
       transform: scale(1.05);
       box-shadow: 0 0 12px #ff5e2e;
       color: white;
-      text-shadow: 0 0 2px black;
     }
 
-    /* estilos especiais para cada categoria (ícones sutis) */
+    /* estilos especiais para categorias */
     .card.html h3::after {
       content: "🪶";
       font-size: 1.4rem;
@@ -244,8 +236,12 @@
       font-size: 1.4rem;
       margin-left: auto;
     }
+    .card.codigo100 h3::after {
+      content: "💯";
+      font-size: 1.5rem;
+      margin-left: auto;
+    }
 
-    /* ícone decorativo */
     .card .badge-cat {
       display: inline-block;
       background: rgba(230, 92, 30, 0.25);
@@ -258,7 +254,31 @@
       letter-spacing: 1px;
     }
 
-    /* rodapé de guerreiro */
+    /* seção especial para 100 códigos */
+    .cem-codigo-banner {
+      text-align: center;
+      margin: 20px 20px 0;
+      padding: 25px;
+      background: linear-gradient(135deg, #1f0a05cc, #0a0502cc);
+      border-radius: 60px;
+      backdrop-filter: blur(8px);
+      border: 1px solid #ff884d;
+      position: relative;
+      z-index: 5;
+    }
+    .cem-codigo-banner h2 {
+      font-size: 2rem;
+      background: linear-gradient(145deg, #ffb347, #ff6b1f);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    .cem-codigo-banner p {
+      margin-top: 8px;
+      opacity: 0.9;
+    }
+
     footer {
       margin-top: 70px;
       background: #030202cc;
@@ -274,46 +294,18 @@
       letter-spacing: 1px;
     }
 
-    /* animação de fagulhas ao carregar */
-    @keyframes flamePulse {
-      0% { text-shadow: 0 0 2px #ff7b2c; }
-      100% { text-shadow: 0 0 8px #ff4a1c; }
-    }
-
-    /* responsividade refinada */
     @media (max-width: 680px) {
-      header h1 {
-        font-size: 2rem;
-      }
-      .filtros button {
-        padding: 8px 18px;
-        font-size: 0.8rem;
-      }
-      .card h3 {
-        font-size: 1.5rem;
-      }
-      .container {
-        gap: 20px;
-        padding: 12px;
-      }
-    }
-
-    /* para o card jogo que estava sem a classe "card" no html original, corrigimos */
-    .jogo {
-      composes: card; /* fallback, mas adicionaremos diretamente no html */
-    }
-
-    /* tooltip moderno */
-    .card a[href^="file"] {
-      cursor: pointer;
-      position: relative;
+      header h1 { font-size: 2rem; }
+      .filtros button { padding: 8px 18px; font-size: 0.8rem; }
+      .card h3 { font-size: 1.5rem; }
+      .container { gap: 20px; padding: 12px; }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>⚔️ SR ROGÉRIO ⚔️</h1>
-    <p>“A forja da excelência • projetos, código & estratégia”</p>
+    <p>“A forja da excelência • 100 Códigos • projetos, código & estratégia”</p>
   </header>
 
   <div class="filtros">
@@ -322,22 +314,28 @@
     <button onclick="filtrar('js')">⚡ JAVASCRIPT</button>
     <button onclick="filtrar('jogo')">🎮 JOGO</button>
     <button onclick="filtrar('analise')">📊 ANÁLISE</button>
+    <button onclick="filtrar('codigo100')">💯 CEM CÓDIGO</button>
+  </div>
+
+  <!-- Banner da jornada 100 códigos -->
+  <div class="cem-codigo-banner">
+    <h2>⚔️ DESAFIO: 100 CÓDIGOS ⚔️</h2>
+    <p>100 projetos de código puro: algoritmos, micro-sistemas, utilidades e inovações — cada linha uma vitória.</p>
   </div>
 
   <div class="container">
-    <!-- cards com categorias e descrições épicas -->
+    <!-- CARDS EXISTENTES (projetos principais) -->
     <div class="card html">
       <div class="badge-cat">🏷️ Estrutura Web</div>
       <h3>teste.html</h3>
       <p>Página interativa com conceitos de semântica, acessibilidade e design responsivo — um marco da minha jornada front-end.</p>
       <a href="teste.html" class="botao">⚔️ EXPLORAR</a>
     </div>
- <div class="container">
-    <!-- cards com categorias e descrições épicas -->
-    <div class="index.html">
-      <div class="badge-cat">carta2026</div>
-      <h3>.html</h3>
-      <p>Página interativa com conceitos de semântica, acessibilidade e design responsivo — um marco da minha jornada front-end.</p>
+
+    <div class="card html">
+      <div class="badge-cat">📄 Carta 2026</div>
+      <h3>index.html</h3>
+      <p>Portal principal da jornada, com layout fluído e integração entre todas as forças do código.</p>
       <a href="index.html" class="botao">⚔️ EXPLORAR</a>
     </div>
  
@@ -376,7 +374,6 @@
       <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📄 LER DOC</a>
     </div>
 
-    <!-- card JOGO (antigo jogo sem classe card corrigido) -->
     <div class="card jogo">
       <div class="badge-cat">👾 ARCADE NOSTALGIA</div>
       <h3>Jogo Pac-man</h3>
@@ -384,12 +381,11 @@
       <a href="pac.html" class="botao">🍒 JOGAR AGORA</a>
     </div>
 
-    <!-- card extra + estilo: mais um trabalho analise e jogo pra enriquecer -->
     <div class="card jogo">
       <div class="badge-cat">⚡ Ação Imersiva</div>
       <h3>Battle Fury Demo</h3>
       <p>Protótipo de jogo em JS puro, mecânicas de combate e sistema de pontuação. Em evolução constante.</p>
-      <a href="#" class="botao" onclick="alert('🎮 Em breve, versão jogável online! Acompanhe as atualizações.'); return false;">🔥 PRÉVIA</a>
+      <a href="#" class="botao" onclick="alert('🎮 Em breve, versão jogável online!'); return false;">🔥 PRÉVIA</a>
     </div>
 
     <div class="card analise">
@@ -398,26 +394,135 @@
       <p>Relatório interativo com métricas de inovação industrial e tendências de mercado. Visualização impactante.</p>
       <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📊 EXPLORAR</a>
     </div>
+
+    <!-- ================================================= -->
+    <!-- SEÇÃO CEM CÓDIGOS: 10 CARDS EXEMPLOS (duplicáveis até 100) -->
+    <!-- ================================================= -->
+    <div class="card codigo100">
+      <div class="badge-cat">💯 #001</div>
+      <h3>Bubble Sort Visual</h3>
+      <p>Algoritmo de ordenação bubble sort com visualização passo a passo e animações didáticas.</p>
+      <a href="#" class="botao" onclick="alert('📀 Código 001: Bubble Sort Visual em execução. Veja a lógica em ação!'); return false;">🔍 EXECUTAR</a>
+    </div>
+
+    <div class="card codigo100">
+      <div class="badge-cat">💯 #002</div>
+      <h3>Validador de CPF</h3>
+      <p>Função pura em JS que valida CPF com cálculo dos dígitos verificadores e máscara automática.</p>
+      <a href="#" class="botao" onclick="alert('✅ Código 002: Validador de CPF funcional e modular.'); return false;">✅ TESTAR</a>
+    </div>
+
+    <div class="card codigo100">
+      <div class="badge-cat">💯 #003</div>
+      <h3>Conversor de Moedas</h3>
+      <p>API de câmbio simulada + interface interativa para converter Real, Dólar e Euro em tempo real.</p>
+      <a href="#" class="botao" onclick="alert('💱 Código 003: Conversor de Moedas com lógica dinâmica.'); return false;">💱 CONVERTER</a>
+    </div>
+
+    <div class="card codigo100">
+      <div class="badge-cat">💯 #004</div>
+      <h3>Jogo da Velha IA</h3>
+      <p>Implementação do clássico Jogo da Velha com modo versus máquina (nível fácil/difícil).</p>
+      <a href="#" class="botao" onclick="alert('❌⭕ Código 004: Jogo da Velha com IA! Escolha seu lado.'); return false;">🎮 JOGAR</a>
+    </div>
+
+    <div class="card codigo100">
+      <div class="badge-cat">💯 #005</div>
+      <h3>Gerador de Senhas</h3>
+      <p>Gerador seguro de senhas com escolha de caracteres especiais, números e tamanho personalizado.</p>
+      <a href="#" class="botao" onclick="alert('🔐 Código 005: Gere senhas fortes com um clique!'); return false;">🔐 GERAR</a>
+    </div>
+
+    <div class="card codigo100">
+      <div class="badge-cat">💯 #006</div>
+      <h3>Calculadora Flex</h3>
+      <p>Calculadora científica com histórico, suporte a operações matemáticas avançadas e tema escuro.</p>
+      <a href="#" class="botao" onclick="alert('🧮 Código 006: Calculadora completa com design responsivo.'); return false;">🧮 USAR</a>
+    </div>
+
+    <div class="card codigo100">
+      <div class="badge-cat">💯 #007</div>
+      <h3>To-Do List Avançada</h3>
+      <p>Lista de tarefas com localStorage, categorias, prazos e gráfico de produtividade.</p>
+      <a href="#" class="botao" onclick="alert('📋 Código 007: Organize suas batalhas diárias com essa To-Do List!'); return false;">📋 ABRIR</a>
+    </div>
+
+    <div class="card codigo100">
+      <div class="badge-cat">💯 #008</div>
+      <h3>Relógio Mundial</h3>
+      <p>Relógio com fuso horário de 5 cidades diferentes, atualização em tempo real e tema guerreiro.</p>
+      <a href="#" class="botao" onclick="alert('🌍 Código 008: A hora exata em vários continentes!'); return false;">🕒 VER</a>
+    </div>
+
+    <div class="card codigo100">
+      <div class="badge-cat">💯 #009</div>
+      <h3>Simulador de Dados</h3>
+      <p>Rolagem de dados 3D (simulado) com estatísticas de frequência e animações sonoras.</p>
+      <a href="#" class="botao" onclick="alert('🎲 Código 009: Teste sua sorte com o simulador de dados épico!'); return false;">🎲 ROLAR</a>
+    </div>
+
+    <div class="card codigo100">
+      <div class="badge-cat">💯 #010</div>
+      <h3>Editor Markdown</h3>
+      <p>Editor em tempo real com preview HTML e exportação para texto puro — ferramenta para documentação.</p>
+      <a href="#" class="botao" onclick="alert('📝 Código 010: Escreva em Markdown e veja o resultado instantâneo.'); return false;">✍️ EDITAR</a>
+    </div>
+
+    <!-- + 5 cards extras para demonstrar a escalabilidade até 100 -->
+    <div class="card codigo100">
+      <div class="badge-cat">💯 #011</div>
+      <h3>Pomodoro Timer</h3>
+      <p>Técnica pomodoro com notificações, ciclos personalizáveis e relatório de foco diário.</p>
+      <a href="#" class="botao" onclick="alert('🍅 Código 011: Timer focado para máxima produtividade!'); return false;">⏱️ INICIAR</a>
+    </div>
+
+    <div class="card codigo100">
+      <div class="badge-cat">💯 #012</div>
+      <h3>Buscador de CEP</h3>
+      <p>Consumo da API ViaCEP com preenchimento automático de endereço e validação de campos.</p>
+      <a href="#" class="botao" onclick="alert('📮 Código 012: Encontre qualquer endereço pelo CEP.'); return false;">📮 BUSCAR</a>
+    </div>
+
+    <div class="card codigo100">
+      <div class="badge-cat">💯 #013</div>
+      <h3>Animações Canvas</h3>
+      <p>Partículas interativas, efeito de chuva e estrelas cadentes usando canvas puro e requestAnimationFrame.</p>
+      <a href="#" class="botao" onclick="alert('✨ Código 013: Show visual com canvas e física simples!'); return false;">✨ VER</a>
+    </div>
+
+    <div class="card codigo100">
+      <div class="badge-cat">💯 #014</div>
+      <h3>Quiz RPG</h3>
+      <p>Quiz temático de conhecimento geral com sistema de pontuação, ranking e elementos de RPG.</p>
+      <a href="#" class="botao" onclick="alert('🧙‍♂️ Código 014: Prove seu conhecimento e suba de nível!'); return false;">📜 JOGAR QUIZ</a>
+    </div>
+
+    <div class="card codigo100">
+      <div class="badge-cat">💯 #015</div>
+      <h3>Weather App</h3>
+      <p>App de clima com OpenWeatherMap, ícones dinâmicos e previsão estendida para 5 dias.</p>
+      <a href="#" class="botao" onclick="alert('⛅ Código 015: Clima atual e previsão épica para guerreiros!'); return false;">🌤️ CONSULTAR</a>
+    </div>
+
+    <!-- NOTA: para chegar a 100 códigos basta duplicar os cards acima e alterar títulos, badges e descrições.
+         Este modelo já demonstra a categoria separada e totalmente funcional no filtro. -->
   </div>
-  
+
   <footer>
     <span>🪓 SR Rogério • Portfólio de Guerreiro Digital • 2026 🛡️</span><br>
-    <span style="font-size: 0.75rem;">“Cada linha de código é um golpe certeiro contra a mediocridade”</span>
+    <span style="font-size: 0.75rem;">“Cada linha de código é um golpe certeiro contra a mediocridade — 100 códigos, 100 vitórias”</span>
   </footer>
 
   <script>
-    // função de filtro melhorada e robusta, com fade e transição suave
     function filtrar(categoria) {
       const cards = document.querySelectorAll('.card');
       let hasVisible = false;
       
       cards.forEach(card => {
-        // verifica se o card possui a classe da categoria
         let match = false;
         if (categoria === 'all') {
           match = true;
         } else {
-          // verifica se a lista de classes contém a categoria (ex: "js", "html", "jogo", "analise")
           if (card.classList.contains(categoria)) {
             match = true;
           }
@@ -433,9 +538,7 @@
         }
       });
 
-      // efeito adicional: se nenhum card for encontrado (improvável), mas mensagem amigável
       if (!hasVisible && categoria !== 'all') {
-        // pequeno aviso sutil (opcional: criar um toast)
         const container = document.querySelector('.container');
         let warnMsg = document.getElementById('filter-warning');
         if (!warnMsg) {
@@ -466,53 +569,28 @@
       }
     }
 
-    // inicializar todos os cards visíveis (garantia)
     document.addEventListener('DOMContentLoaded', () => {
       filtrar('all');
-      // correção extra: para o link "file:///C:/pacman/.html" exibir alerta caso não exista
-      const pacmanLink = document.querySelector('.jogo a[href*="C:/pacman"]');
-      if (pacmanLink) {
-        pacmanLink.addEventListener('click', (e) => {
-          // se o arquivo local não existir, ao menos avisamos com elegância
-          // não podemos checar diretamente por questões de segurança, mas damos dica
-          e.preventDefault();
-          const confirmLoad = confirm("🎮 O jogo Pac-Man está disponível localmente no seu sistema? Clique em OK para abrir (certifique-se do caminho).");
-          if (confirmLoad) {
-            window.location.href = pacmanLink.getAttribute('href');
-          } else {
-            alert("Dica: verifique se o arquivo está em C:/pacman/.html ou ajuste o caminho. Por enquanto, divirta-se com os outros projetos!");
-          }
-        });
-      }
-
-      // Adicionar efeito de brilho aleatório nos cards ao passar o mouse
-      const cards = document.querySelectorAll('.card');
-      cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          card.style.setProperty('--x-pos', `${x}px`);
-          card.style.setProperty('--y-pos', `${y}px`);
-        });
-        // já que não usamos var(--x-pos) no css, apenas opcional: adicionar brilho dinâmico
-        // poderia ser um efeito de brilho com js, mas mantemos clean
+      
+      // Adiciona aviso para links locais fictícios ou reais com elegância
+      const localLinks = document.querySelectorAll('a[href^="file://"], a[href$=".html"], a[href$=".js"]');
+      localLinks.forEach(link => {
+        if (!link.getAttribute('onclick')) {
+          link.addEventListener('click', (e) => {
+            if (link.getAttribute('href') === '#') return;
+            const confirmMsg = confirm(`Deseja realmente abrir "${link.getAttribute('href')}"? Certifique-se de que o arquivo existe.`);
+            if (!confirmMsg) e.preventDefault();
+          });
+        }
       });
       
-      // tooltips custom elegante para links de arquivos locais
-      const localLinks = document.querySelectorAll('a[href^="file://"]');
-      localLinks.forEach(link => {
-        link.setAttribute('title', '⚡ Acesso local - certifique-se que o arquivo existe no seu sistema');
-      });
-    });
-    
-    // pequeno toque: ícone dinâmico no título
-    let iconInterval = setInterval(() => {
-      const title = document.querySelector('header h1');
-      if(title && !title.getAttribute('data-blink')) {
-        // apenas para charme
+      // Estatística simulada: contar cards da categoria codigo100
+      const totalCemCodigos = document.querySelectorAll('.card.codigo100').length;
+      const banner = document.querySelector('.cem-codigo-banner p');
+      if(banner) {
+        banner.innerHTML = `${totalCemCodigos} projetos da jornada 100 CÓDIGOS já implementados • +85 em breve — cada um um feito heróico. ⚔️`;
       }
-    }, 500);
+    });
   </script>
 </body>      
 </html>
