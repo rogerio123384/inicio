@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>⚔️ Rogério Alves • Portfólio do Guerreiro Full-Stack</title>
+  <title>⚔️ Rogério Alves • Portfólio | HTML + JS + Análise + Projetos</title>
   <style>
     * {
       margin: 0;
@@ -20,7 +20,7 @@
       overflow-x: hidden;
     }
 
-    /* textura rúnica e poeira de batalha */
+    /* textura rúnica */
     body::before {
       content: "";
       position: fixed;
@@ -69,7 +69,7 @@
       padding-right: 20px;
     }
 
-    /* cards de apresentação do guerreiro */
+    /* cards de apresentação */
     .apresentacao {
       max-width: 1200px;
       margin: 40px auto 0;
@@ -115,12 +115,14 @@
       font-weight: 500;
       margin: 6px 6px 0 0;
       border: 1px solid #e35f2170;
+      transition: 0.2s;
     }
 
     .stats {
       display: flex;
       gap: 20px;
       margin-top: 18px;
+      flex-wrap: wrap;
     }
 
     .stat {
@@ -128,8 +130,10 @@
       border-radius: 32px;
       padding: 10px 16px;
       text-align: center;
+      font-weight: 500;
     }
 
+    /* FILTROS com 4 botões exatos: HTML, PROJETO, ANÁLISE, JS */
     .filtros {
       display: flex;
       justify-content: center;
@@ -169,7 +173,7 @@
       margin: 20px auto;
       padding: 20px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
       gap: 32px;
       position: relative;
       z-index: 5;
@@ -259,6 +263,7 @@
       text-decoration: none;
       transition: 0.2s;
       font-size: 0.8rem;
+      cursor: pointer;
     }
 
     .botao-projeto:hover {
@@ -280,7 +285,8 @@
 
     @media (max-width: 680px) {
       .hero h1 { font-size: 2rem; }
-      .bio-card h2 { font-size: 1.5rem; }
+      .bio-card h2 { font-size: 1.4rem; }
+      .filtros button { padding: 8px 18px; font-size: 0.75rem;}
     }
   </style>
 </head>
@@ -288,19 +294,19 @@
   <header>
     <div class="hero">
       <h1>⚔️ ROGÉRIO ALVES ⚔️</h1>
-      <div class="tagline">Full-Stack & Análise Estratégica • A Jornada do Código Épico</div>
+      <div class="tagline">Full-Stack • HTML | JS | Análise | Projetos Épicos</div>
     </div>
   </header>
 
-  <!-- Seção de apresentação pessoal / sobre o guerreiro -->
+  <!-- Seção de apresentação pessoal -->
   <div class="apresentacao">
     <div class="bio-card">
-      <h2>🧙 SOBRE O GUERREIRO</h2>
-      <p>Desenvolvedor com mais de 8 anos de forja digital, especialista em JavaScript, HTML5, CSS avançado e análises de dados. Vivo para transformar linhas de código em soluções escaláveis e projetos interativos com propósito.</p>
+      <h2>🧙 O GUERREIRO</h2>
+      <p>Desenvolvedor forjado em código, especialista em HTML5, JavaScript, análise de dados e arquitetura de projetos. Mais de 45 entregas de alto impacto, unindo design, estratégia e performance.</p>
       <div class="stats">
-        <div class="stat">🎯 +30 projetos</div>
+        <div class="stat">🏆 +45 projetos</div>
         <div class="stat">⚡ 100 códigos em progresso</div>
-        <div class="stat">📊 Data & PI</div>
+        <div class="stat">📊 Análise avançada</div>
       </div>
     </div>
     <div class="bio-card">
@@ -315,175 +321,177 @@
         <span class="skill-tag">UI/UX Estratégico</span>
         <span class="skill-tag">Propriedade Industrial</span>
       </div>
-      <p style="margin-top: 18px;">💡 Atualmente focado em 100 projetos de código puro + pesquisa em inovação tecnológica e patentes.</p>
+      <p style="margin-top: 18px;">💡 Foco em 100 projetos de código puro + pesquisa em inovação tecnológica e análise estratégica.</p>
     </div>
   </div>
 
-  <!-- Filtros por categoria: análise, html, js, todos + bônus -->
+  <!-- Filtros: HTML | PROJETO | ANÁLISE | JS -->
   <div class="filtros">
-    <button onclick="filtrar('all')">🏆 TODOS PROJETOS</button>
+    <button onclick="filtrar('all')">🏆 TODOS</button>
     <button onclick="filtrar('html')">🌐 HTML</button>
-    <button onclick="filtrar('js')">⚡ JAVASCRIPT</button>
+    <button onclick="filtrar('projeto')">📁 PROJETO</button>
     <button onclick="filtrar('analise')">📊 ANÁLISE</button>
-    <button onclick="filtrar('destaque')">🔥 DESTAQUES</button>
+    <button onclick="filtrar('js')">⚡ JAVASCRIPT</button>
   </div>
 
   <div class="container" id="portfolioGrid">
-    <!-- ========== CATEGORIA HTML ========== -->
+    
+    <!-- ===================== CATEGORIA HTML ===================== -->
     <div class="card html">
-      <div class="badge-cat">🌐 HTML • Landing Épica</div>
+      <div class="badge-cat">🌐 HTML • Página Épica</div>
       <h3>Landing Page Hero</h3>
-      <p>Estrutura semântica avançada, formulários interativos, acessibilidade total e design totalmente responsivo.</p>
-      <a href="#" class="botao-projeto" onclick="alert('🏰 Projeto HTML: Página heroica com elementos modernos e validação de contato.'); return false;">🔍 VISUALIZAR</a>
+      <p>Estrutura semântica avançada, formulários interativos, responsividade máxima e design imersivo.</p>
+      <a class="botao-projeto" onclick="alert('🏰 Projeto HTML: Landing Page heroica com elementos modernos e validação de contato.');">🔍 VISUALIZAR</a>
     </div>
 
     <div class="card html">
       <div class="badge-cat">🌐 HTML + CSS Grid</div>
       <h3>Galeria do Guerreiro</h3>
-      <p>Portfólio de imagens com filtros dinâmicos, animações suaves e estrutura de Cards imersiva.</p>
-      <a href="#" class="botao-projeto" onclick="alert('🖼️ Galeria responsiva com lightbox e CSS puro'); return false;">🎨 EXPLORAR</a>
+      <p>Portfólio de imagens interativo com filtros CSS puro, animações suaves e adaptação mobile perfeita.</p>
+      <a class="botao-projeto" onclick="alert('🖼️ Galeria responsiva com lightbox e CSS puro, desenvolvida com HTML semântico.');">🎨 EXPLORAR</a>
     </div>
 
     <div class="card html">
-      <div class="badge-cat">🌐 Dashboard conceito</div>
+      <div class="badge-cat">🌐 Dashboard Conceitual</div>
       <h3>Warrior Dashboard</h3>
-      <p>Painel administrativo fictício com HTML/CSS moderno, gráficos SVG, design escuro e métricas de batalha.</p>
-      <a href="#" class="botao-projeto" onclick="alert('📊 Dashboard com visual data-driven e UI tática.'); return false;">📈 VER PAINEL</a>
+      <p>Painel administrativo com HTML5, gráficos SVG e layout estratégico para métricas de batalha.</p>
+      <a class="botao-projeto" onclick="alert('📊 Dashboard elegante e funcional, foco total em HTML/CSS.');">📈 VER PAINEL</a>
     </div>
 
-    <!-- ========== CATEGORIA JAVASCRIPT ========== -->
-    <div class="card js">
-      <div class="badge-cat">⚡ JS • Utilidades</div>
-      <h3>Validador Mestre</h3>
-      <p>Validação de formulários em tempo real com regex, máscaras personalizadas e validação de CPF/CNPJ.</p>
-      <a href="#" class="botao-projeto" onclick="alert('✅ Validador completo usando JS puro e eventos DOM.'); return false;">✅ TESTAR</a>
+    <div class="card html">
+      <div class="badge-cat">🌐 Formulário Avançado</div>
+      <h3>Formulário Estratégico</h3>
+      <p>Campos condicionais, validação nativa, acessibilidade e estilo guerreiro com apenas HTML/CSS.</p>
+      <a class="botao-projeto" onclick="alert('📝 Formulário com HTML5 e CSS avançado, sem JS para demonstração estrutural.');">📝 ACESSAR</a>
     </div>
 
-    <div class="card js">
-      <div class="badge-cat">⚡ Jogo Rápido</div>
-      <h3>Duelo de Memória</h3>
-      <p>Jogo da memória temático com ranking local e lógica de temporizador. perfeito para treinar foco.</p>
-      <a href="#" class="botao-projeto" onclick="alert('🧠 Jogo em JS + manipulação avançada de DOM'); return false;">🎴 JOGAR DUELO</a>
-    </div>
-
-    <div class="card js">
-      <div class="badge-cat">⚡ API Integrada</div>
-      <h3>Clima Tático</h3>
-      <p>Aplicação que consome API de clima (simulada) e exibe recomendações de estratégia baseadas no tempo.</p>
-      <a href="#" class="botao-projeto" onclick="alert('🌦️ Previsão climática com JS assíncrono.'); return false;">⛅ CONSULTAR</a>
-    </div>
-
-    <div class="card js">
-      <div class="badge-cat">⚡ Animações GSAP</div>
-      <h3>Canvas das Runas</h3>
-      <p>Efeitos visuais com canvas, partículas e animação fluida. Código modular e alta performance.</p>
-      <a href="#" class="botao-projeto" onclick="alert('✨ Mágica visual com canvas e requestAnimationFrame.'); return false;">✨ VER MAGIA</a>
-    </div>
-
-    <!-- ========== CATEGORIA ANÁLISE ========== -->
-    <div class="card analise">
-      <div class="badge-cat">📊 Data & Propriedade</div>
-      <h3>Patentes & Inovação</h3>
-      <p>Relatório analítico sobre cenário de patentes tecnológicas no Brasil. Cases e indicadores estratégicos.</p>
-      <a href="#" class="botao-projeto" onclick="alert('📑 Estudo aprofundado sobre Propriedade Industrial e métricas de inovação.'); return false;">📄 LET ANÁLISE</a>
-    </div>
-
-    <div class="card analise">
-      <div class="badge-cat">📊 Dashboard KPI</div>
-      <h3>Power BI Warrior</h3>
-      <p>Simulação de KPIs de crescimento de projetos dev, dash interativo com métricas semanais e previsões.</p>
-      <a href="#" class="botao-projeto" onclick="alert('📈 Dashboard de métricas (versão conceitual).'); return false;">📉 EXPLORAR DASH</a>
-    </div>
-
-    <div class="card analise">
-      <div class="badge-cat">📊 Análise de Mercado</div>
-      <h3>Tech Trends 2026</h3>
-      <p>Estudo de tendências em desenvolvimento web, IA e low-code. Documento estratégico com gráficos.</p>
-      <a href="#" class="botao-projeto" onclick="alert('📊 Conteúdo analítico com projeções para o futuro da tecnologia.'); return false;">🔮 VISUALIZAR</a>
-    </div>
-
-    <div class="card analise">
-      <div class="badge-cat">📊 Gamificação</div>
-      <h3>Métricas de Jornada</h3>
-      <p>Análise do progresso nos 100 códigos: produtividade, categorias e estatísticas de evolução diária.</p>
-      <a href="#" class="botao-projeto" onclick="alert('🏆 Relatório completo da caminhada até os 100 desafios.'); return false;">📈 VER RELATÓRIO</a>
-    </div>
-
-    <!-- ========== DESTAQUES (categoria extra) + mais projetos de cada área ========== -->
-    <div class="card destaque js html">
-      <div class="badge-cat">🔥 DESTAQUE • Full-Stack</div>
+    <!-- ===================== CATEGORIA PROJETO (cards de soluções completas) ===================== -->
+    <div class="card projeto">
+      <div class="badge-cat">📁 PROJETO COMPLETO</div>
       <h3>Sistema de Gestão</h3>
-      <p>CRUD completo com localStorage, filtros e geração de relatórios. Front-end moderno e armazenamento local.</p>
-      <a href="#" class="botao-projeto" onclick="alert('📋 Sistema CRUD funcional com JS Vanilla e persistência.'); return false;">⚙️ ACESSAR SISTEMA</a>
+      <p>CRUD funcional com localStorage, filtros inteligentes e exportação de relatórios. Front-end moderno e persistência.</p>
+      <a class="botao-projeto" onclick="alert('📋 Sistema CRUD completo: organização de tarefas, categorias e métricas.');">⚙️ ACESSAR SISTEMA</a>
     </div>
 
-    <div class="card destaque js">
-      <div class="badge-cat">🔥 DESTAQUE • Algoritmo</div>
-      <h3>Visualizador de Sorting</h3>
-      <p>Animação de algoritmos de ordenação (Bubble, Quick, Merge) com controles interativos.</p>
-      <a href="#" class="botao-projeto" onclick="alert('🔄 Visualize a ordenação em tempo real com JS.'); return false;">🔄 VISUALIZAR</a>
+    <div class="card projeto">
+      <div class="badge-cat">📁 PROJETO FRONT-END</div>
+      <h3>E-commerce Simulado</h3>
+      <p>Carrinho de compras dinâmico, catálogo de produtos e cálculo de frete. Arquitetura escalável.</p>
+      <a class="botao-projeto" onclick="alert('🛒 Demo de e-commerce com carrinho e lógica de desconto.');">🛍️ EXPLORAR</a>
     </div>
 
-    <!-- Projeto extra HTML puro e framework -->
-    <div class="card html">
-      <div class="badge-cat">🌐 Formulário Estratégico</div>
-      <h3>Formulário de Batalha</h3>
-      <p>Formulário complexo com validação nativa, campos condicionais e integração com estilo guerreiro.</p>
-      <a href="#" class="botao-projeto" onclick="alert('📝 Formulário com HTML5 e CSS avançado, pronto para validação.'); return false;">📝 PREENCHER</a>
+    <div class="card projeto">
+      <div class="badge-cat">📁 PROJETO FULL-STACK</div>
+      <h3>Plataforma de Tarefas</h3>
+      <p>Organizador de metas com gráficos de progresso, armazenamento local e modo noturno integrado.</p>
+      <a class="botao-projeto" onclick="alert('✅ To-Do List avançada com estatísticas e painel motivacional.');">📋 VER PROJETO</a>
     </div>
 
-    <!-- Projeto JS extra -->
-    <div class="card js">
-      <div class="badge-cat">⚡ JS • Produtividade</div>
-      <h3>Pomodoro Plus</h3>
-      <p>Cronômetro pomodoro customizável com notificações sonoras e histórico de ciclos.</p>
-      <a href="#" class="botao-projeto" onclick="alert('🍅 Timer pomodoro interativo - foco absoluto!'); return false;">⏱️ INICIAR FOGO</a>
+    <div class="card projeto">
+      <div class="badge-cat">📁 PROJETO EM TIME</div>
+      <h3>Dashboard Colaborativo</h3>
+      <p>Simulação de ambiente colaborativo com tarefas compartilhadas e indicadores de desempenho.</p>
+      <a class="botao-projeto" onclick="alert('👥 Versão demo de dashboard colaborativo para times ágeis.');">📊 ABRIR</a>
     </div>
 
-    <!-- mais análise de dados + propriedade intelectual -->
+    <!-- ===================== CATEGORIA ANÁLISE ===================== -->
     <div class="card analise">
-      <div class="badge-cat">📊 Propriedade Industrial</div>
-      <h3>Estudo de Caso: Marcas</h3>
+      <div class="badge-cat">📊 ANÁLISE • Propriedade Industrial</div>
+      <h3>Patentes & Inovação</h3>
+      <p>Estudo aprofundado sobre cenário de patentes tecnológicas no Brasil, cases e indicadores estratégicos.</p>
+      <a class="botao-projeto" onclick="alert('📑 Relatório analítico sobre Propriedade Industrial e métricas de inovação.');">📄 CONFERIR ANÁLISE</a>
+    </div>
+
+    <div class="card analise">
+      <div class="badge-cat">📊 DASHBOARD KPI</div>
+      <h3>Power BI Warrior</h3>
+      <p>Simulação de KPIs de crescimento em projetos dev, dash interativo com métricas semanais.</p>
+      <a class="botao-projeto" onclick="alert('📈 Dashboard de métricas (conceito estratégico) focado em análise de dados.');">📉 EXPLORAR DASH</a>
+    </div>
+
+    <div class="card analise">
+      <div class="badge-cat">📊 TENDÊNCIAS 2026</div>
+      <h3>Tech Trends & IA</h3>
+      <p>Análise de mercado sobre desenvolvimento web, inteligência artificial e low-code. Documento estratégico.</p>
+      <a class="botao-projeto" onclick="alert('📊 Conteúdo analítico com projeções futuras para o ecossistema tech.');">🔮 VISUALIZAR</a>
+    </div>
+
+    <div class="card analise">
+      <div class="badge-cat">📊 MÉTRICAS DE JORNADA</div>
+      <h3>100 Códigos: Evolução</h3>
+      <p>Análise do progresso nos 100 desafios, categorias mais produtivas e estatísticas de evolução diária.</p>
+      <a class="botao-projeto" onclick="alert('🏆 Relatório completo da caminhada dos 100 códigos, com dados de desempenho.');">📈 VER RELATÓRIO</a>
+    </div>
+
+    <div class="card analise">
+      <div class="badge-cat">📊 PROPRIEDADE INDUSTRIAL</div>
+      <h3>Estudo de Marcas</h3>
       <p>Análise de registros de marcas no INPI, proteção de software e desenhos industriais no Brasil.</p>
-      <a href="#" class="botao-projeto" onclick="alert('📚 Conteúdo exclusivo sobre estratégias de proteção IP e patentes.'); return false;">⚖️ ACESSAR ESTUDO</a>
+      <a class="botao-projeto" onclick="alert('📚 Conteúdo exclusivo sobre estratégias de proteção IP e patentes.');">⚖️ ACESSAR ESTUDO</a>
     </div>
 
-    <!-- Jogo em JS e HTML juntos (categoria js e html) -->
-    <div class="card js html destaque">
-      <div class="badge-cat">🎮 JOGO ÉPICO</div>
-      <h3>Pac-Man Warrior</h3>
-      <p>Recriação do clássico Pac-Man com estilo medieval, power-ups e aumento de dificuldade.</p>
-      <a href="#" class="botao-projeto" onclick="alert('👾 Versão demo do Pac-Man lendário — em breve com multiplayer!'); return false;">🍒 JOGAR AGORA</a>
-    </div>
-
-    <!-- + projeto análise avançada -->
-    <div class="card analise">
-      <div class="badge-cat">📊 DataViz</div>
-      <h3>Mapa da Inovação</h3>
-      <p>Visualização de dados globais de inovação, utilizando biblioteca D3.js (conceito).</p>
-      <a href="#" class="botao-projeto" onclick="alert('🗺️ Mapa interativo de hubs tecnológicos.'); return false;">🗺️ EXPLORAR MAPA</a>
-    </div>
-
-    <!-- Projeto para demonstrar que tenho mais de 15 cards, já cobrindo análise, html e js categoricamente -->
+    <!-- ===================== CATEGORIA JAVASCRIPT ===================== -->
     <div class="card js">
-      <div class="badge-cat">⚡ JS • Automação</div>
-      <h3>Bot de Coleta</h3>
-      <p>Script que simula automação de scraping de preços e exibe dados em tabela dinâmica.</p>
-      <a href="#" class="botao-projeto" onclick="alert('🤖 Simulador de automação com JS e manipulação de arrays.'); return false;">🤖 EXECUTAR BOT</a>
+      <div class="badge-cat">⚡ JS • UTILIDADES</div>
+      <h3>Validador Mestre</h3>
+      <p>Validação em tempo real com regex, máscaras de CPF/CNPJ e eventos DOM dinâmicos.</p>
+      <a class="botao-projeto" onclick="alert('✅ Validador completo usando JS puro, com feedback visual instantâneo.');">✅ TESTAR</a>
     </div>
 
-    <!-- card HTML especial -->
-    <div class="card html">
-      <div class="badge-cat">🌐 Web Components</div>
-      <h3>Meu Card Rúnico</h3>
-      <p>Componente customizável com shadow DOM e estilos encapsulados. Exemplo de arquitetura moderna.</p>
-      <a href="#" class="botao-projeto" onclick="alert('🧩 Web Component funcional, reutilizável em qualquer projeto.'); return false;">🧩 VER COMPONENTE</a>
+    <div class="card js">
+      <div class="badge-cat">⚡ JOGO RÁPIDO</div>
+      <h3>Duelo de Memória</h3>
+      <p>Jogo da memória temático com ranking local, timer e lógica de pontuação.</p>
+      <a class="botao-projeto" onclick="alert('🧠 Jogo em JS + manipulação avançada de DOM. Teste sua memória!');">🎴 JOGAR DUELO</a>
+    </div>
+
+    <div class="card js">
+      <div class="badge-cat">⚡ API INTEGRADA</div>
+      <h3>Clima Tático</h3>
+      <p>Consumo de API de clima (simulação) e recomendações de estratégia baseadas nas condições.</p>
+      <a class="botao-projeto" onclick="alert('🌦️ Previsão climática com JS assíncrono e fetch.');">⛅ CONSULTAR</a>
+    </div>
+
+    <div class="card js">
+      <div class="badge-cat">⚡ CANVAS & ANIMAÇÃO</div>
+      <h3>Canvas das Runas</h3>
+      <p>Efeitos visuais com canvas, partículas e animação fluida usando requestAnimationFrame.</p>
+      <a class="botao-projeto" onclick="alert('✨ Mágica visual com canvas puro, partículas e física simples.');">✨ VER MAGIA</a>
+    </div>
+
+    <div class="card js">
+      <div class="badge-cat">⚡ PRODUTIVIDADE</div>
+      <h3>Pomodoro Plus</h3>
+      <p>Cronômetro pomodoro customizável com notificações e histórico de ciclos.</p>
+      <a class="botao-projeto" onclick="alert('🍅 Timer pomodoro interativo — foco total e gestão de tempo.');">⏱️ INICIAR FOGO</a>
+    </div>
+
+    <div class="card js">
+      <div class="badge-cat">⚡ ALGORITMOS</div>
+      <h3>Visualizador de Sorting</h3>
+      <p>Animação de algoritmos de ordenação (Bubble, Quick, Merge) com controles.</p>
+      <a class="botao-projeto" onclick="alert('🔄 Visualize a ordenação passo a passo com JS puro.');">🔄 VISUALIZAR</a>
+    </div>
+
+    <div class="card js">
+      <div class="badge-cat">⚡ AUTOMAÇÃO</div>
+      <h3>Bot de Coleta</h3>
+      <p>Script que simula scraping de preços e exibe dados em tabela dinâmica.</p>
+      <a class="botao-projeto" onclick="alert('🤖 Simulador de automação com JS e manipulação avançada de arrays.');">🤖 EXECUTAR BOT</a>
+    </div>
+
+    <!-- Card extra híbrido (JavaScript e Projeto) mas com categoria principal projeto também -->
+    <div class="card js projeto">
+      <div class="badge-cat">⚡ JS + PROJETO</div>
+      <h3>Pac-Man Warrior</h3>
+      <p>Recriação lendária do clássico Pac-Man com power-ups, IA simples e mecânicas retrô.</p>
+      <a class="botao-projeto" onclick="alert('👾 Pac-Man estilizado: coletáveis, fantasmas e muita diversão.');">🍒 JOGAR AGORA</a>
     </div>
   </div>
 
   <footer>
-    <span>🪓 Rogério Alves • Full-Stack & Análise de Inovação • 2026 🛡️</span><br>
-    <span style="font-size: 0.75rem;">“Cada projeto é uma forjada — HTML, JavaScript, Análise e a caminhada de 100 códigos”</span>
+    <span>🪓 Rogério Alves • HTML, JS, Análise e Grandes Projetos • 2026 🛡️</span><br>
+    <span style="font-size: 0.75rem;">“Cada linha carrega uma vitória — 4 pilares do conhecimento: HTML, Projetos, Análise e JavaScript”</span>
   </footer>
 
   <script>
@@ -496,7 +504,7 @@
         if (categoria === 'all') {
           match = true;
         } else {
-          // permite filtrar por classe .html, .js, .analise, .destaque
+          // Verifica se o card possui a classe correspondente (html, projeto, analise, js)
           if (card.classList.contains(categoria)) {
             match = true;
           }
@@ -511,7 +519,7 @@
         }
       });
       
-      // Mensagem de nenhum resultado (feedback guerreiro)
+      // Mensagem elegante caso nenhum card apareça
       const container = document.getElementById('portfolioGrid');
       let warningDiv = document.getElementById('filter-feedback');
       if (!warningDiv) {
@@ -530,7 +538,7 @@
       }
       
       if (showCount === 0 && categoria !== 'all') {
-        warningDiv.innerHTML = '⚔️ Nenhum projeto encontrado nessa categoria, guerreiro. Tente "TODOS PROJETOS" ou outra forja! ⚔️';
+        warningDiv.innerHTML = '⚔️ Nenhum projeto encontrado nessa categoria, guerreiro. Explore outra forja! ⚔️';
         warningDiv.style.display = 'block';
         setTimeout(() => {
           if(warningDiv) warningDiv.style.display = 'none';
@@ -540,47 +548,39 @@
       }
     }
     
-    // Inicializar todos os cards visíveis e adicionar efeito sutil nos links
     document.addEventListener('DOMContentLoaded', () => {
       filtrar('all');
       
-      // atualizar contador de aspectos (mostra total projetos)
-      const totalCards = document.querySelectorAll('.card').length;
-      const footerDesc = document.querySelector('footer span:first-child');
-      if(footerDesc) {
-        // opcional, sem quebrar
-      }
-      console.log(`🔥 Portfólio carregado com ${totalCards} projetos divididos entre análise, HTML e JavaScript.`);
+      // Contadores interativos para cada categoria (somente exibição amigável)
+      const htmlCount = document.querySelectorAll('.card.html').length;
+      const projetoCount = document.querySelectorAll('.card.projeto').length;
+      const analiseCount = document.querySelectorAll('.card.analise').length;
+      const jsCount = document.querySelectorAll('.card.js').length;
       
-      // Adiciona um pequeno aviso de interatividade nos alerts para demonstração do funcionamento
-      const allButtons = document.querySelectorAll('.botao-projeto');
-      allButtons.forEach(btn => {
-        if (!btn.getAttribute('data-listener')) {
-          btn.setAttribute('data-listener', 'true');
-          // já possui onclick nativo, mas garantimos que não haja conflito
+      const statusPanel = document.createElement('div');
+      statusPanel.style.position = 'fixed';
+      statusPanel.style.bottom = '16px';
+      statusPanel.style.left = '16px';
+      statusPanel.style.backgroundColor = '#000000aa';
+      statusPanel.style.backdropFilter = 'blur(12px)';
+      statusPanel.style.padding = '6px 18px';
+      statusPanel.style.borderRadius = '40px';
+      statusPanel.style.fontSize = '0.7rem';
+      statusPanel.style.border = '1px solid #e35f21';
+      statusPanel.style.zIndex = '99';
+      statusPanel.style.fontWeight = '500';
+      statusPanel.style.color = '#ffd7a5';
+      statusPanel.innerHTML = `📐 HTML:${htmlCount}  |  📁 PROJETOS:${projetoCount}  |  📊 ANÁLISE:${analiseCount}  |  ⚡ JS:${jsCount}`;
+      document.body.appendChild(statusPanel);
+      
+      // Adiciona interatividade para demonstrar cliques
+      const botoes = document.querySelectorAll('.botao-projeto');
+      botoes.forEach(btn => {
+        if (!btn.hasAttribute('data-event')) {
+          btn.setAttribute('data-event', 'true');
+          // já possuem onclick definido nos alerts, mantém funcionalidade
         }
       });
-      
-      // bônus: estatística ao vivo mostra total de projetos por categoria
-      const htmlCount = document.querySelectorAll('.card.html').length;
-      const jsCount = document.querySelectorAll('.card.js').length;
-      const analiseCount = document.querySelectorAll('.card.analise').length;
-      const destaqueCount = document.querySelectorAll('.card.destaque').length;
-      
-      const statusMsg = document.createElement('div');
-      statusMsg.style.position = 'fixed';
-      statusMsg.style.bottom = '15px';
-      statusMsg.style.right = '15px';
-      statusMsg.style.backgroundColor = '#000000aa';
-      statusMsg.style.backdropFilter = 'blur(10px)';
-      statusMsg.style.padding = '8px 18px';
-      statusMsg.style.borderRadius = '40px';
-      statusMsg.style.fontSize = '0.7rem';
-      statusMsg.style.border = '1px solid #e65c1e';
-      statusMsg.style.zIndex = '99';
-      statusMsg.style.fontWeight = '500';
-      statusMsg.innerHTML = `📊 HTML:${htmlCount} | JS:${jsCount} | ANÁLISE:${analiseCount} | ⚡${destaqueCount} destaques`;
-      document.body.appendChild(statusMsg);
     });
   </script>
 </body>
