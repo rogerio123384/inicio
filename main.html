@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>⚔️ Rogério Alves • Portfólio | HTML + JS + Análise + Projetos</title>
+  <title>⚔️ Portfólio | SR Rogério • A Jornada do Guerreiro</title>
   <style>
     * {
       margin: 0;
@@ -12,15 +12,16 @@
     }
 
     body {
-      font-family: 'Poppins', 'Segoe UI', 'Inter', system-ui, sans-serif;
-      background: radial-gradient(circle at 10% 20%, #0c0b12, #020105);
+      font-family: 'Poppins', 'Segoe UI', 'Cinema', system-ui, -apple-system, 'Inter', sans-serif;
+      background: radial-gradient(circle at 20% 30%, #0a0c12, #010101);
       min-height: 100vh;
-      color: #f0ede8;
+      color: #ece8e1;
       position: relative;
       overflow-x: hidden;
+      scroll-behavior: smooth;
     }
 
-    /* textura rúnica */
+    /* efeito cinza épico com runas sutis */
     body::before {
       content: "";
       position: fixed;
@@ -28,112 +29,60 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: 
-        repeating-linear-gradient(45deg, rgba(210, 80, 40, 0.05) 0px, rgba(210, 80, 40, 0.05) 2px, transparent 2px, transparent 10px),
-        repeating-linear-gradient(135deg, rgba(255, 140, 50, 0.03) 0px, rgba(255, 140, 50, 0.03) 1px, transparent 1px, transparent 14px);
+      background-image: repeating-linear-gradient(45deg, rgba(180, 70, 30, 0.08) 0px, rgba(180, 70, 30, 0.08) 2px, transparent 2px, transparent 8px),
+                        repeating-linear-gradient(135deg, rgba(200, 100, 40, 0.05) 0px, rgba(200, 100, 40, 0.05) 1px, transparent 1px, transparent 12px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
       pointer-events: none;
       z-index: 0;
     }
 
     header {
-      background: rgba(3, 2, 8, 0.7);
-      backdrop-filter: blur(14px);
-      border-bottom: 2px solid #e35f21;
-      padding: 2rem 1rem;
-      text-align: center;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.7);
-      position: relative;
-      z-index: 12;
-    }
-
-    .hero h1 {
-      font-size: 3.4rem;
-      font-weight: 800;
-      background: linear-gradient(145deg, #FFD29B, #FF6A2E, #F23C0F);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      letter-spacing: -0.5px;
-      text-shadow: 0 0 6px rgba(230,80,30,0.4);
-    }
-
-    .hero .tagline {
-      font-size: 1.2rem;
-      margin-top: 12px;
-      font-weight: 400;
-      color: #f6cf9e;
-      border-top: 1px dashed #e35f21;
-      display: inline-block;
-      padding-top: 12px;
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-
-    /* cards de apresentação */
-    .apresentacao {
-      max-width: 1200px;
-      margin: 40px auto 0;
-      padding: 0 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
-      justify-content: center;
-      position: relative;
-      z-index: 8;
-    }
-
-    .bio-card {
-      background: rgba(15, 12, 10, 0.75);
+      background: rgba(5, 5, 10, 0.65);
       backdrop-filter: blur(12px);
-      border-radius: 48px;
-      border: 1px solid rgba(230, 95, 35, 0.6);
-      padding: 28px 32px;
-      flex: 1;
-      min-width: 260px;
-      transition: all 0.3s;
-      box-shadow: 0 20px 30px -12px black;
+      border-bottom: 1px solid rgba(220, 80, 40, 0.7);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,240,0.1);
+      padding: 2.2rem 1rem;
+      text-align: center;
+      width: 100%;
+      position: relative;
+      z-index: 10;
     }
 
-    .bio-card h2 {
-      font-size: 1.9rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #ffb970, #ff6329);
+    header h1 {
+      font-size: 3rem;
+      letter-spacing: 4px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FFD89A, #E65C1E, #FF4A1C);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      border-left: 4px solid #ff6125;
-      padding-left: 16px;
-      margin-bottom: 16px;
-    }
-
-    .skill-tag {
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
       display: inline-block;
-      background: #361d0e;
-      padding: 6px 14px;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      margin: 6px 6px 0 0;
-      border: 1px solid #e35f2170;
-      transition: 0.2s;
+      border-right: 3px solid #e65c1e;
+      padding-right: 20px;
+      padding-left: 20px;
     }
 
-    .stats {
-      display: flex;
-      gap: 20px;
-      margin-top: 18px;
-      flex-wrap: wrap;
+    header p {
+      font-size: 1.1rem;
+      margin-top: 12px;
+      font-weight: 300;
+      color: #ddc9a5;
+      text-shadow: 0 1px 2px black;
+      letter-spacing: 1px;
     }
 
-    .stat {
-      background: #00000055;
-      border-radius: 32px;
-      padding: 10px 16px;
-      text-align: center;
-      font-weight: 500;
-    }
-
-    /* FILTROS */
     .filtros {
       display: flex;
       justify-content: center;
@@ -145,381 +94,324 @@
     }
 
     .filtros button {
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(10px);
-      border: 1px solid #e66a2c;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(230, 92, 30, 0.7);
       padding: 12px 28px;
-      font-weight: 700;
-      font-size: 0.95rem;
+      font-weight: 600;
+      font-size: 1rem;
       border-radius: 60px;
-      color: #ffdebc;
+      color: #fbe9c3;
       cursor: pointer;
-      transition: 0.2s;
+      transition: all 0.25s ease;
       font-family: inherit;
-      letter-spacing: 0.8px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
 
     .filtros button:hover {
       background: #e65c1e;
-      color: #0c0703;
+      color: #0a0a0a;
+      border-color: #ffbc6e;
       transform: translateY(-3px);
-      border-color: #ffc285;
-      box-shadow: 0 8px 20px rgba(230,92,30,0.6);
+      box-shadow: 0 8px 20px rgba(230, 92, 30, 0.5);
+    }
+
+    .filtros button.active {
+      background: #e65c1e;
+      color: #0a0a0a;
+      border-color: #ffbc6e;
+      box-shadow: 0 0 15px rgba(230, 92, 30, 0.7);
     }
 
     .container {
-      max-width: 1400px;
+      max-width: 1280px;
       margin: 20px auto;
       padding: 20px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 32px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
       position: relative;
       z-index: 5;
     }
 
     .card {
-      background: radial-gradient(ellipse at 20% 30%, rgba(28, 22, 20, 0.9), #070503e6);
-      backdrop-filter: blur(6px);
-      border-radius: 36px;
-      border: 1px solid rgba(230, 95, 40, 0.6);
-      padding: 1.6rem 1.3rem;
-      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-      box-shadow: 0 18px 28px -12px black;
+      background: radial-gradient(ellipse at 30% 20%, rgba(25, 20, 18, 0.85), rgba(10, 7, 5, 0.95));
+      backdrop-filter: blur(8px);
+      border-radius: 32px;
+      border: 1px solid rgba(230, 100, 40, 0.5);
+      padding: 1.8rem 1.2rem;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      color: #f0e2cf;
+      box-shadow: 0 15px 25px -12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,215,150,0.2);
       position: relative;
       overflow: hidden;
     }
 
-    .card::after {
+    .card::before {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, #e65c1e, #ff9542, #e65c1e);
-      transform: scaleX(0);
-      transition: transform 0.3s;
-      transform-origin: left;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(125deg, #e65c1e, #b13e0e, #ff8c42, #ff4a1c);
+      border-radius: 34px;
+      z-index: -2;
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
 
-    .card:hover::after {
-      transform: scaleX(1);
+    .card:hover::before {
+      opacity: 0.5;
     }
 
     .card:hover {
-      transform: translateY(-10px) scale(1.01);
-      border-color: #ff8c48;
-      box-shadow: 0 24px 36px -12px #e65c1eaa;
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 25px 35px -12px #e65c1e80;
+      border-color: #ff9f5b;
     }
 
     .card h3 {
-      font-size: 1.7rem;
+      font-size: 1.8rem;
       font-weight: 700;
-      background: linear-gradient(145deg, #ffbc7a, #ff6730);
+      background: linear-gradient(145deg, #ffb472, #ff7030);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      margin: 12px 0 8px;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
       display: flex;
       align-items: center;
       gap: 8px;
+      border-left: 4px solid #e65c1e;
+      padding-left: 12px;
     }
 
     .card p {
-      color: #e2cfb3;
-      font-weight: 400;
-      line-height: 1.45;
-      margin: 14px 0;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin: 15px 0;
+      opacity: 0.85;
+      font-weight: 300;
     }
 
-    .badge-cat {
+    .botao {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: #23170ecc;
-      border-radius: 40px;
-      padding: 4px 16px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      border-left: 3px solid #e65c1e;
-    }
-
-    .botao-projeto {
-      display: inline-flex;
-      align-items: center;
+      justify-content: center;
       gap: 8px;
-      margin-top: 14px;
-      background: linear-gradient(95deg, #a4350c, #dd551f);
+      margin-top: 12px;
+      padding: 10px 20px;
+      background: linear-gradient(95deg, #9b2e0f, #d9541a);
       border: none;
-      padding: 10px 24px;
-      border-radius: 36px;
+      border-radius: 40px;
       font-weight: 600;
-      color: #fff6ea;
+      color: #ffefdb;
       text-decoration: none;
-      transition: 0.2s;
-      font-size: 0.8rem;
+      transition: 0.25s;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.3);
       cursor: pointer;
     }
 
-    .botao-projeto:hover {
-      background: #ff642a;
-      transform: scale(0.97);
-      box-shadow: 0 0 10px #ff7a3a;
+    .botao:hover {
+      background: linear-gradient(95deg, #c43f0a, #ff6a2c);
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #ff5e2e;
+      color: white;
+    }
+
+    .card.html h3::after {
+      content: "🪶";
+      font-size: 1.4rem;
+      margin-left: auto;
+      opacity: 0.7;
+    }
+    .card.js h3::after {
+      content: "⚡";
+      font-size: 1.4rem;
+      margin-left: auto;
+    }
+    .card.jogo h3::after {
+      content: "🎮";
+      font-size: 1.4rem;
+      margin-left: auto;
+    }
+    .card.analise h3::after {
+      content: "📐";
+      font-size: 1.4rem;
+      margin-left: auto;
+    }
+
+    .card .badge-cat {
+      display: inline-block;
+      background: rgba(230, 92, 30, 0.25);
+      border-radius: 50px;
+      padding: 2px 12px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
     }
 
     footer {
       margin-top: 70px;
-      background: #010101bb;
-      backdrop-filter: blur(12px);
-      padding: 24px;
+      background: #030202cc;
+      backdrop-filter: blur(16px);
+      padding: 25px 20px;
       text-align: center;
       border-top: 1px solid #e65c1e;
-      font-size: 0.85rem;
-      color: #cfb78b;
+      font-weight: 300;
+      font-size: 0.9rem;
+      color: #cfb58a;
+      z-index: 10;
+      position: relative;
+      letter-spacing: 1px;
     }
 
     @media (max-width: 680px) {
-      .hero h1 { font-size: 2rem; }
-      .bio-card h2 { font-size: 1.4rem; }
-      .filtros button { padding: 8px 18px; font-size: 0.75rem;}
+      header h1 { font-size: 2rem; }
+      .filtros button { padding: 8px 18px; font-size: 0.8rem; }
+      .card h3 { font-size: 1.5rem; }
+      .container { gap: 20px; padding: 12px; }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="hero">
-      <h1>⚔️ ROGÉRIO ALVES ⚔️</h1>
-      <div class="tagline">Full-Stack • HTML | JS | Análise | Projetos Épicos</div>
-    </div>
+    <h1>⚔️ SR ROGÉRIO ⚔️</h1>
+    <p>“A forja da excelência • projetos, código & estratégia”</p>
   </header>
 
-  <!-- Seção de apresentação pessoal -->
-  <div class="apresentacao">
-    <div class="bio-card">
-      <h2>🧙 O GUERREIRO</h2>
-      <p>Desenvolvedor forjado em código, especialista em HTML5, JavaScript, análise de dados e arquitetura de projetos. Mais de 45 entregas de alto impacto, unindo design, estratégia e performance.</p>
-      <div class="stats">
-        <div class="stat">🏆 +45 projetos</div>
-        <div class="stat">⚡ 100 códigos em progresso</div>
-        <div class="stat">📊 Análise avançada</div>
-      </div>
-    </div>
-    <div class="bio-card">
-      <h2>🛡️ HABILIDADES</h2>
-      <div>
-        <span class="skill-tag">HTML5 Semântico</span>
-        <span class="skill-tag">CSS3 / Flex/Grid</span>
-        <span class="skill-tag">JavaScript ES6+</span>
-        <span class="skill-tag">React & Vue</span>
-        <span class="skill-tag">Node.js</span>
-        <span class="skill-tag">Power BI / Análise</span>
-        <span class="skill-tag">UI/UX Estratégico</span>
-        <span class="skill-tag">Propriedade Industrial</span>
-      </div>
-      <p style="margin-top: 18px;">💡 Foco em 100 projetos de código puro + pesquisa em inovação tecnológica e análise estratégica.</p>
-    </div>
-  </div>
-
-  <!-- Filtros: HTML | PROJETO | ANÁLISE | JS -->
   <div class="filtros">
-    <button onclick="filtrar('all')">🏆 TODOS</button>
-    <button onclick="filtrar('html')">🌐 HTML</button>
-    <button onclick="filtrar('projeto')">📁 PROJETO</button>
-    <button onclick="filtrar('analise')">📊 ANÁLISE</button>
-    <button onclick="filtrar('js')">⚡ JAVASCRIPT</button>
+    <button data-filter="all" class="active">🏆 TODOS OS PROJETOS</button>
+    <button data-filter="html">🌐 HTML</button>
+    <button data-filter="js">⚡ JAVASCRIPT</button>
+    <button data-filter="jogo">🎮 JOGO</button>
+    <button data-filter="analise">📊 ANÁLISE</button>
   </div>
 
-  <div class="container" id="portfolioGrid">
-    
-    <!-- ===================== CATEGORIA HTML ===================== -->
+  <div class="container">
+    <!-- CARDS HTML -->
     <div class="card html">
-      <div class="badge-cat">🌐 HTML • Página Épica</div>
-      <h3>Landing Page Hero</h3>
-      <p>Estrutura semântica avançada, formulários interativos, responsividade máxima e design imersivo.</p>
-      <a href="https://rogerio-alves.github.io/landing-hero" target="_blank" class="botao-projeto">🔍 VISUALIZAR</a>
-    </div>
-
-    <div class="card html">
-      <div class="badge-cat">🌐 HTML + CSS Grid</div>
-      <h3>Galeria do Guerreiro</h3>
-      <p>Portfólio de imagens interativo com filtros CSS puro, animações suaves e adaptação mobile perfeita.</p>
-      <a href="https://rogerio-alves.github.io/galeria-guerreiro" target="_blank" class="botao-projeto">🎨 EXPLORAR</a>
+      <div class="badge-cat">🏷️ Estrutura Web</div>
+      <h3>teste.html</h3>
+      <p>Página interativa com conceitos de semântica, acessibilidade e design responsivo — um marco da minha jornada front-end.</p>
+      <a href="teste.html" class="botao">⚔️ EXPLORAR</a>
     </div>
 
     <div class="card html">
-      <div class="badge-cat">🌐 Dashboard Conceitual</div>
-      <h3>Warrior Dashboard</h3>
-      <p>Painel administrativo com HTML5, gráficos SVG e layout estratégico para métricas de batalha.</p>
-      <a href="https://rogerio-alves.github.io/warrior-dashboard" target="_blank" class="botao-projeto">📈 VER PAINEL</a>
+      <div class="badge-cat">📄 Carta 2026</div>
+      <h3>index.html</h3>
+      <p>Portal principal da jornada, com layout fluído e integração entre todas as forças do código.</p>
+      <a href="index.html" class="botao">⚔️ EXPLORAR</a>
     </div>
 
+    <!-- CARDS JAVASCRIPT -->
+    <div class="card js">
+      <div class="badge-cat">💡 Lógica & Dinamismo</div>
+      <h3>teste.js</h3>
+      <p>Algoritmos avançados, manipulação de arrays e efeitos visuais. Domínio da espinha dorsal da web moderna.</p>
+      <a href="teste.js" class="botao">🌀 VISUALIZAR</a>
+    </div>
+
+    <div class="card js">
+      <div class="badge-cat">🔗 Integrações</div>
+      <h3>teste2.js</h3>
+      <p>Scripts para consumo de APIs e automação — link para o portfólio e networks.</p>
+      <a href="teste2.js" class="botao">🚀 ACESSAR</a>
+    </div>
+
+    <div class="card js">
+      <div class="badge-cat">🏎️ Performance</div>
+      <h3>carro1.js</h3>
+      <p>Simulador de desempenho e animações com canvas. Projeto de gamificação e eventos.</p>
+      <a href="carro1.js" class="botao">🏁 TESTAR</a>
+    </div>
+
+    <div class="card js">
+      <div class="badge-cat">📦 Fundamentos</div>
+      <h3>variaveis.js</h3>
+      <p>Conceitos sólidos de escopo, hoisting e closures — base imbatível para sistemas escaláveis.</p>
+      <a href="variaveis.js" class="botao">📖 ESTUDAR</a>
+    </div>
+
+    <!-- CARDS ANÁLISE -->
+    <div class="card analise">
+      <div class="badge-cat">🧠 Propriedade Intelectual</div>
+      <h3>Atividade Gamma</h3>
+      <p>Estudo aprofundado sobre patentes, marcas e desenhos industriais. Análise estratégica e cases inovadores.</p>
+      <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📄 LER DOC</a>
+    </div>
+
+    <div class="card analise">
+      <div class="badge-cat">📈 Data Insights</div>
+      <h3>Dashboard Gamma</h3>
+      <p>Relatório interativo com métricas de inovação industrial e tendências de mercado. Visualização impactante.</p>
+      <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i" class="botao" target="_blank">📊 EXPLORAR</a>
+    </div>
+
+    <!-- CARDS JOGO -->
+    <div class="card jogo">
+      <div class="badge-cat">👾 ARCADE NOSTALGIA</div>
+      <h3>Jogo Pac-man</h3>
+      <p>Recriação lendária do clássico dos fliperamas. Coletáveis, fantasmas e power-ups — puro desafio retrô.</p>
+      <a href="pac.html" class="botao">🍒 JOGAR AGORA</a>
+    </div>
+
+    <div class="card jogo">
+      <div class="badge-cat">⚡ Ação Imersiva</div>
+      <h3>Battle Fury Demo</h3>
+      <p>Protótipo de jogo em JS puro, mecânicas de combate e sistema de pontuação. Em evolução constante.</p>
+      <a href="#" class="botao" onclick="alert('🎮 Em breve, versão jogável online!'); return false;">🔥 PRÉVIA</a>
+    </div>
+
+    <!-- Projetos extras para enriquecer o portfólio -->
     <div class="card html">
-      <div class="badge-cat">🌐 Formulário Avançado</div>
-      <h3>Formulário Estratégico</h3>
-      <p>Campos condicionais, validação nativa, acessibilidade e estilo guerreiro com apenas HTML/CSS.</p>
-      <a href="https://rogerio-alves.github.io/formulario-guerreiro" target="_blank" class="botao-projeto">📝 ACESSAR</a>
+      <div class="badge-cat">🎨 UI/UX</div>
+      <h3>Landing Page</h3>
+      <p>Página de apresentação moderna com animações CSS e layout totalmente responsivo.</p>
+      <a href="#" class="botao" onclick="alert('🌐 Landing Page em desenvolvimento. Em breve!'); return false;">🔍 VISUALIZAR</a>
     </div>
 
-    <!-- ===================== CATEGORIA PROJETO ===================== -->
-    <div class="card projeto">
-      <div class="badge-cat">📁 PROJETO COMPLETO</div>
-      <h3>Sistema de Gestão</h3>
-      <p>CRUD funcional com localStorage, filtros inteligentes e exportação de relatórios. Front-end moderno.</p>
-      <a href="https://rogerio-alves.github.io/sistema-gestao" target="_blank" class="botao-projeto">⚙️ ACESSAR SISTEMA</a>
-    </div>
-
-    <div class="card projeto">
-      <div class="badge-cat">📁 PROJETO FRONT-END</div>
-      <h3>E-commerce Simulado</h3>
-      <p>Carrinho de compras dinâmico, catálogo de produtos e cálculo de frete. Arquitetura escalável.</p>
-      <a href="https://rogerio-alves.github.io/ecommerce-demo" target="_blank" class="botao-projeto">🛍️ EXPLORAR</a>
-    </div>
-
-    <div class="card projeto">
-      <div class="badge-cat">📁 PROJETO FULL-STACK</div>
-      <h3>Plataforma de Tarefas</h3>
-      <p>Organizador de metas com gráficos de progresso, armazenamento local e modo noturno integrado.</p>
-      <a href="https://rogerio-alves.github.io/task-platform" target="_blank" class="botao-projeto">📋 VER PROJETO</a>
-    </div>
-
-    <div class="card projeto">
-      <div class="badge-cat">📁 PROJETO EM TIME</div>
-      <h3>Dashboard Colaborativo</h3>
-      <p>Simulação de ambiente colaborativo com tarefas compartilhadas e indicadores de desempenho.</p>
-      <a href="https://rogerio-alves.github.io/colab-dashboard" target="_blank" class="botao-projeto">📊 ABRIR</a>
-    </div>
-
-    <!-- ===================== CATEGORIA ANÁLISE ===================== -->
-    <div class="card analise">
-      <div class="badge-cat">📊 ANÁLISE • Propriedade Industrial</div>
-      <h3>Patentes & Inovação</h3>
-      <p>Estudo aprofundado sobre cenário de patentes tecnológicas no Brasil, cases e indicadores estratégicos.</p>
-      <a href="https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais" target="_blank" class="botao-projeto">📄 CONFERIR ANÁLISE</a>
+    <div class="card js">
+      <div class="badge-cat">📱 Interatividade</div>
+      <h3>Calculadora JS</h3>
+      <p>Calculadora científica com histórico de operações e design inspirado em batalha.</p>
+      <a href="#" class="botao" onclick="alert('🧮 Calculadora funcional com JS puro'); return false;">🧮 USAR</a>
     </div>
 
     <div class="card analise">
-      <div class="badge-cat">📊 DASHBOARD KPI</div>
-      <h3>Power BI Warrior</h3>
-      <p>Simulação de KPIs de crescimento em projetos dev, dash interativo com métricas semanais.</p>
-      <a href="https://app.powerbi.com/view?r=eyJrIjoiZXhlbXBsby1kYXNoYm9hcmQiLCJpZCI6IjEifQ" target="_blank" class="botao-projeto">📉 EXPLORAR DASH</a>
+      <div class="badge-cat">📊 Métricas</div>
+      <h3>Relatório de Tendências</h3>
+      <p>Análise de dados sobre o mercado de tecnologia e inovação, com gráficos interativos.</p>
+      <a href="#" class="botao" onclick="alert('📈 Relatório estratégico disponível em breve.'); return false;">📈 VISUALIZAR</a>
     </div>
 
-    <div class="card analise">
-      <div class="badge-cat">📊 TENDÊNCIAS 2026</div>
-      <h3>Tech Trends & IA</h3>
-      <p>Análise de mercado sobre desenvolvimento web, inteligência artificial e low-code. Documento estratégico.</p>
-      <a href="https://rogerio-alves.github.io/tech-trends-2026" target="_blank" class="botao-projeto">🔮 VISUALIZAR</a>
-    </div>
-
-    <div class="card analise">
-      <div class="badge-cat">📊 MÉTRICAS DE JORNADA</div>
-      <h3>100 Códigos: Evolução</h3>
-      <p>Análise do progresso nos 100 desafios, categorias mais produtivas e estatísticas de evolução diária.</p>
-      <a href="https://rogerio-alves.github.io/100-codigos-metrics" target="_blank" class="botao-projeto">📈 VER RELATÓRIO</a>
-    </div>
-
-    <div class="card analise">
-      <div class="badge-cat">📊 PROPRIEDADE INDUSTRIAL</div>
-      <h3>Estudo de Marcas</h3>
-      <p>Análise de registros de marcas no INPI, proteção de software e desenhos industriais no Brasil.</p>
-      <a href="https://rogerio-alves.github.io/estudo-marcas" target="_blank" class="botao-projeto">⚖️ ACESSAR ESTUDO</a>
-    </div>
-
-    <!-- ===================== CATEGORIA JAVASCRIPT ===================== -->
-    <div class="card js">
-      <div class="badge-cat">⚡ JS • UTILIDADES</div>
-      <h3>Validador Mestre</h3>
-      <p>Validação em tempo real com regex, máscaras de CPF/CNPJ e eventos DOM dinâmicos.</p>
-      <a href="https://rogerio-alves.github.io/validador-mestre" target="_blank" class="botao-projeto">✅ TESTAR</a>
-    </div>
-
-    <div class="card js">
-      <div class="badge-cat">⚡ JOGO RÁPIDO</div>
-      <h3>Duelo de Memória</h3>
-      <p>Jogo da memória temático com ranking local, timer e lógica de pontuação.</p>
-      <a href="https://rogerio-alves.github.io/memory-duel" target="_blank" class="botao-projeto">🎴 JOGAR DUELO</a>
-    </div>
-
-    <div class="card js">
-      <div class="badge-cat">⚡ API INTEGRADA</div>
-      <h3>Clima Tático</h3>
-      <p>Consumo de API de clima e recomendações de estratégia baseadas nas condições.</p>
-      <a href="https://rogerio-alves.github.io/clima-tatico" target="_blank" class="botao-projeto">⛅ CONSULTAR</a>
-    </div>
-
-    <div class="card js">
-      <div class="badge-cat">⚡ CANVAS & ANIMAÇÃO</div>
-      <h3>Canvas das Runas</h3>
-      <p>Efeitos visuais com canvas, partículas e animação fluida usando requestAnimationFrame.</p>
-      <a href="https://rogerio-alves.github.io/canvas-runas" target="_blank" class="botao-projeto">✨ VER MAGIA</a>
-    </div>
-
-    <div class="card js">
-      <div class="badge-cat">⚡ PRODUTIVIDADE</div>
-      <h3>Pomodoro Plus</h3>
-      <p>Cronômetro pomodoro customizável com notificações e histórico de ciclos.</p>
-      <a href="https://rogerio-alves.github.io/pomodoro-plus" target="_blank" class="botao-projeto">⏱️ INICIAR FOGO</a>
-    </div>
-
-    <div class="card js">
-      <div class="badge-cat">⚡ ALGORITMOS</div>
-      <h3>Visualizador de Sorting</h3>
-      <p>Animação de algoritmos de ordenação (Bubble, Quick, Merge) com controles interativos.</p>
-      <a href="https://rogerio-alves.github.io/sorting-visualizer" target="_blank" class="botao-projeto">🔄 VISUALIZAR</a>
-    </div>
-
-    <div class="card js">
-      <div class="badge-cat">⚡ AUTOMAÇÃO</div>
-      <h3>Bot de Coleta</h3>
-      <p>Script que simula scraping de preços e exibe dados em tabela dinâmica.</p>
-      <a href="https://rogerio-alves.github.io/bot-coleta" target="_blank" class="botao-projeto">🤖 EXECUTAR BOT</a>
-    </div>
-
-    <!-- Projeto híbrido JS + Projeto -->
-    <div class="card js projeto">
-      <div class="badge-cat">⚡ JS + PROJETO</div>
-      <h3>Pac-Man Warrior</h3>
-      <p>Recriação lendária do clássico Pac-Man com power-ups, IA simples e mecânicas retrô.</p>
-      <a href="https://rogerio-alves.github.io/pacman-warrior" target="_blank" class="botao-projeto">🍒 JOGAR AGORA</a>
-    </div>
-
-    <!-- Link para portfólio completo no GitHub -->
-    <div class="card projeto destaque">
-      <div class="badge-cat">📁 REPOSITÓRIO OFICIAL</div>
-      <h3>GitHub Portfolio</h3>
-      <p>Todos os códigos, projetos completos e documentação no meu repositório oficial.</p>
-      <a href="https://github.com/rogerio-alves" target="_blank" class="botao-projeto">🐙 VER NO GITHUB</a>
-    </div>
-
-    <!-- Link para LinkedIn profissional -->
-    <div class="card projeto">
-      <div class="badge-cat">🔗 REDE PROFISSIONAL</div>
-      <h3>LinkedIn • Rogério</h3>
-      <p>Conecte-se comigo para networking, oportunidades e parcerias estratégicas.</p>
-      <a href="https://linkedin.com/in/rogerio-alves-dev" target="_blank" class="botao-projeto">💼 VISITAR PERFIL</a>
+    <div class="card jogo">
+      <div class="badge-cat">🕹️ RETRO GAMER</div>
+      <h3>Space Shooter</h3>
+      <p>Jogo de nave espacial com mecânicas de tiro, inimigos e sistema de pontuação.</p>
+      <a href="#" class="botao" onclick="alert('🚀 Space Shooter em desenvolvimento!'); return false;">👾 JOGAR</a>
     </div>
   </div>
 
   <footer>
-    <span>🪓 Rogério Alves • HTML, JS, Análise e Grandes Projetos • 2026 🛡️</span><br>
-    <span style="font-size: 0.75rem;">“Cada linha carrega uma vitória — 4 pilares do conhecimento: HTML, Projetos, Análise e JavaScript”</span>
-    <br><br>
-    <div style="margin-top: 12px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-      <a href="https://github.com/rogerio-alves" target="_blank" style="color: #ffbc7a; text-decoration: none;">🔗 GitHub</a>
-      <a href="https://linkedin.com/in/rogerio-alves-dev" target="_blank" style="color: #ffbc7a; text-decoration: none;">🔗 LinkedIn</a>
-      <a href="mailto:rogerio.alves@email.com" style="color: #ffbc7a; text-decoration: none;">📧 Contato</a>
-    </div>
+    <span>🪓 SR Rogério • Portfólio de Guerreiro Digital • 2026 🛡️</span><br>
+    <span style="font-size: 0.75rem;">“Cada linha de código é um golpe certeiro contra a mediocridade — projetos, código & estratégia”</span>
   </footer>
 
   <script>
-    function filtrar(categoria) {
+    function filtrar(categoria, clickedButton) {
       const cards = document.querySelectorAll('.card');
-      let showCount = 0;
+      let hasVisible = false;
+      
+      const allButtons = document.querySelectorAll('.filtros button');
+      allButtons.forEach(btn => btn.classList.remove('active'));
+      if (clickedButton) clickedButton.classList.add('active');
       
       cards.forEach(card => {
         let match = false;
@@ -532,75 +424,78 @@
         }
         
         if (match) {
-          card.style.display = 'flex';
+          card.style.display = 'block';
           card.style.opacity = '1';
-          showCount++;
+          card.style.transform = 'scale(1)';
+          hasVisible = true;
         } else {
           card.style.display = 'none';
         }
       });
-      
-      const container = document.getElementById('portfolioGrid');
-      let warningDiv = document.getElementById('filter-feedback');
-      if (!warningDiv) {
-        warningDiv = document.createElement('div');
-        warningDiv.id = 'filter-feedback';
-        warningDiv.style.gridColumn = '1/-1';
-        warningDiv.style.textAlign = 'center';
-        warningDiv.style.padding = '2rem';
-        warningDiv.style.background = 'rgba(0,0,0,0.65)';
-        warningDiv.style.borderRadius = '48px';
-        warningDiv.style.margin = '20px';
-        warningDiv.style.border = '1px solid #ff7733';
-        warningDiv.style.color = '#ffbc89';
-        warningDiv.style.fontWeight = 'bold';
-        container.appendChild(warningDiv);
+
+      const container = document.querySelector('.container');
+      if (container && hasVisible) {
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-      
-      if (showCount === 0 && categoria !== 'all') {
-        warningDiv.innerHTML = '⚔️ Nenhum projeto encontrado nessa categoria, guerreiro. Explore outra forja! ⚔️';
-        warningDiv.style.display = 'block';
-        setTimeout(() => {
-          if(warningDiv) warningDiv.style.display = 'none';
-        }, 2200);
+
+      if (!hasVisible && categoria !== 'all') {
+        const containerGrid = document.querySelector('.container');
+        let warnMsg = document.getElementById('filter-warning');
+        if (!warnMsg) {
+          warnMsg = document.createElement('div');
+          warnMsg.id = 'filter-warning';
+          warnMsg.style.gridColumn = '1/-1';
+          warnMsg.style.textAlign = 'center';
+          warnMsg.style.padding = '2rem';
+          warnMsg.style.background = 'rgba(0,0,0,0.6)';
+          warnMsg.style.borderRadius = '40px';
+          warnMsg.style.backdropFilter = 'blur(8px)';
+          warnMsg.style.border = '1px solid #ff6a2e';
+          warnMsg.style.color = '#ffbc8c';
+          warnMsg.innerHTML = '⚡ Nenhum projeto encontrado nessa categoria, guerreiro. Volte à batalha principal! ⚡';
+          containerGrid.appendChild(warnMsg);
+          setTimeout(() => {
+            if(warnMsg && warnMsg.parentNode) warnMsg.remove();
+          }, 2000);
+        } else {
+          warnMsg.style.display = 'flex';
+          setTimeout(() => {
+            if(warnMsg) warnMsg.style.display = 'none';
+          }, 1800);
+        }
       } else {
-        warningDiv.style.display = 'none';
+        const warnMsg = document.getElementById('filter-warning');
+        if(warnMsg && warnMsg.parentNode) warnMsg.remove();
       }
     }
-    
+
     document.addEventListener('DOMContentLoaded', () => {
-      filtrar('all');
-      
-      const htmlCount = document.querySelectorAll('.card.html').length;
-      const projetoCount = document.querySelectorAll('.card.projeto').length;
-      const analiseCount = document.querySelectorAll('.card.analise').length;
-      const jsCount = document.querySelectorAll('.card.js').length;
-      
-      const statusPanel = document.createElement('div');
-      statusPanel.style.position = 'fixed';
-      statusPanel.style.bottom = '16px';
-      statusPanel.style.left = '16px';
-      statusPanel.style.backgroundColor = '#000000aa';
-      statusPanel.style.backdropFilter = 'blur(12px)';
-      statusPanel.style.padding = '6px 18px';
-      statusPanel.style.borderRadius = '40px';
-      statusPanel.style.fontSize = '0.7rem';
-      statusPanel.style.border = '1px solid #e35f21';
-      statusPanel.style.zIndex = '99';
-      statusPanel.style.fontWeight = '500';
-      statusPanel.style.color = '#ffd7a5';
-      statusPanel.innerHTML = `📐 HTML:${htmlCount}  |  📁 PROJETOS:${projetoCount}  |  📊 ANÁLISE:${analiseCount}  |  ⚡ JS:${jsCount}`;
-      document.body.appendChild(statusPanel);
-      
-      // feedback de clique nos links
-      const links = document.querySelectorAll('.botao-projeto');
-      links.forEach(link => {
-        link.addEventListener('click', (e) => {
-          if(link.getAttribute('href') === '#') e.preventDefault();
-          else console.log(`Navegando para: ${link.getAttribute('href')}`);
+      const filterButtons = document.querySelectorAll('.filtros button');
+      filterButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          const filterValue = button.getAttribute('data-filter');
+          filtrar(filterValue, button);
         });
+      });
+      
+      const activeButton = document.querySelector('.filtros button.active');
+      if (activeButton) {
+        filtrar('all', activeButton);
+      } else {
+        filtrar('all', null);
+      }
+      
+      const localLinks = document.querySelectorAll('a[href^="file://"], a[href$=".html"], a[href$=".js"]');
+      localLinks.forEach(link => {
+        if (!link.getAttribute('onclick')) {
+          link.addEventListener('click', (e) => {
+            if (link.getAttribute('href') === '#') return;
+            const confirmMsg = confirm(`Deseja realmente abrir "${link.getAttribute('href')}"? Certifique-se de que o arquivo existe.`);
+            if (!confirmMsg) e.preventDefault();
+          });
+        }
       });
     });
   </script>
-</body>
+</body>      
 </html>
