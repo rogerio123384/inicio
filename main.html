@@ -13,12 +13,12 @@
 
     body {
       font-family: 'Poppins', 'Segoe UI', 'Cinema', system-ui, -apple-system, 'Inter', sans-serif;
-      /* FUNDO PADRÃO SIMPLES E CONFIÁVEL - imagem do Pexels sempre disponível */
+      /* FUNDO PADRÃO - IMAGEM FIXA (background-attachment: fixed) */
       background: linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.85)), 
                   url('https://images.pexels.com/photos/952670/pexels-photo-952670.jpeg?auto=compress&cs=tinysrgb&w=1600');
       background-size: cover;
       background-position: center center;
-      background-attachment: fixed;
+      background-attachment: fixed;   /* 🔒 FUNDO FIXO - NÃO ROLA */
       background-repeat: no-repeat;
       min-height: 100vh;
       color: #ece8e1;
@@ -27,7 +27,7 @@
       scroll-behavior: smooth;
     }
 
-    /* Painel flutuante para trocar imagem de fundo */
+    /* Painel flutuante para trocar imagem de fundo (também manterá o fixo) */
     .bg-upload-panel {
       position: fixed;
       bottom: 20px;
@@ -147,7 +147,7 @@
                   url('https://images.pexels.com/photos/6985000/pexels-photo-6985000.jpeg?auto=compress&cs=tinysrgb&w=1600');
       background-size: cover;
       background-position: center 30%;
-      background-attachment: fixed;
+      background-attachment: fixed;   /* mantém fixo junto com body */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -500,7 +500,7 @@
       .filtros button { padding: 8px 18px; font-size: 0.8rem; }
       .card h3 { font-size: 1.5rem; }
       .container { gap: 20px; padding: 12px; }
-      .hero-cover { height: 50vh; min-height: 380px; background-attachment: scroll; }
+      .hero-cover { height: 50vh; min-height: 380px; background-attachment: fixed; }
       .hero-content h2 { font-size: 1.8rem; }
       .hero-content p { font-size: 0.85rem; }
       .bg-upload-panel { font-size: 0.7rem; padding: 8px 14px; bottom: 10px; left: 10px; gap: 8px; }
@@ -509,20 +509,20 @@
   </style>
 </head>
 <body>
-  <!-- PAINEL PARA TROCAR IMAGEM DE FUNDO -->
+  <!-- PAINEL PARA TROCAR IMAGEM DE FUNDO (fixo e persistente) -->
   <div class="bg-upload-panel">
-    <span>🎨 FUNDO:</span>
+    <span>🎨 FUNDO FIXO:</span>
     <label for="bgImageInput">📁 Escolher imagem</label>
     <input type="file" id="bgImageInput" accept="image/*">
     <button id="btnUrlExterna" class="btn-url-externa">🔗 URL imagem</button>
     <button id="btnRemoverFundo" class="btn-remover-fundo">🔄 Restaurar</button>
-    <div class="bg-status" id="bgStatus">⚔️ Fundo ativo</div>
+    <div class="bg-status" id="bgStatus">⚔️ Fundo ativo (fixo)</div>
   </div>
 
   <!-- Modal para inserir URL de imagem externa -->
   <div id="urlModal" class="modal-url">
     <div class="modal-content">
-      <h3>🔗 URL da imagem (qualquer link direto)</h3>
+      <h3>🔗 URL da imagem (mantém fundo fixo)</h3>
       <input type="text" id="externalImageUrl" placeholder="https://exemplo.com/imagem.jpg" value="https://images.pexels.com/photos/952670/pexels-photo-952670.jpeg?auto=compress&cs=tinysrgb&w=1600">
       <div>
         <button id="confirmUrlBtn">Aplicar Fundo</button>
@@ -568,7 +568,7 @@
       <p>Portal principal da jornada, com layout fluído e integração entre todas as forças do código.</p>
       <a href="index.html" class="botao">⚔️ EXPLORAR</a>
     </div>
- <div class="card html">
+    <div class="card html">
       <div class="badge-cat">snack-react</div>
       <h3>.html</h3>
       <p>Portal principal da jornada, com layout fluído e integração entre todas as forças do código.</p>
@@ -589,19 +589,19 @@
       <p>Scripts para consumo de APIs e automação — link para o portfólio e networks.</p>
       <a href="teste2.js" class="botao">🚀 ACESSAR</a>
     </div>
-<div class="card js">
+    <div class="card js">
       <div class="badge-cat">🔗 Integrações</div>
       <h3>aluno.js</h3>
       <p>Scripts para consumo de APIs e automação — link para o portfólio e networks.</p>
       <a href="aluno.js" class="botao">🚀 ACESSAR</a>
     </div>
-<div class="card js">
+    <div class="card js">
       <div class="badge-cat">🔗 Integrações</div>
       <h3>media.js</h3>
       <p>Scripts para consumo de APIs e automação — link para o portfólio e networks.</p>
       <a href="media.js" class="botao">🚀 ACESSAR</a>
     </div>
-<div class="card js">
+    <div class="card js">
       <div class="badge-cat">🔗 Integrações</div>
       <h3>leitura.js</h3>
       <p>Scripts para consumo de APIs e automação — link para o portfólio e networks.</p>
@@ -637,11 +637,11 @@
       <p>Scripts para consumo de APIs e automação — link para o portfólio e networks.</p>
       <a href="usadofor.js" class="botao">🚀 ACESSAR</a>
     </div>
-   <div class="card js">
+    <div class="card js">
       <div class="badge-cat">🔗 Integrações</div>
       <h3>usando br.js</h3>
       <p>Scripts para consumo de APIs e automação — link para o portfólio e networks.</p>
-      <a href="usando br.js" class="botao">🚀 ACESSAR</a>
+      <a href="usando%20br.js" class="botao">🚀 ACESSAR</a>
     </div>
     <div class="card js">
       <div class="badge-cat">🏎️ Performance</div>
@@ -686,29 +686,31 @@
   </footer>
 
   <script>
-    // IMAGEM PADRÃO ORIGINAL (CONFIÁVEL)
-    const ORIGINAL_BG_URL = "url('https://images.pexels.com/photos/952670/pexels-photo-952670.jpeg?auto=compress&cs=tinysrgb&w=1600')";
+    // 🔒 Garantia: FUNDO FIXO SEMPRE! Todas as imagens mantêm background-attachment: fixed
+    const ORIGINAL_BG_URL_CSS = "url('https://images.pexels.com/photos/952670/pexels-photo-952670.jpeg?auto=compress&cs=tinysrgb&w=1600')";
+    const ORIGINAL_GRADIENT = "linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.85)), ";
     
-    // Função para aplicar imagem de fundo
+    // Função para aplicar imagem de fundo mantendo o attachment fixo
     function setBackgroundImage(imageUrl, fileName = "personalizado") {
       const body = document.body;
-      body.style.background = `linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.85)), ${imageUrl}`;
+      // Força o fundo com linear-gradient + imagem, e sempre background-attachment fixed + cover
+      body.style.background = `${ORIGINAL_GRADIENT} ${imageUrl}`;
       body.style.backgroundSize = 'cover';
       body.style.backgroundPosition = 'center center';
-      body.style.backgroundAttachment = 'fixed';
+      body.style.backgroundAttachment = 'fixed';   // 🔒 FIXO
       body.style.backgroundRepeat = 'no-repeat';
       
       const statusDiv = document.getElementById('bgStatus');
       if (statusDiv) {
         let displayName = fileName;
         if (displayName && displayName.length > 28) displayName = displayName.substring(0, 25) + '...';
-        statusDiv.innerHTML = `🎨 ${displayName || 'personalizado'}`;
+        statusDiv.innerHTML = `🎨 ${displayName || 'personalizado'} (fixo)`;
         statusDiv.style.color = "#ffbc7a";
       }
       
       // Salvar no localStorage para persistência
       try {
-        if (imageUrl !== ORIGINAL_BG_URL) {
+        if (imageUrl !== ORIGINAL_BG_URL_CSS) {
           localStorage.setItem('warriorBgImage', imageUrl);
           localStorage.setItem('warriorBgName', fileName || 'custom');
         } else {
@@ -718,10 +720,10 @@
       } catch(e) {}
     }
     
-    // Restaurar fundo original
+    // Restaurar fundo original com attachment fixo
     function resetToOriginalBackground() {
       const body = document.body;
-      body.style.background = `linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.85)), ${ORIGINAL_BG_URL}`;
+      body.style.background = `${ORIGINAL_GRADIENT} ${ORIGINAL_BG_URL_CSS}`;
       body.style.backgroundSize = 'cover';
       body.style.backgroundPosition = 'center center';
       body.style.backgroundAttachment = 'fixed';
@@ -729,7 +731,7 @@
       
       const statusDiv = document.getElementById('bgStatus');
       if (statusDiv) {
-        statusDiv.innerHTML = '⚔️ Fundo original';
+        statusDiv.innerHTML = '⚔️ Fundo original (fixo)';
       }
       try {
         localStorage.removeItem('warriorBgImage');
@@ -737,7 +739,7 @@
       } catch(e) {}
     }
     
-    // Upload via arquivo local
+    // Upload via arquivo local (mantém fixo)
     const fileInput = document.getElementById('bgImageInput');
     fileInput.addEventListener('change', (event) => {
       const file = event.target.files[0];
@@ -753,7 +755,7 @@
       }
     });
     
-    // URL externa (funciona com GitHub, Imgur, qualquer link direto)
+    // URL externa (mantém fixo)
     const btnUrl = document.getElementById('btnUrlExterna');
     const modal = document.getElementById('urlModal');
     const confirmBtn = document.getElementById('confirmUrlBtn');
@@ -783,14 +785,14 @@
       if (e.target === modal) modal.style.display = 'none';
     });
     
-    // Botão restaurar fundo original
+    // Botão restaurar fundo original (fixo)
     const btnRemover = document.getElementById('btnRemoverFundo');
     btnRemover.addEventListener('click', () => {
       resetToOriginalBackground();
       if (fileInput) fileInput.value = '';
     });
     
-    // FILTROS (não interferem no fundo)
+    // FILTROS (não alteram fundo)
     function filtrar(categoria, clickedButton) {
       const cards = document.querySelectorAll('.card');
       let hasVisible = false;
@@ -837,7 +839,7 @@
       }
     }
     
-    // Restaurar fundo salvo anteriormente
+    // Restaurar fundo salvo anteriormente (sempre fixo)
     function restoreSavedBackground() {
       const savedImage = localStorage.getItem('warriorBgImage');
       const savedName = localStorage.getItem('warriorBgName');
@@ -850,7 +852,7 @@
     
     // Inicialização
     document.addEventListener('DOMContentLoaded', () => {
-      // Restaurar fundo salvo OU manter o original
+      // Restaurar fundo salvo OU manter o original (ambos fixos)
       if (!restoreSavedBackground()) {
         resetToOriginalBackground();
       }
@@ -882,7 +884,7 @@
         });
       }
       
-      // Confirmação para links locais
+      // Confirmação para links locais (opcional)
       const localLinks = document.querySelectorAll('a[href$=".html"], a[href$=".js"]');
       localLinks.forEach(link => {
         if (!link.getAttribute('target')) {
@@ -894,7 +896,7 @@
         }
       });
       
-      // Garantir que o fundo persiste ao usar back/forward
+      // Garantir que o fundo persiste fixo ao voltar/avançar e sempre attachment fixed
       window.addEventListener('pageshow', () => {
         const savedImg = localStorage.getItem('warriorBgImage');
         if (savedImg && savedImg !== 'null') {
@@ -902,7 +904,16 @@
         } else {
           resetToOriginalBackground();
         }
+        // Reforçar fixidez por segurança (caso algum outro script altere)
+        document.body.style.backgroundAttachment = 'fixed';
       });
+      
+      // Reforço final para garantir que o fundo nunca perca o fixed
+      setInterval(() => {
+        if (document.body.style.backgroundAttachment !== 'fixed') {
+          document.body.style.backgroundAttachment = 'fixed';
+        }
+      }, 500);
     });
   </script>
 </body>      
