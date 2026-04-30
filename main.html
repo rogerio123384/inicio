@@ -14,7 +14,7 @@
     body {
       font-family: 'Montserrat', 'Poppins', 'Segoe UI', sans-serif;
       /* FUNDO FIXO PADRÃO - imagem 'capitao.png' (caso exista) */
-      background: url('capitao.png') no-repeat center center fixed;
+      background: url('../Rogério/jgp..jpg') no-repeat center center fixed;
       background-size: cover;
       color: #f5ede2;
       margin: 0;
@@ -525,7 +525,7 @@
 
   <script>
     // ========== GERENCIADOR DE FUNDO FIXO E PERSISTENTE ==========
-    const ORIGINAL_BG_VALUE = "url('capitao.png')";
+    const ORIGINAL_BG_VALUE = "url('jgp')";
     
     function setFixedBackground(imageUrl, label = "personalizado") {
       const body = document.body;
@@ -552,7 +552,7 @@
     
     function resetOriginalFixed() {
       const body = document.body;
-      body.style.background = "url('capitao.png') no-repeat center center fixed";
+      body.style.background = "url('../Rogério/jgp..jpg') no-repeat center center fixed";
       body.style.backgroundSize = 'cover';
       body.style.backgroundAttachment = 'fixed';
       const statusDiv = document.getElementById('bgStatus');
