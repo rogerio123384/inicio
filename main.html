@@ -13,7 +13,7 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: url('jgp..jpg') no-repeat center center fixed;
+      background: url('') no-repeat center center fixed;
       background-size: cover;
       margin: 0;
       display: flex;
@@ -95,7 +95,7 @@
       letter-spacing: 1px;
     }
 
-    /* Filtros internos de categoria */
+    /* Filtros internos de categoria - NOVO ESTILO */
     .filtros {
       display: flex;
       justify-content: center;
@@ -117,6 +117,7 @@
       color: #fbe9c3;
       cursor: pointer;
       transition: all 0.25s ease;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     .filtros button:hover {
@@ -249,6 +250,7 @@
 
     .card.html h3::after { content: "🪶"; font-size: 1.3rem; margin-left: auto; }
     .card.js h3::after { content: "⚡"; font-size: 1.3rem; margin-left: auto; }
+    .card.python h3::after { content: "🐍"; font-size: 1.3rem; margin-left: auto; }
     .card.jogo h3::after { content: "🎮"; font-size: 1.3rem; margin-left: auto; }
     .card.analise h3::after { content: "📐"; font-size: 1.3rem; margin-left: auto; }
 
@@ -354,6 +356,7 @@
       .btn-trimestre { padding: 10px 20px; font-size: 0.9rem; }
       .hero-content h2 { font-size: 1.6rem; }
       header h1 { font-size: 2rem; }
+      .filtros button { padding: 6px 16px; font-size: 0.75rem; }
     }
   </style>
 </head>
@@ -382,13 +385,13 @@
     <span>📅 1º Trimestre • Fundamentos e Primeiros Projetos</span>
   </div>
 
-  <!-- FILTROS POR CATEGORIA (funcionam apenas no 1º trimestre) -->
-  <div class="filtros" id="filtrosCategoria">
-    <button data-cat="all" class="active">🎯 TODOS</button>
-    <button data-cat="html">🌐 HTML</button>
-    <button data-cat="js">⚡ JS</button>
-    <button data-cat="jogo">🎮 JOGOS</button>
-    <button data-cat="analise">📊 ANÁLISE</button>
+  <!-- Botões de filtro - NOVO ESTILO -->
+  <div class="filtros">
+    <button onclick="filtrar('all')">Mostrar Todos</button>
+    <button onclick="filtrar('html')">HTML</button>
+    <button onclick="filtrar('js')">JavaScript</button>
+    <button onclick="filtrar('python')">Python</button>
+    <button onclick="filtrar('analise')">Análise</button>
   </div>
 
   <div class="container" id="portfolioContainer"></div>
@@ -399,8 +402,8 @@
   </footer>
 
   <script>
-    // ========== SOMENTE 1º TRIMESTRE COM TODAS AS ATIVIDADES ==========
-    // 2º e 3º trimestres vazios (sem códigos)
+    // ========== PROJETOS DO 1º TRIMESTRE COM CATEGORIAS ==========
+    // Adicionado suporte para Python
     
     const projetosPrimeiroTrimestre = [
       { titulo: "teste.html", descricao: "Página interativa com semântica, acessibilidade e design responsivo — base sólida.", tipo: "html", link: "teste.html", badge: "Estrutura Web" },
@@ -421,7 +424,10 @@
       { titulo: "variaveis.js", descricao: "Escopo, hoisting, closures e imutabilidade.", tipo: "js", link: "variaveis.js", badge: "Fundamentos" },
       { titulo: "Atividade Gamma", descricao: "Estudo sobre patentes, marcas e desenhos industriais — relatório estratégico.", tipo: "analise", link: "https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i", badge: "Propriedade Intelectual", external: true },
       { titulo: "Dashboard Gamma", descricao: "Relatório interativo com métricas de inovação e gráficos avançados.", tipo: "analise", link: "https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i", badge: "Data Insights", external: true },
-      { titulo: "Jogo Pac-man", descricao: "Recriação lendária do clássico dos fliperamas — ação e estratégia.", tipo: "jogo", link: "pac.html", badge: "ARCADE" }
+      { titulo: "Jogo Pac-man", descricao: "Recriação lendária do clássico dos fliperamas — ação e estratégia.", tipo: "jogo", link: "pac.html", badge: "ARCADE" },
+      // Exemplo de projeto Python (demonstração)
+      { titulo: "Analisador de Dados.py", descricao: "Script em Python para análise estatística e visualização de dados — ciência de dados aplicada.", tipo: "python", link: "analisador.py", badge: "Data Science", external: false },
+      { titulo: "Automação Web.py", descricao: "Bot em Python para automação de tarefas web usando Selenium — eficiência e produtividade.", tipo: "python", link: "automacao.py", badge: "Automação", external: false }
     ];
 
     // Estado atual
@@ -430,12 +436,33 @@
 
     const container = document.getElementById("portfolioContainer");
     const botoesTrimestre = document.querySelectorAll(".btn-trimestre");
-    const botoesCategoria = document.querySelectorAll("[data-cat]");
     const trimestreIndicator = document.getElementById("trimestreIndicator");
+
+    // Função filtrar global (chamada pelo onclick dos botões)
+    window.filtrar = function(categoria) {
+      if (trimestreAtual !== "primeiro") {
+        alert("⚔️ Os filtros estão disponíveis apenas para o 1º Trimestre! ⚔️");
+        return;
+      }
+      categoriaAtual = categoria;
+      
+      // Atualizar estilo ativo dos botões
+      const allFilterButtons = document.querySelectorAll('.filtros button');
+      allFilterButtons.forEach(btn => {
+        const btnCat = btn.getAttribute('onclick');
+        if (btnCat && btnCat.includes(`'${categoria}'`)) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      
+      renderizarCards();
+    };
 
     function atualizarIndicador() {
       if (trimestreAtual === "primeiro") {
-        trimestreIndicator.innerHTML = "<span>📅 1º Trimestre • Fundamentos e Primeiros Projetos (19 atividades)</span>";
+        trimestreIndicator.innerHTML = "<span>📅 1º Trimestre • Fundamentos e Primeiros Projetos (21 atividades)</span>";
       } else if (trimestreAtual === "segundo") {
         trimestreIndicator.innerHTML = "<span>⚔️ 2º Trimestre • Em desenvolvimento — Novas aventuras em breve</span>";
       } else {
@@ -476,8 +503,16 @@
       let htmlCards = "";
       projetosFiltrados.forEach(proj => {
         const targetAttr = proj.external ? 'target="_blank" rel="noopener noreferrer"' : '';
+        // Garantir que a classe do card corresponda ao tipo para os ícones
+        let cardClass = proj.tipo;
+        if (proj.tipo === 'js') cardClass = 'js';
+        if (proj.tipo === 'html') cardClass = 'html';
+        if (proj.tipo === 'python') cardClass = 'python';
+        if (proj.tipo === 'jogo') cardClass = 'jogo';
+        if (proj.tipo === 'analise') cardClass = 'analise';
+        
         htmlCards += `
-          <div class="card ${proj.tipo}">
+          <div class="card ${cardClass}">
             <div class="badge-etapa">📌 1º Trimestre</div>
             <div class="badge-cat">🏷️ ${proj.badge}</div>
             <h3>${proj.titulo}</h3>
@@ -514,11 +549,15 @@
       
       // Resetar categoria ao mudar de trimestre
       categoriaAtual = "all";
-      botoesCategoria.forEach(btn => {
-        if (btn.getAttribute("data-cat") === "all") {
-          btn.classList.add("active");
+      
+      // Resetar estilo ativo dos botões de filtro
+      const allFilterButtons = document.querySelectorAll('.filtros button');
+      allFilterButtons.forEach(btn => {
+        const btnCat = btn.getAttribute('onclick');
+        if (btnCat && btnCat.includes("'all'")) {
+          btn.classList.add('active');
         } else {
-          btn.classList.remove("active");
+          btn.classList.remove('active');
         }
       });
       
@@ -530,30 +569,10 @@
       }, 100);
     }
 
-    function setCategoria(categoria) {
-      if (trimestreAtual !== "primeiro") return; // filtros só funcionam no 1º trimestre
-      
-      categoriaAtual = categoria;
-      botoesCategoria.forEach(btn => {
-        if (btn.getAttribute("data-cat") === categoria) {
-          btn.classList.add("active");
-        } else {
-          btn.classList.remove("active");
-        }
-      });
-      renderizarCards();
-    }
-
-    // Eventos
+    // Eventos para os botões de trimestre
     botoesTrimestre.forEach(btn => {
       btn.addEventListener("click", () => {
         setTrimestre(btn.getAttribute("data-trimestre"));
-      });
-    });
-
-    botoesCategoria.forEach(btn => {
-      btn.addEventListener("click", () => {
-        setCategoria(btn.getAttribute("data-cat"));
       });
     });
 
