@@ -13,7 +13,7 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: url('jgp..jpg') no-repeat center center fixed;
+      background: url('') no-repeat center center fixed;
       background-size: cover;
       margin: 0;
       display: flex;
@@ -38,7 +38,6 @@
       z-index: 0;
     }
 
-    /* Abas de Trimestre - Estilo Épico */
     .trimestres-nav {
       position: relative;
       z-index: 15;
@@ -78,7 +77,6 @@
       border-color: #ffbc7a;
     }
 
-    /* Badge indicadora do trimestre ativo */
     .trimestre-indicator {
       text-align: center;
       margin: 10px 20px;
@@ -95,7 +93,6 @@
       letter-spacing: 1px;
     }
 
-    /* Filtros internos de categoria - NOVO ESTILO */
     .filtros {
       display: flex;
       justify-content: center;
@@ -118,6 +115,8 @@
       cursor: pointer;
       transition: all 0.25s ease;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .filtros button:hover {
@@ -132,7 +131,6 @@
       box-shadow: 0 0 12px rgba(230,92,30,0.6);
     }
 
-    /* Container dos cards */
     .container {
       max-width: 1300px;
       width: 100%;
@@ -253,8 +251,9 @@
     .card.python h3::after { content: "🐍"; font-size: 1.3rem; margin-left: auto; }
     .card.jogo h3::after { content: "🎮"; font-size: 1.3rem; margin-left: auto; }
     .card.analise h3::after { content: "📐"; font-size: 1.3rem; margin-left: auto; }
+    .card.backend h3::after { content: "⚙️"; font-size: 1.3rem; margin-left: auto; }
+    .card.fullstack h3::after { content: "🌐"; font-size: 1.3rem; margin-left: auto; }
 
-    /* Mensagem de trimestre vazio */
     .empty-message {
       grid-column: 1/-1;
       text-align: center;
@@ -356,7 +355,7 @@
       .btn-trimestre { padding: 10px 20px; font-size: 0.9rem; }
       .hero-content h2 { font-size: 1.6rem; }
       header h1 { font-size: 2rem; }
-      .filtros button { padding: 6px 16px; font-size: 0.75rem; }
+      .filtros button { padding: 6px 16px; font-size: 0.7rem; }
     }
   </style>
 </head>
@@ -374,7 +373,6 @@
     <p>“Três trimestres, três etapas — conquistas e aprendizados”</p>
   </header>
 
-  <!-- ABAS DOS TRIMESTRES -->
   <div class="trimestres-nav">
     <button class="btn-trimestre active" data-trimestre="primeiro">🏆 1º TRIMESTRE</button>
     <button class="btn-trimestre" data-trimestre="segundo">⚔️ 2º TRIMESTRE</button>
@@ -385,14 +383,7 @@
     <span>📅 1º Trimestre • Fundamentos e Primeiros Projetos</span>
   </div>
 
-  <!-- Botões de filtro - NOVO ESTILO -->
-  <div class="filtros">
-    <button onclick="filtrar('all')">Mostrar Todos</button>
-    <button onclick="filtrar('html')">HTML</button>
-    <button onclick="filtrar('js')">JavaScript</button>
-    <button onclick="filtrar('python')">Python</button>
-    <button onclick="filtrar('analise')">Análise</button>
-  </div>
+  <div class="filtros" id="filtrosContainer"></div>
 
   <div class="container" id="portfolioContainer"></div>
 
@@ -402,10 +393,8 @@
   </footer>
 
   <script>
-    // ========== PROJETOS DO 1º TRIMESTRE COM CATEGORIAS ==========
-    // Adicionado suporte para Python
-    
-    const projetosPrimeiroTrimestre = [
+    // ======================== PROJETOS 1º TRIMESTRE ========================
+    const projetosPrimeiro = [
       { titulo: "teste.html", descricao: "Página interativa com semântica, acessibilidade e design responsivo — base sólida.", tipo: "html", link: "teste.html", badge: "Estrutura Web" },
       { titulo: "index.html", descricao: "Jornada completa do guerreiro, layout fluído com filtros e cards imersivos.", tipo: "html", link: "index.html", badge: "Portal principal" },
       { titulo: "snack.html", descricao: "Experiência mobile com React Native e foguete interativo.", tipo: "html", link: "https://snack.expo.dev/@ra30092009/foguete?platform=android", badge: "snack-react", external: true },
@@ -425,12 +414,18 @@
       { titulo: "Atividade Gamma", descricao: "Estudo sobre patentes, marcas e desenhos industriais — relatório estratégico.", tipo: "analise", link: "https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i", badge: "Propriedade Intelectual", external: true },
       { titulo: "Dashboard Gamma", descricao: "Relatório interativo com métricas de inovação e gráficos avançados.", tipo: "analise", link: "https://gamma.app/docs/Propriedade-Industrial-Patentes-Marcas-e-Desenhos-Industriais-g6n4s4r31ysqz4i", badge: "Data Insights", external: true },
       { titulo: "Jogo Pac-man", descricao: "Recriação lendária do clássico dos fliperamas — ação e estratégia.", tipo: "jogo", link: "pac.html", badge: "ARCADE" },
-      // Exemplo de projeto Python (demonstração)
-      { titulo: "automacao.py", descricao: "Script em Python para análise estatística e visualização de dados — ciência de dados aplicada.", tipo: "python", link: "automacao.py", badge: "Data Science", external: false },
-      { titulo: "Automação Web.py", descricao: "Bot em Python para automação de tarefas web usando Selenium — eficiência e produtividade.", tipo: "python", link: "Preço=float(input('soma o Preço do p", badge: "Automação", external: false }
+      { titulo: "Analisador de Dados.py", descricao: "Script em Python para análise estatística e visualização de dados — ciência de dados aplicada.", tipo: "python", link: "analisador.py", badge: "Data Science", external: false },
+      { titulo: "Automação Web.py", descricao: "Bot em Python para automação de tarefas web usando Selenium — eficiência e produtividade.", tipo: "python", link: "automacao.py", badge: "Automação", external: false }
     ];
 
-    // Estado atual
+    // ======================== PROJETOS 2º TRIMESTRE ========================
+    // Vazio - nenhum projeto, mas os filtros serão criados dinamicamente
+    const projetosSegundo = [];
+
+    // ======================== PROJETOS 3º TRIMESTRE ========================
+    // Vazio - nenhum projeto, mas os filtros serão criados dinamicamente
+    const projetosTerceiro = [];
+
     let trimestreAtual = "primeiro";
     let categoriaAtual = "all";
 
@@ -438,57 +433,119 @@
     const botoesTrimestre = document.querySelectorAll(".btn-trimestre");
     const trimestreIndicator = document.getElementById("trimestreIndicator");
 
-    // Função filtrar global (chamada pelo onclick dos botões)
-    window.filtrar = function(categoria) {
-      if (trimestreAtual !== "primeiro") {
-        alert("⚔️ Os filtros estão disponíveis apenas para o 1º Trimestre! ⚔️");
-        return;
+    function getProjetosPorTrimestre() {
+      if (trimestreAtual === "primeiro") return projetosPrimeiro;
+      if (trimestreAtual === "segundo") return projetosSegundo;
+      return projetosTerceiro;
+    }
+
+    function getCategoriasDisponiveis() {
+      const projetos = getProjetosPorTrimestre();
+      const cats = new Set();
+      projetos.forEach(p => cats.add(p.tipo));
+      return Array.from(cats);
+    }
+
+    // Função para nomes das categorias - disponível para todos os trimestres
+    function getNomeCategoria(cat) {
+      if (cat === 'html') return 'HTML';
+      if (cat === 'js') return 'JavaScript';
+      if (cat === 'python') return 'Python';
+      if (cat === 'analise') return 'Análise';
+      if (cat === 'jogo') return 'Jogo';
+      if (cat === 'backend') return 'Backend';
+      if (cat === 'fullstack') return 'FullStack';
+      return cat.toUpperCase();
+    }
+
+    function atualizarBotoesFiltro() {
+      const filtrosContainer = document.getElementById("filtrosContainer");
+      const categoriasDisponiveis = getCategoriasDisponiveis();
+      
+      // Se não houver categorias (trimestre vazio), mostrar apenas Mostrar Todos
+      // Mas vamos manter um conjunto padrão de filtros para o 2º e 3º trimestre mesmo vazios
+      let botoesHTML = [`<button data-cat="all" class="${categoriaAtual === 'all' ? 'active' : ''}">Mostrar Todos</button>`];
+      
+      // Para trimestres vazios, ainda mostramos os filtros padrão baseados nas categorias que seriam usadas
+      if (trimestreAtual === "segundo") {
+        // Filtros para o 2º trimestre - categorias que serão usadas quando houver projetos
+        const categoriasPadraoSegundo = ['html', 'js', 'python', 'analise', 'jogo', 'backend', 'fullstack'];
+        categoriasPadraoSegundo.forEach(cat => {
+          const label = getNomeCategoria(cat);
+          botoesHTML.push(`<button data-cat="${cat}" class="${categoriaAtual === cat ? 'active' : ''}">${label}</button>`);
+        });
+      } else if (trimestreAtual === "terceiro") {
+        // Filtros para o 3º trimestre - categorias que serão usadas quando houver projetos
+        const categoriasPadraoTerceiro = ['html', 'js', 'python', 'analise', 'jogo', 'backend', 'fullstack'];
+        categoriasPadraoTerceiro.forEach(cat => {
+          const label = getNomeCategoria(cat);
+          botoesHTML.push(`<button data-cat="${cat}" class="${categoriaAtual === cat ? 'active' : ''}">${label}</button>`);
+        });
+      } else {
+        // Para o 1º trimestre, usa as categorias disponíveis dos projetos
+        categoriasDisponiveis.forEach(cat => {
+          const label = getNomeCategoria(cat);
+          botoesHTML.push(`<button data-cat="${cat}" class="${categoriaAtual === cat ? 'active' : ''}">${label}</button>`);
+        });
       }
-      categoriaAtual = categoria;
       
-      // Atualizar estilo ativo dos botões
-      const allFilterButtons = document.querySelectorAll('.filtros button');
-      allFilterButtons.forEach(btn => {
-        const btnCat = btn.getAttribute('onclick');
-        if (btnCat && btnCat.includes(`'${categoria}'`)) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
+      filtrosContainer.innerHTML = botoesHTML.join('');
+      
+      document.querySelectorAll('#filtrosContainer button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const cat = btn.getAttribute('data-cat');
+          categoriaAtual = cat;
+          atualizarBotoesFiltro();
+          renderizarCards();
+        });
       });
-      
-      renderizarCards();
-    };
+    }
 
     function atualizarIndicador() {
       if (trimestreAtual === "primeiro") {
         trimestreIndicator.innerHTML = "<span>📅 1º Trimestre • Fundamentos e Primeiros Projetos (21 atividades)</span>";
       } else if (trimestreAtual === "segundo") {
-        trimestreIndicator.innerHTML = "<span>⚔️ 2º Trimestre • Em desenvolvimento — Novas aventuras em breve</span>";
+        trimestreIndicator.innerHTML = "<span>⚔️ 2º Trimestre • Aguardando Novas Conquistas</span>";
       } else {
-        trimestreIndicator.innerHTML = "<span>🔥 3º Trimestre • Em desenvolvimento — Próximos desafios</span>";
+        trimestreIndicator.innerHTML = "<span>🔥 3º Trimestre • Aguardando Novas Conquistas</span>";
       }
     }
 
     function renderizarCards() {
-      // 2º e 3º trimestres vazios
-      if (trimestreAtual !== "primeiro") {
-        container.innerHTML = `
-          <div class="empty-message">
-            <h3>⚔️ TRIMESTRE EM CONSTRUÇÃO ⚔️</h3>
-            <p>Os projetos do ${trimestreAtual === "segundo" ? "2º" : "3º"} Trimestre serão adicionados em breve!</p>
-            <p style="margin-top: 15px; font-size: 0.9rem;">🔮 Novos códigos, novas batalhas estão por vir...</p>
-            <p style="margin-top: 10px;">⚔️ Enquanto isso, explore as conquistas do 1º Trimestre! ⚔️</p>
-          </div>
-        `;
-        return;
+      const projetos = getProjetosPorTrimestre();
+      let projetosFiltrados = projetos;
+      
+      if (categoriaAtual !== "all") {
+        projetosFiltrados = projetos.filter(proj => proj.tipo === categoriaAtual);
       }
 
-      // 1º trimestre com todas as atividades
-      const projetosFiltrados = projetosPrimeiroTrimestre.filter(proj => {
-        if (categoriaAtual === "all") return true;
-        return proj.tipo === categoriaAtual;
-      });
+      // Se não houver projetos no trimestre atual
+      if (projetos.length === 0) {
+        let mensagem = "";
+        if (trimestreAtual === "segundo") {
+          mensagem = `
+            <div class="empty-message">
+              <h3>⚔️ 2º TRIMESTRE EM CONSTRUÇÃO ⚔️</h3>
+              <p>As batalhas do 2º Trimestre estão sendo preparadas!</p>
+              <p style="margin-top: 15px; font-size: 0.9rem;">🔮 Novos projetos, desafios e aprendizados virão em breve...</p>
+              <p style="margin-top: 10px;">⚔️ Enquanto isso, explore as conquistas do 1º Trimestre! ⚔️</p>
+              <p style="margin-top: 15px;">📌 Os filtros acima já estão disponíveis para quando os projetos chegarem!</p>
+            </div>
+          `;
+        } else if (trimestreAtual === "terceiro") {
+          mensagem = `
+            <div class="empty-message">
+              <h3>🔥 3º TRIMESTRE EM CONSTRUÇÃO 🔥</h3>
+              <p>O último estágio da jornada está sendo forjado!</p>
+              <p style="margin-top: 15px; font-size: 0.9rem;">⚡ Em breve, as maiores conquistas serão reveladas...</p>
+              <p style="margin-top: 10px;">⚔️ Explore as conquistas do 1º Trimestre enquanto aguarda! ⚔️</p>
+              <p style="margin-top: 15px;">📌 Os filtros acima já estão disponíveis para quando os projetos chegarem!</p>
+            </div>
+          `;
+        }
+        container.innerHTML = mensagem;
+        return;
+      }
 
       if (projetosFiltrados.length === 0) {
         container.innerHTML = `
@@ -503,17 +560,22 @@
       let htmlCards = "";
       projetosFiltrados.forEach(proj => {
         const targetAttr = proj.external ? 'target="_blank" rel="noopener noreferrer"' : '';
-        // Garantir que a classe do card corresponda ao tipo para os ícones
         let cardClass = proj.tipo;
         if (proj.tipo === 'js') cardClass = 'js';
         if (proj.tipo === 'html') cardClass = 'html';
         if (proj.tipo === 'python') cardClass = 'python';
         if (proj.tipo === 'jogo') cardClass = 'jogo';
         if (proj.tipo === 'analise') cardClass = 'analise';
+        if (proj.tipo === 'backend') cardClass = 'backend';
+        if (proj.tipo === 'fullstack') cardClass = 'fullstack';
+        
+        let trimestreTexto = "1º Trimestre";
+        if (trimestreAtual === "segundo") trimestreTexto = "2º Trimestre";
+        if (trimestreAtual === "terceiro") trimestreTexto = "3º Trimestre";
         
         htmlCards += `
           <div class="card ${cardClass}">
-            <div class="badge-etapa">📌 1º Trimestre</div>
+            <div class="badge-etapa">📌 ${trimestreTexto}</div>
             <div class="badge-cat">🏷️ ${proj.badge}</div>
             <h3>${proj.titulo}</h3>
             <p>${proj.descricao}</p>
@@ -523,7 +585,6 @@
       });
       container.innerHTML = htmlCards;
 
-      // Confirmação para links locais
       document.querySelectorAll('.botao').forEach(link => {
         const href = link.getAttribute('href');
         if (href && !href.startsWith('http') && !href.startsWith('https')) {
@@ -547,21 +608,9 @@
         }
       });
       
-      // Resetar categoria ao mudar de trimestre
       categoriaAtual = "all";
-      
-      // Resetar estilo ativo dos botões de filtro
-      const allFilterButtons = document.querySelectorAll('.filtros button');
-      allFilterButtons.forEach(btn => {
-        const btnCat = btn.getAttribute('onclick');
-        if (btnCat && btnCat.includes("'all'")) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
-      });
-      
       atualizarIndicador();
+      atualizarBotoesFiltro();   
       renderizarCards();
       
       setTimeout(() => {
@@ -569,14 +618,12 @@
       }, 100);
     }
 
-    // Eventos para os botões de trimestre
     botoesTrimestre.forEach(btn => {
       btn.addEventListener("click", () => {
         setTrimestre(btn.getAttribute("data-trimestre"));
       });
     });
 
-    // Inicialização
     document.addEventListener('DOMContentLoaded', () => {
       setTrimestre("primeiro");
     });
