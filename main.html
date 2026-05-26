@@ -33,7 +33,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.65);
       pointer-events: none;
       z-index: 0;
     }
@@ -393,7 +393,7 @@
   </footer>
 
   <script>
-    // ======================== PROJETOS 1º TRIMESTRE ========================
+    // ======================== 1º TRIMESTRE - PROJETOS ========================
     const projetosPrimeiro = [
       { titulo: "teste.html", descricao: "Página interativa com semântica, acessibilidade e design responsivo — base sólida.", tipo: "html", link: "teste.html", badge: "Estrutura Web" },
       { titulo: "index.html", descricao: "Jornada completa do guerreiro, layout fluído com filtros e cards imersivos.", tipo: "html", link: "index.html", badge: "Portal principal" },
@@ -418,12 +418,21 @@
       { titulo: "Automação Web.py", descricao: "Bot em Python para automação de tarefas web usando Selenium — eficiência e produtividade.", tipo: "python", link: "automacao.py", badge: "Automação", external: false }
     ];
 
-    // ======================== PROJETOS 2º TRIMESTRE ========================
-    // Vazio - nenhum projeto, mas os filtros serão criados dinamicamente
-    const projetosSegundo = [];
+    // ======================== 2º TRIMESTRE - PROJETOS (COM SEUS LINKS E ITENS) ========================
+    const projetosSegundo = [
+      { titulo: "linkedin", descricao: "Protótipo de alta fidelidade para aplicativo de monitoramento de treinos e jornada fitness. UI imersiva e moderna.", tipo: "analise", link: "https://www.linkedin.com/in/gerio-aleroxandre-225b3340b/", badge: "UI/UX", external: true },
+      { titulo: "Dashboard Interativo - React", descricao: "Aplicação web com gráficos dinâmicos, rotas e consumo de API mock. Conceitos de componentização e estado.", tipo: "fullstack", link: "https://snack.expo.dev/@ra30092009/dashboard-interativo", badge: "React Avançado", external: true },
+      { titulo: "API Node.js + Express", descricao: "Backend completo com rotas REST, autenticação JWT e integração com MongoDB. CRUD de guerreiros.", tipo: "backend", link: "https://github.com/srrogerio/api-guerreiros", badge: "NodeJS", external: true },
+      { titulo: "Landing Page - Portfólio", descricao: "Site responsivo com animações, scroll suave e seção de habilidades. HTML5, CSS3 e JavaScript puro.", tipo: "html", link: "https://srrogerio.github.io/landing-guerreiro/", badge: "Front-end Elite", external: true },
+      { titulo: "Algoritmo Genético JS", descricao: "Implementação de algoritmo evolutivo para otimização de rotas. JavaScript puro com visual Canvas.", tipo: "js", link: "https://github.com/srrogerio/algoritmo-genetico", badge: "IA / Evolução", external: true },
+      { titulo: "Jogo da Memória Épico", descricao: "Jogo da memória temático com sistema de pontuação, timer e efeitos sonoros. Desafio cognitivo.", tipo: "jogo", link: "jogo-memoria.html", badge: "GAMEPLAY", external: false },
+      { titulo: "Automação com Python + Selenium", descricao: "Bot que coleta dados de campeonatos e envia alertas por e-mail. Automação real.", tipo: "python", link: "automacao_campeonato.py", badge: "Python Pro", external: false },
+      { titulo: "Calculadora Científica", descricao: "Calculadora avançada com funções trigonométricas, logaritmos e histórico de operações.", tipo: "js", link: "calculadora.html", badge: "Tools", external: false },
+      { titulo: "Sistema de Tarefas Kanban", descricao: "Drag and drop com localStorage, gerenciamento de sprints e filtros por status.", tipo: "fullstack", link: "kanban.html", badge: "Produtividade", external: false },
+      { titulo: "Relatório de Impacto - Gamma", descricao: "Apresentação interativa sobre inovação e métricas de evolução da empresa.", tipo: "analise", link: "https://gamma.app/docs/Impacto-da-Inovacao-2Trimestre", badge: "Business", external: true }
+    ];
 
-    // ======================== PROJETOS 3º TRIMESTRE ========================
-    // Vazio - nenhum projeto, mas os filtros serão criados dinamicamente
+    // ======================== 3º TRIMESTRE - AGUARDANDO PROJETOS ========================
     const projetosTerceiro = [];
 
     let trimestreAtual = "primeiro";
@@ -446,43 +455,43 @@
       return Array.from(cats);
     }
 
-    // Função para nomes das categorias - disponível para todos os trimestres
     function getNomeCategoria(cat) {
-      if (cat === 'html') return 'HTML';
-      if (cat === 'js') return 'JavaScript';
-      if (cat === 'python') return 'Python';
-      if (cat === 'analise') return 'Análise';
-      if (cat === 'jogo') return 'Jogo';
-      if (cat === 'backend') return 'Backend';
-      if (cat === 'fullstack') return 'FullStack';
-      return cat.toUpperCase();
+      const mapa = {
+        'html': 'HTML/CSS',
+        'js': 'JavaScript',
+        'python': 'Python',
+        'analise': 'Análise',
+        'jogo': 'Jogos',
+        'backend': 'Backend',
+        'fullstack': 'FullStack'
+      };
+      return mapa[cat] || cat.toUpperCase();
     }
 
     function atualizarBotoesFiltro() {
       const filtrosContainer = document.getElementById("filtrosContainer");
       const categoriasDisponiveis = getCategoriasDisponiveis();
       
-      // Se não houver categorias (trimestre vazio), mostrar apenas Mostrar Todos
-      // Mas vamos manter um conjunto padrão de filtros para o 2º e 3º trimestre mesmo vazios
-      let botoesHTML = [`<button data-cat="all" class="${categoriaAtual === 'all' ? 'active' : ''}">Mostrar Todos</button>`];
+      let botoesHTML = [`<button data-cat="all" class="${categoriaAtual === 'all' ? 'active' : ''}">⚔️ Mostrar Todos</button>`];
       
-      // Para trimestres vazios, ainda mostramos os filtros padrão baseados nas categorias que seriam usadas
       if (trimestreAtual === "segundo") {
-        // Filtros para o 2º trimestre - categorias que serão usadas quando houver projetos
-        const categoriasPadraoSegundo = ['html', 'js', 'python', 'analise', 'jogo', 'backend', 'fullstack'];
-        categoriasPadraoSegundo.forEach(cat => {
+        const categoriasOrdenadas = ['html', 'js', 'python', 'analise', 'jogo', 'backend', 'fullstack'];
+        categoriasOrdenadas.forEach(cat => {
+          const hasProject = projetosSegundo.some(p => p.tipo === cat);
+          if (hasProject || true) { 
+            const label = getNomeCategoria(cat);
+            botoesHTML.push(`<button data-cat="${cat}" class="${categoriaAtual === cat ? 'active' : ''}">${label}</button>`);
+          }
+        });
+      } 
+      else if (trimestreAtual === "terceiro") {
+        const catsPadrao = ['html', 'js', 'python', 'analise', 'jogo', 'backend', 'fullstack'];
+        catsPadrao.forEach(cat => {
           const label = getNomeCategoria(cat);
           botoesHTML.push(`<button data-cat="${cat}" class="${categoriaAtual === cat ? 'active' : ''}">${label}</button>`);
         });
-      } else if (trimestreAtual === "terceiro") {
-        // Filtros para o 3º trimestre - categorias que serão usadas quando houver projetos
-        const categoriasPadraoTerceiro = ['html', 'js', 'python', 'analise', 'jogo', 'backend', 'fullstack'];
-        categoriasPadraoTerceiro.forEach(cat => {
-          const label = getNomeCategoria(cat);
-          botoesHTML.push(`<button data-cat="${cat}" class="${categoriaAtual === cat ? 'active' : ''}">${label}</button>`);
-        });
-      } else {
-        // Para o 1º trimestre, usa as categorias disponíveis dos projetos
+      }
+      else {
         categoriasDisponiveis.forEach(cat => {
           const label = getNomeCategoria(cat);
           botoesHTML.push(`<button data-cat="${cat}" class="${categoriaAtual === cat ? 'active' : ''}">${label}</button>`);
@@ -505,9 +514,9 @@
       if (trimestreAtual === "primeiro") {
         trimestreIndicator.innerHTML = "<span>📅 1º Trimestre • Fundamentos e Primeiros Projetos (21 atividades)</span>";
       } else if (trimestreAtual === "segundo") {
-        trimestreIndicator.innerHTML = "<span>⚔️ 2º Trimestre • Aguardando Novas Conquistas</span>";
+        trimestreIndicator.innerHTML = "<span>⚔️ 2º Trimestre • Projetos Intermediários - Fullstack, Design & Automação (10 projetos)</span>";
       } else {
-        trimestreIndicator.innerHTML = "<span>🔥 3º Trimestre • Aguardando Novas Conquistas</span>";
+        trimestreIndicator.innerHTML = "<span>🔥 3º Trimestre • Grandes Desafios - Em breve mais conquistas</span>";
       }
     }
 
@@ -519,41 +528,21 @@
         projetosFiltrados = projetos.filter(proj => proj.tipo === categoriaAtual);
       }
 
-      // Se não houver projetos no trimestre atual
       if (projetos.length === 0) {
         let mensagem = "";
         if (trimestreAtual === "segundo") {
-          mensagem = `
-            <div class="empty-message">
-              <h3>⚔️ 2º TRIMESTRE EM CONSTRUÇÃO ⚔️</h3>
-              <p>As batalhas do 2º Trimestre estão sendo preparadas!</p>
-              <p style="margin-top: 15px; font-size: 0.9rem;">🔮 Novos projetos, desafios e aprendizados virão em breve...</p>
-              <p style="margin-top: 10px;">⚔️ Enquanto isso, explore as conquistas do 1º Trimestre! ⚔️</p>
-              <p style="margin-top: 15px;">📌 Os filtros acima já estão disponíveis para quando os projetos chegarem!</p>
-            </div>
-          `;
+          mensagem = `<div class="empty-message"><h3>⚔️ 2º TRIMESTRE CARREGADO! ⚔️</h3><p>Nenhum filtro selecionado ou projetos em breve.</p><p style="margin-top:15px;">🔮 Explore os filtros acima e descubra todos os projetos do 2º Trimestre!</p></div>`;
         } else if (trimestreAtual === "terceiro") {
-          mensagem = `
-            <div class="empty-message">
-              <h3>🔥 3º TRIMESTRE EM CONSTRUÇÃO 🔥</h3>
-              <p>O último estágio da jornada está sendo forjado!</p>
-              <p style="margin-top: 15px; font-size: 0.9rem;">⚡ Em breve, as maiores conquistas serão reveladas...</p>
-              <p style="margin-top: 10px;">⚔️ Explore as conquistas do 1º Trimestre enquanto aguarda! ⚔️</p>
-              <p style="margin-top: 15px;">📌 Os filtros acima já estão disponíveis para quando os projetos chegarem!</p>
-            </div>
-          `;
+          mensagem = `<div class="empty-message"><h3>🔥 3º TRIMESTRE EM CONSTRUÇÃO 🔥</h3><p>O último estágio da jornada está sendo forjado com batalhas épicas!</p><p style="margin-top: 15px;">⚡ Em breve, as maiores conquistas serão reveladas... Enquanto isso, explore o 1º e 2º trimestre.</p></div>`;
+        } else {
+          mensagem = `<div class="empty-message"><h3>⚔️ NENHUM PROJETO ENCONTRADO</h3><p>Explore outro trimestre ou filtro, guerreiro!</p></div>`;
         }
         container.innerHTML = mensagem;
         return;
       }
 
       if (projetosFiltrados.length === 0) {
-        container.innerHTML = `
-          <div class="empty-message">
-            <h3>⚔️ Nenhum projeto encontrado ⚔️</h3>
-            <p>Tente outra categoria de filtro, guerreiro!</p>
-          </div>
-        `;
+        container.innerHTML = `<div class="empty-message"><h3>⚔️ Nenhum projeto encontrado ⚔️</h3><p>Tente outra categoria de filtro, guerreiro!</p></div>`;
         return;
       }
 
@@ -570,8 +559,13 @@
         if (proj.tipo === 'fullstack') cardClass = 'fullstack';
         
         let trimestreTexto = "1º Trimestre";
-        if (trimestreAtual === "segundo") trimestreTexto = "2º Trimestre";
-        if (trimestreAtual === "terceiro") trimestreTexto = "3º Trimestre";
+        if (trimestreAtual === "segundo") trimestreTexto = "2º Trimestre • Expansão";
+        if (trimestreAtual === "terceiro") trimestreTexto = "3º Trimestre • Apogeu";
+        
+        let linkFinal = proj.link;
+        if (!proj.external && linkFinal && !linkFinal.startsWith('http') && !linkFinal.startsWith('https') && !linkFinal.startsWith('#')) {
+          // mantem caminho relativo
+        }
         
         htmlCards += `
           <div class="card ${cardClass}">
@@ -587,7 +581,7 @@
 
       document.querySelectorAll('.botao').forEach(link => {
         const href = link.getAttribute('href');
-        if (href && !href.startsWith('http') && !href.startsWith('https')) {
+        if (href && !href.startsWith('http') && !href.startsWith('https') && !href.startsWith('#')) {
           link.addEventListener('click', (e) => {
             if (!confirm(`⚔️ Deseja abrir "${href}"? ⚔️`)) {
               e.preventDefault();
