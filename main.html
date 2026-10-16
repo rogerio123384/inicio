@@ -374,9 +374,9 @@
   </header>
 
   <div class="trimestres-nav">
-    <button class="btn-trimestre active" data-trimestre="primeiro">🏆 1º TRIMESTRE</button>
+    <button class="btn-trimestre" data-trimestre="primeiro">🏆 1º TRIMESTRE</button>
     <button class="btn-trimestre" data-trimestre="segundo">⚔️ 2º TRIMESTRE</button>
-    <button class="btn-trimestre" data-trimestre="terceiro">🔥 3º TRIMESTRE</button>
+    <button class="btn-trimestre active" data-trimestre="terceiro">🔥 3º TRIMESTRE</button>
   </div>
 
   <div class="trimestre-indicator" id="trimestreIndicator">
@@ -418,7 +418,7 @@
       { titulo: "Automação Web.py", descricao: "Bot em Python para automação de tarefas web usando Selenium — eficiência e produtividade.", tipo: "python", link: "automacao.py", badge: "Automação", external: false }
     ];
 
-    // ======================== 2º TRIMESTRE - PROJETOS (COM SEUS LINKS E ITENS) ========================
+    // ======================== 2º TRIMESTRE - PROJETOS ========================
     const projetosSegundo = [
       { titulo: "linkedin", descricao: "Protótipo de alta fidelidade para aplicativo de monitoramento de treinos e jornada fitness. UI imersiva e moderna.", tipo: "analise", link: "https://www.linkedin.com/in/gerio-aleroxandre-225b3340b/", badge: "UI/UX", external: true },
       { titulo: "Dashboard Interativo - React", descricao: "Aplicação web com gráficos dinâmicos, rotas e consumo de API mock. Conceitos de componentização e estado.", tipo: "fullstack", link: "https://snack.expo.dev/@ra30092009/dashboard-interativo", badge: "React Avançado", external: true },
@@ -432,10 +432,28 @@
       { titulo: "teclas", descricao: "Apresentação interativa sobre inovação e métricas de evolução da empresa.", tipo: "analise", link: "https://teclas-tx7g-gr4oa3yey-jtc7.vercel.app/", badge: "Business", external: true }
     ];
 
-    // ======================== 3º TRIMESTRE - AGUARDANDO PROJETOS ========================
-    const projetosTerceiro = [];
+    // ======================== 3º TRIMESTRE - PROJETOS ========================
+    const projetosTerceiro = [
+      // ---------- HTML ----------
+      { titulo: "Portfólio HTML5 Semântico", descricao: "Site pessoal construído com HTML5 semântico, acessibilidade ARIA, formulários validados e estrutura limpa.", tipo: "html", link: "portfolio-html.html", badge: "HTML5 Avançado", external: false },
+      { titulo: "Landing Page Responsiva", descricao: "Página de vendas responsiva com grid, flexbox, imagens otimizadas e metatags para SEO.", tipo: "html", link: "landing-page.html", badge: "Responsive", external: false },
+      { titulo: "Formulário Multi-etapas", descricao: "Formulário HTML com validação nativa, input types modernos, fieldset e acessibilidade.", tipo: "html", link: "formulario.html", badge: "Forms Pro", external: false },
 
-    let trimestreAtual = "primeiro";
+      // ---------- CSS ----------
+      { titulo: "Animações CSS Avançadas", descricao: "Coleção de animações com keyframes, transitions, transforms, gradients e efeitos 3D em CSS puro.", tipo: "html", link: "animacoes-css.html", badge: "CSS Animations", external: false },
+      { titulo: "Layout Grid + Flexbox", descricao: "Sistema de layout moderno com CSS Grid, Flexbox, variáveis CSS, clamp() e design responsivo fluido.", tipo: "html", link: "layout-moderno.html", badge: "CSS Moderno", external: false },
+      { titulo: "Dark Mode com CSS Variables", descricao: "Implementação de tema claro/escuro usando CSS Custom Properties, prefers-color-scheme e transições suaves.", tipo: "html", link: "dark-mode.html", badge: "Theming", external: false },
+
+      // ---------- JAVASCRIPT ----------
+      { titulo: "App de Tarefas com LocalStorage", descricao: "CRUD completo em JavaScript puro com persistência em localStorage, filtros, busca e contador de tarefas.", tipo: "js", link: "todo-app.html", badge: "CRUD JS", external: false },
+      { titulo: "Consumo de API com Fetch + Async/Await", descricao: "Aplicação que consome API pública, trata erros, exibe loading e renderiza dados dinamicamente.", tipo: "js", link: "api-fetch.html", badge: "API Async", external: false },
+      { titulo: "Jogo da Memória em JS Puro", descricao: "Jogo interativo com lógica de embaralhamento, timer, pontuação, eventos e manipulação de DOM.", tipo: "jogo", link: "memoria.html", badge: "DOM Game", external: false },
+      { titulo: "Calculadora Científica JS", descricao: "Calculadora com operações matemáticas avançadas, histórico, teclado e interface responsiva.", tipo: "js", link: "calculadora.html", badge: "JS Tools", external: false },
+      { titulo: "Dashboard Dinâmico com Chart.js", descricao: "Painel interativo com gráficos gerados em JavaScript, filtros de dados e atualização em tempo real.", tipo: "js", link: "dashboard-js.html", badge: "Data Viz", external: false },
+      { titulo: "Validação de Formulário em JS", descricao: "Validação customizada com expressões regulares, feedback visual, máscaras de input e envio assíncrono.", tipo: "js", link: "validacao.html", badge: "Form Validation", external: false }
+    ];
+
+    let trimestreAtual = "terceiro";
     let categoriaAtual = "all";
 
     const container = document.getElementById("portfolioContainer");
@@ -471,22 +489,12 @@
     function atualizarBotoesFiltro() {
       const filtrosContainer = document.getElementById("filtrosContainer");
       const categoriasDisponiveis = getCategoriasDisponiveis();
-      
+
       let botoesHTML = [`<button data-cat="all" class="${categoriaAtual === 'all' ? 'active' : ''}">⚔️ Mostrar Todos</button>`];
-      
-      if (trimestreAtual === "segundo") {
+
+      if (trimestreAtual === "segundo" || trimestreAtual === "terceiro") {
         const categoriasOrdenadas = ['html', 'js', 'python', 'analise', 'jogo', 'backend', 'fullstack'];
         categoriasOrdenadas.forEach(cat => {
-          const hasProject = projetosSegundo.some(p => p.tipo === cat);
-          if (hasProject || true) { 
-            const label = getNomeCategoria(cat);
-            botoesHTML.push(`<button data-cat="${cat}" class="${categoriaAtual === cat ? 'active' : ''}">${label}</button>`);
-          }
-        });
-      } 
-      else if (trimestreAtual === "terceiro") {
-        const catsPadrao = ['html', 'js', 'python', 'analise', 'jogo', 'backend', 'fullstack'];
-        catsPadrao.forEach(cat => {
           const label = getNomeCategoria(cat);
           botoesHTML.push(`<button data-cat="${cat}" class="${categoriaAtual === cat ? 'active' : ''}">${label}</button>`);
         });
@@ -497,9 +505,9 @@
           botoesHTML.push(`<button data-cat="${cat}" class="${categoriaAtual === cat ? 'active' : ''}">${label}</button>`);
         });
       }
-      
+
       filtrosContainer.innerHTML = botoesHTML.join('');
-      
+
       document.querySelectorAll('#filtrosContainer button').forEach(btn => {
         btn.addEventListener('click', () => {
           const cat = btn.getAttribute('data-cat');
@@ -516,23 +524,21 @@
       } else if (trimestreAtual === "segundo") {
         trimestreIndicator.innerHTML = "<span>⚔️ 2º Trimestre • Projetos Intermediários - Fullstack, Design & Automação (10 projetos)</span>";
       } else {
-        trimestreIndicator.innerHTML = "<span>🔥 3º Trimestre • Grandes Desafios - Em breve mais conquistas</span>";
+        trimestreIndicator.innerHTML = `<span>🔥 3º Trimestre • HTML, CSS e JavaScript - ${projetosTerceiro.length} projetos conquistados</span>`;
       }
     }
 
     function renderizarCards() {
       const projetos = getProjetosPorTrimestre();
       let projetosFiltrados = projetos;
-      
+
       if (categoriaAtual !== "all") {
         projetosFiltrados = projetos.filter(proj => proj.tipo === categoriaAtual);
       }
 
       if (projetos.length === 0) {
         let mensagem = "";
-        if (trimestreAtual === "segundo") {
-          mensagem = `<div class="empty-message"><h3>⚔️ 2º TRIMESTRE CARREGADO! ⚔️</h3><p>Nenhum filtro selecionado ou projetos em breve.</p><p style="margin-top:15px;">🔮 Explore os filtros acima e descubra todos os projetos do 2º Trimestre!</p></div>`;
-        } else if (trimestreAtual === "terceiro") {
+        if (trimestreAtual === "terceiro") {
           mensagem = `<div class="empty-message"><h3>🔥 3º TRIMESTRE EM CONSTRUÇÃO 🔥</h3><p>O último estágio da jornada está sendo forjado com batalhas épicas!</p><p style="margin-top: 15px;">⚡ Em breve, as maiores conquistas serão reveladas... Enquanto isso, explore o 1º e 2º trimestre.</p></div>`;
         } else {
           mensagem = `<div class="empty-message"><h3>⚔️ NENHUM PROJETO ENCONTRADO</h3><p>Explore outro trimestre ou filtro, guerreiro!</p></div>`;
@@ -549,24 +555,12 @@
       let htmlCards = "";
       projetosFiltrados.forEach(proj => {
         const targetAttr = proj.external ? 'target="_blank" rel="noopener noreferrer"' : '';
-        let cardClass = proj.tipo;
-        if (proj.tipo === 'js') cardClass = 'js';
-        if (proj.tipo === 'html') cardClass = 'html';
-        if (proj.tipo === 'python') cardClass = 'python';
-        if (proj.tipo === 'jogo') cardClass = 'jogo';
-        if (proj.tipo === 'analise') cardClass = 'analise';
-        if (proj.tipo === 'backend') cardClass = 'backend';
-        if (proj.tipo === 'fullstack') cardClass = 'fullstack';
-        
+        const cardClass = proj.tipo;
+
         let trimestreTexto = "1º Trimestre";
         if (trimestreAtual === "segundo") trimestreTexto = "2º Trimestre • Expansão";
         if (trimestreAtual === "terceiro") trimestreTexto = "3º Trimestre • Apogeu";
-        
-        let linkFinal = proj.link;
-        if (!proj.external && linkFinal && !linkFinal.startsWith('http') && !linkFinal.startsWith('https') && !linkFinal.startsWith('#')) {
-          // mantem caminho relativo
-        }
-        
+
         htmlCards += `
           <div class="card ${cardClass}">
             <div class="badge-etapa">📌 ${trimestreTexto}</div>
@@ -593,7 +587,7 @@
 
     function setTrimestre(trimestre) {
       trimestreAtual = trimestre;
-      
+
       botoesTrimestre.forEach(btn => {
         if (btn.getAttribute("data-trimestre") === trimestre) {
           btn.classList.add("active");
@@ -601,12 +595,12 @@
           btn.classList.remove("active");
         }
       });
-      
+
       categoriaAtual = "all";
       atualizarIndicador();
-      atualizarBotoesFiltro();   
+      atualizarBotoesFiltro();
       renderizarCards();
-      
+
       setTimeout(() => {
         container.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 100);
@@ -619,7 +613,7 @@
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-      setTrimestre("primeiro");
+      setTrimestre("terceiro");
     });
   </script>
 </body>
