@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ficha Pré-Conselho Escolar</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --azul:#1e40af; --azul2:#3b82f6; --verde:#059669; --vermelho:#dc2626;
+    --cinza:#6b7280; --borda:#e5e7eb; --bg:#f1f5f9; --amarelo:#f59e0b;
+  }
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:linear-gradient(135deg,#1e3a8a 0%,#3b82f6 50%,#60a5fa 100%);
+    min-height:100vh; color:#1f2937; padding:24px 16px;
+  }
+  .screen{display:none}
+  .screen.active{display:block; animation:fade .3s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  .card{
+    background:#fff;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.25);
+    max-width:1150px;margin:0 auto;overflow:hidden;
+  }
+  .card-login{max-width:430px;margin-top:6vh}
+  .card-head{
+    background:linear-gradient(135deg,var(--azul),var(--azul2));
+    color:#fff;padding:26px 28px;
+  }
+  .card-head h1{font-size:1.5rem;letter-spacing:.3px;display:flex;align-items:center;gap:10px}
+  .card-head p{opacity:.92;font-size:.9rem;margin-top:6px}
+  .card-body{padding:28px}
+
+  label{display:block;font-size:.82rem;font-weight:600;color:#374151;margin-bottom:6px}
+  input,select,textarea{
+    width:100%;padding:11px 13px;border:1.5px solid var(--borda);border-radius:10px;
+    font-size:.95rem;font-family:inherit;background:#fff;transition:.15s;color:#111827;
+  }
+  input:focus,select:focus,textarea:focus{
+    outline:none;border-color:var(--azul2);box-shadow:0 0 0 3px rgba(59,130,246,.15)
+  }
+  textarea{resize:vertical;min-height:90px;line-height:1.5}
+  .field{margin-bottom:16px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:640px){.row{grid-template-columns:1fr}}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:12px 22px;border:none;border-radius:10px;font-size:.95rem;font-weight:600;
+    cursor:pointer;transition:.18s;font-family:inherit;background:var(--azul);color:#fff;
+  }
+  .btn:hover{background:#1e3a8a;transform:translateY(-1px);box-shadow:0 6px 16px rgba(30,64,175,.3)}
+  .btn:active{transform:none}
+  .btn.full{width:100%}
+  .btn.ghost{background:#f1f5f9;color:#374151}
+  .btn.ghost:hover{background:#e2e8f0;box-shadow:none}
+  .btn.ok{background:var(--verde)} .btn.ok:hover{background:#047857;box-shadow:0 6px 16px rgba(5,150,105,.3)}
+  .btn.sm{padding:7px 13px;font-size:.82rem;border-radius:8px}
+  .btn.danger{background:#fee2e2;color:var(--vermelho)}
+  .btn.danger:hover{background:#fecaca;box-shadow:none}
+  .btn.amarelo{background:var(--amarelo)} .btn.amarelo:hover{background:#d97706}
+
+  .tabs{display:flex;gap:4px;border-bottom:2px solid var(--borda);padding:0 20px;flex-wrap:wrap;background:#fafbfc}
+  .tab{
+    padding:14px 18px;border:none;background:none;font-size:.9rem;font-weight:600;
+    color:var(--cinza);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;
+    font-family:inherit;transition:.15s;
+  }
+  .tab:hover{color:var(--azul)}
+  .tab.active{color:var(--azul);border-bottom-color:var(--azul)}
+  .panel{display:none;padding:26px 28px}
+  .panel.active{display:block}
+
+  .item{
+    display:flex;justify-content:space-between;align-items:center;gap:14px;
+    padding:14px 16px;border:1.5px solid var(--borda);border-radius:12px;margin-bottom:10px;
+    background:#fafbfc;transition:.15s;flex-wrap:wrap;
+  }
+  .item:hover{border-color:#93c5fd;background:#eff6ff}
+  .item strong{font-size:.98rem;color:#111827}
+  .meta{font-size:.8rem;color:var(--cinza);margin-top:3px}
+  .actions{display:flex;gap:8px;flex-wrap:wrap}
+
+  .empty{
+    text-align:center;color:var(--cinza);padding:30px 20px;font-size:.9rem;
+    border:2px dashed var(--borda);border-radius:12px;background:#fafbfc;
+  }
+  .empty-icon{font-size:2rem;display:block;margin-bottom:8px;opacity:.5}
+  .sec-title{
+    font-size:1.05rem;font-weight:700;color:#111827;margin-bottom:16px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .sec-title::before{content:'';width:4px;height:20px;background:var(--azul);border-radius:2px}
+  hr.sep{border:none;border-top:1.5px dashed var(--borda);margin:26px 0}
+
+  .chip{
+    display:inline-block;background:#dbeafe;color:var(--azul);font-size:.72rem;font-weight:700;
+    padding:3px 10px;border-radius:20px;margin:2px 4px 2px 0;
+  }
+  .chip.ok{background:#d1fae5;color:var(--verde)}
+  .chip.warn{background:#fef3c7;color:#b45309}
+  .chip.info{background:#e0e7ff;color:#4338ca}
+  .chip.dourado{background:linear-gradient(135deg,#fef3c7,#fde68a);color:#92400e;border:1px solid #fbbf24}
+  .chip.vermelho{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+
+  .checks{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .checks label{
+    display:flex;align-items:center;gap:7px;background:#f1f5f9;padding:8px 13px;
+    border-radius:9px;font-weight:500;font-size:.85rem;cursor:pointer;margin:0;
+    border:1.5px solid transparent;transition:.15s;color:#374151;
+  }
+  .checks label:hover{background:#dbeafe}
+  .checks input{width:auto;margin:0;accent-color:var(--azul)}
+  .checks label:has(input:checked){background:#dbeafe;border-color:var(--azul2);color:var(--azul);font-weight:600}
+
+  .q-block{
+    background:#fafbfc;border:1.5px solid var(--borda);border-radius:12px;
+    padding:16px;margin-bottom:14px;transition:.15s;
+  }
+  .q-block:focus-within{border-color:var(--azul2);background:#fff;box-shadow:0 4px 12px rgba(59,130,246,.08)}
+  .q-block .q-text{font-weight:600;font-size:.9rem;color:#1f2937;margin-bottom:10px;display:flex;gap:10px}
+  .q-num{
+    background:var(--azul);color:#fff;min-width:24px;height:24px;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0;font-weight:700;
+  }
+
+  .destaque-box{
+    background:linear-gradient(135deg,#fefce8,#fef3c7);
+    border:2px solid #fbbf24;border-radius:14px;padding:20px;margin-bottom:22px;
+  }
+  .destaque-box h3{
+    font-size:.95rem;color:#92400e;margin-bottom:14px;
+    display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.5px;
+  }
+  .destaque-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:640px){.destaque-grid{grid-template-columns:1fr}}
+  .destaque-item{
+    background:#fff;border-radius:10px;padding:14px;border:1.5px solid #fcd34d;
+  }
+  .destaque-item.melhor{border-color:#fbbf24;background:linear-gradient(135deg,#fffbeb,#fff)}
+  .destaque-item.dificuldade{border-color:#fca5a5;background:linear-gradient(135deg,#fef2f2,#fff)}
+  .destaque-item > label{
+    font-size:.83rem;color:#78350f;margin-bottom:8px;font-weight:700;
+    display:flex;align-items:center;gap:6px;
+  }
+  .destaque-item.dificuldade > label{color:#991b1b}
+
+  .emoji-picker{
+    display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;
+    padding:8px;background:rgba(255,255,255,.6);border-radius:8px;
+    border:1px dashed #fbbf24;align-items:center;
+  }
+  .destaque-item.dificuldade .emoji-picker{border-color:#fca5a5}
+  .emoji-label{
+    font-size:.72rem;color:#78350f;font-weight:700;text-transform:uppercase;
+    letter-spacing:.5px;margin-right:4px;
+  }
+  .destaque-item.dificuldade .emoji-label{color:#991b1b}
+  .emoji-btn{
+    background:#fff;border:2px solid #e5e7eb;border-radius:8px;
+    padding:5px 9px;font-size:1.15rem;cursor:pointer;line-height:1;
+    transition:.15s;font-family:inherit;
+  }
+  .emoji-btn:hover{
+    transform:scale(1.18);border-color:#fbbf24;background:#fffbeb;
+    box-shadow:0 3px 8px rgba(245,158,11,.2);
+  }
+  .emoji-btn.selected{
+    border-color:#f59e0b;background:#fef3c7;
+    box-shadow:0 0 0 3px rgba(245,158,11,.25);transform:scale(1.1);
+  }
+  .destaque-item.dificuldade .emoji-btn:hover{
+    border-color:#fca5a5;background:#fef2f2;box-shadow:0 3px 8px rgba(220,38,38,.15);
+  }
+  .destaque-item.dificuldade .emoji-btn.selected{
+    border-color:#dc2626;background:#fee2e2;
+    box-shadow:0 0 0 3px rgba(220,38,38,.2);
+  }
+
+  .destaque-item input{
+    border:1.5px dashed #fbbf24;background:#fffbeb;font-weight:600;
+  }
+  .destaque-item.dificuldade input{border-color:#fca5a5;background:#fef2f2}
+  .destaque-item input:focus{
+    border-style:solid;border-color:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.15)
+  }
+  .destaque-item.dificuldade input:focus{
+    border-color:var(--vermelho);box-shadow:0 0 0 3px rgba(220,38,38,.15)
+  }
+
+  .rel-destaque{
+    display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;
+  }
+  @media(max-width:640px){.rel-destaque{grid-template-columns:1fr}}
+  .rel-destaque-item{
+    border-radius:10px;padding:12px 14px;font-size:.85rem;
+    display:flex;align-items:center;gap:10px;
+  }
+  .rel-destaque-item .emj{font-size:1.5rem;line-height:1}
+  .rel-destaque-item.melhor{
+    background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #fbbf24;color:#92400e;
+  }
+  .rel-destaque-item.dificuldade{
+    background:linear-gradient(135deg,#fef2f2,#fee2e2);border:1.5px solid #fca5a5;color:#991b1b;
+  }
+  .rel-destaque-item strong{font-weight:700}
+
+  .rank-item{
+    display:flex;align-items:center;gap:8px;padding:5px 0;
+    font-size:.86rem;border-bottom:1px dashed rgba(0,0,0,.08);
+  }
+  .rank-item:last-child{border-bottom:none}
+  .rank-item .pos{font-size:1rem;min-width:22px}
+
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);
+    background:#111827;color:#fff;padding:13px 24px;border-radius:10px;font-size:.9rem;
+    font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,.3);z-index:999;transition:.35s;
+  }
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  .toast.err{background:var(--vermelho)} .toast.ok{background:var(--verde)}
+
+  .hint{font-size:.8rem;color:var(--cinza);margin-top:14px;text-align:center;line-height:1.6}
+  .hint code{background:#f1f5f9;padding:2px 7px;border-radius:5px;color:var(--azul);font-weight:700;font-size:.82rem}
+
+  .topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+  .user-tag{
+    background:rgba(255,255,255,.22);padding:7px 15px;border-radius:20px;
+    font-size:.82rem;font-weight:600;backdrop-filter:blur(4px);
+  }
+
+  .rel-box{background:#fff;border:1.5px solid var(--borda);border-radius:12px;padding:26px;margin-top:18px}
+  .rel-head{border-bottom:3px solid var(--azul);padding-bottom:14px;margin-bottom:20px}
+  .rel-head h2{font-size:1.2rem;color:var(--azul);display:flex;align-items:center;gap:10px}
+  .rel-head p{font-size:.83rem;color:var(--cinza);margin-top:6px}
+  .rel-ficha{border:1.5px solid var(--borda);border-radius:10px;padding:18px;margin-bottom:16px;page-break-inside:avoid}
+  .rel-ficha h3{font-size:1rem;color:#111827;margin-bottom:4px}
+  .rel-ficha .sub{font-size:.79rem;color:var(--cinza);margin-bottom:14px;padding-bottom:10px;border-bottom:1px dashed var(--borda)}
+  .rel-qa{margin-bottom:12px;font-size:.9rem;line-height:1.6}
+  .rel-qa b{color:var(--azul);display:block;font-size:.83rem;margin-bottom:3px;font-weight:700}
+  .rel-qa span{white-space:pre-wrap;color:#374151;display:block;padding-left:12px;border-left:3px solid #dbeafe}
+
+  .back-link{
+    background:none;border:none;color:#fff;font-size:.88rem;cursor:pointer;
+    font-family:inherit;font-weight:600;opacity:.9;padding:4px 0;margin-bottom:8px;
+  }
+  .back-link:hover{opacity:1;text-decoration:underline}
+
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:22px}
+  .stat{
+    background:linear-gradient(135deg,#eff6ff,#dbeafe);border-radius:12px;padding:16px;
+    text-align:center;border:1px solid #bfdbfe;
+  }
+  .stat b{display:block;font-size:1.6rem;color:var(--azul);line-height:1.2}
+  .stat span{font-size:.78rem;color:var(--cinza);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+  .stat.dourado{background:linear-gradient(135deg,#fffbeb,#fef3c7);border-color:#fbbf24}
+  .stat.dourado b{color:#92400e}
+  .stat.vermelho{background:linear-gradient(135deg,#fef2f2,#fee2e2);border-color:#fca5a5}
+  .stat.vermelho b{color:#991b1b}
+
+  .aviso-auto{
+    background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #93c5fd;
+    border-radius:12px;padding:14px 18px;margin-bottom:18px;font-size:.85rem;color:#1e40af;
+    display:flex;align-items:center;gap:10px;
+  }
+  .aviso-auto strong{font-weight:700}
+
+  @media print{
+    body{background:#fff;padding:0}
+    .no-print,.tabs,.card-head,.back-link,.toast,.emoji-picker,.aviso-auto{display:none!important}
+    .card{box-shadow:none;border-radius:0;max-width:none}
+    .panel{padding:0;display:block!important}
+    .panel:not(#panel-rel){display:none!important}
+    .rel-box{border:none;padding:0;margin-top:0}
+    .rel-ficha{page-break-inside:avoid;border-color:#ccc}
+  }
+</style>
+</head>
+<body>
+
+<section id="screen-login" class="screen active">
+  <div class="card card-login">
+    <div class="card-head" style="text-align:center">
+      <h1 style="justify-content:center">📋 Ficha Pré-Conselho</h1>
+      <p>Sistema de acompanhamento escolar</p>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <label for="login-cpf">CPF (número de acesso)</label>
+        <input id="login-cpf" type="text" placeholder="000.000.000-00" maxlength="14" autocomplete="username" inputmode="numeric">
+      </div>
+      <div class="field">
+        <label for="login-senha">Senha</label>
+        <input id="login-senha" type="password" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button class="btn full" onclick="fazerLogin()">🔓 Entrar no Sistema</button>
+      <p class="hint">
+        <b>Acesso da Diretora (padrão):</b><br>
+        CPF: <code>000.000.000-00</code> · Senha: <code>admin123</code>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="screen-director" class="screen">
+  <div class="card">
+    <div class="card-head topbar">
+      <div>
+        <h1>👩‍💼 Painel da Diretora</h1>
+        <p>Gerenciamento de professores, turmas, perguntas e relatórios</p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="user-tag">🔑 Diretora</span>
+        <button class="btn ghost sm" onclick="sair()">Sair</button>
+      </div>
+    </div>
+
+    <div class="tabs no-print">
+      <button class="tab active" data-tab="prof">👨‍🏫 Professores</button>
+      <button class="tab" data-tab="turmas">🏫 Turmas</button>
+      <button class="tab" data-tab="perg">❓ Perguntas</button>
+      <button class="tab" data-tab="rel">📊 Relatórios</button>
+    </div>
+
+    <div class="panel active" id="panel-prof">
+      <div class="sec-title" id="titulo-form-prof">Cadastrar Novo Professor</div>
+      <input type="hidden" id="prof-id">
+      <div class="row">
+        <div class="field">
+          <label for="prof-nome">Nome completo *</label>
+          <input id="prof-nome" type="text" placeholder="Ex.: Maria Silva Souza">
+        </div>
+        <div class="field">
+          <label for="prof-disciplina">Disciplina / Função</label>
+          <input id="prof-disciplina" type="text" placeholder="Ex.: Matemática">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="prof-cpf">CPF (será usado como login) *</label>
+          <input id="prof-cpf" type="text" placeholder="000.000.000-00" maxlength="14" inputmode="numeric">
+        </div>
+        <div class="field">
+          <label for="prof-senha">Senha de acesso *</label>
+          <input id="prof-senha" type="text" placeholder="Mínimo 4 caracteres">
+        </div>
+      </div>
+      <div class="field">
+        <label>Turmas em que leciona <span style="font-weight:400;color:var(--cinza);font-size:.75rem">(se não marcar nenhuma, o professor verá todas as turmas)</span></label>
+        <div class="checks" id="prof-turmas-checks"></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn" onclick="salvarProfessor()" id="btn-salvar-prof">💾 Cadastrar Professor</button>
+        <button class="btn ghost" onclick="limparFormProfessor()" id="btn-cancelar-prof" style="display:none">Cancelar Edição</button>
+      </div>
+
+      <hr class="sep">
+      <div class="sec-title">Professores Cadastrados</div>
+      <div id="lista-professores"></div>
+    </div>
+
+    <div class="panel" id="panel-turmas">
+      <div class="sec-title">Cadastrar Nova Turma</div>
+      <div class="row">
+        <div class="field">
+          <label for="turma-nome">Nome da turma *</label>
+          <input id="turma-nome" type="text" placeholder="Ex.: 6º Ano A">
+        </div>
+        <div class="field">
+          <label for="turma-turno">Turno</label>
+          <select id="turma-turno">
+            <option>Manhã</option>
+            <option>Tarde</option>
+            <option>Noite</option>
+            <option>Integral</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn" onclick="salvarTurma()">💾 Cadastrar Turma</button>
+
+      <hr class="sep">
+      <div class="sec-title">Turmas Cadastradas</div>
+      <div id="lista-turmas"></div>
+    </div>
+
+    <div class="panel" id="panel-perg">
+      <div class="sec-title">Adicionar Pergunta à Ficha</div>
+      <div class="field">
+        <textarea id="nova-pergunta" placeholder="Ex.: Como está o desempenho geral da turma neste período?"></textarea>
+      </div>
+      <button class="btn" onclick="addPergunta()">➕ Adicionar Pergunta</button>
+      <p class="hint" style="text-align:left;margin-top:14px">
+        💡 Estas perguntas serão exibidas para <b>todos os professores</b> ao preencherem a ficha de cada turma.
+      </p>
+
+      <hr class="sep">
+      <div class="sec-title">Perguntas Ativas na Ficha</div>
+      <div id="lista-perguntas"></div>
+    </div>
+
+    <div class="panel" id="panel-rel">
+      <div class="sec-title no-print">Gerar Relatório</div>
+      <div class="row no-print">
+        <div class="field">
+          <label for="rel-tipo">Tipo de relatório</label>
+          <select id="rel-tipo" onchange="atualizarSelectRel()">
+            <option value="professor">📋 Por Professor</option>
+            <option value="turma">🏫 Por Turma</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="rel-alvo">Selecione o item</label>
+          <select id="rel-alvo"></select>
+        </div>
+      </div>
+      <div class="row no-print">
+        <div class="field">
+          <label for="rel-bim">Filtrar por Bimestre</label>
+          <select id="rel-bim">
+            <option value="">Todos os bimestres</option>
+            <option>1º Bimestre</option>
+            <option>2º Bimestre</option>
+            <option>3º Bimestre</option>
+          </select>
+        </div>
+        <div class="field" style="display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap">
+          <button class="btn" onclick="gerarRelatorio()">📊 Gerar Relatório</button>
+          <button class="btn ghost" onclick="imprimir()">🖨️ Imprimir</button>
+        </div>
+      </div>
+      <div id="saida-relatorio"></div>
+    </div>
+  </div>
+</section>
+
+<section id="screen-teacher" class="screen">
+  <div class="card">
+    <div class="card-head topbar">
+      <div>
+        <h1>👨‍🏫 Área do Professor</h1>
+        <p id="prof-logado-info"></p>
+      </div>
+      <button class="btn ghost sm" onclick="sair()">Sair</button>
+    </div>
+    <div class="card-body">
+      <div class="sec-title">Minhas Turmas — Preencher Ficha Pré-Conselho</div>
+      <div id="lista-minhas-turmas"></div>
+    </div>
+  </div>
+</section>
+
+<section id="screen-form" class="screen">
+  <div class="card">
+    <div class="card-head topbar">
+      <div>
+        <button class="back-link" onclick="voltarProfessor()">← Voltar para Minhas Turmas</button>
+        <h1 id="form-titulo">📝 Ficha Pré-Conselho</h1>
+        <p id="form-sub"></p>
+      </div>
+      <button class="btn ghost sm" onclick="sair()">Sair</button>
+    </div>
+    <div class="card-body">
+      <div class="field" style="max-width:300px">
+        <label for="form-bim">Bimestre de referência</label>
+        <select id="form-bim" onchange="carregarFicha()">
+          <option>1º Bimestre</option>
+          <option>2º Bimestre</option>
+          <option>3º Bimestre</option>
+        </select>
+      </div>
+
+      <div class="destaque-box">
+        <h3>🌟 Destaques da turma — escolha o emoji e indique o aluno</h3>
+        <div class="destaque-grid">
+          <div class="destaque-item melhor">
+            <label for="form-melhor">🏆 Melhor aluno da sala</label>
+            <div class="emoji-picker" id="emoji-picker-melhor">
+              <span class="emoji-label">Emoji:</span>
+              <button type="button" class="emoji-btn" data-emoji="🏆" onclick="selecionarEmoji('melhor','🏆',this)">🏆</button>
+              <button type="button" class="emoji-btn" data-emoji="🥇" onclick="selecionarEmoji('melhor','🥇',this)">🥇</button>
+              <button type="button" class="emoji-btn" data-emoji="⭐" onclick="selecionarEmoji('melhor','⭐',this)">⭐</button>
+              <button type="button" class="emoji-btn" data-emoji="👑" onclick="selecionarEmoji('melhor','👑',this)">👑</button>
+              <button type="button" class="emoji-btn" data-emoji="💎" onclick="selecionarEmoji('melhor','💎',this)">💎</button>
+              <button type="button" class="emoji-btn" data-emoji="🌟" onclick="selecionarEmoji('melhor','🌟',this)">🌟</button>
+              <button type="button" class="emoji-btn" data-emoji="🎯" onclick="selecionarEmoji('melhor','🎯',this)">🎯</button>
+              <button type="button" class="emoji-btn" data-emoji="🚀" onclick="selecionarEmoji('melhor','🚀',this)">🚀</button>
+            </div>
+            <input id="form-melhor" type="text" placeholder="Nome do aluno destaque...">
+          </div>
+          <div class="destaque-item dificuldade">
+            <label for="form-dificuldade">⚠️ Aluno com mais dificuldade</label>
+            <div class="emoji-picker" id="emoji-picker-dificuldade">
+              <span class="emoji-label">Emoji:</span>
+              <button type="button" class="emoji-btn" data-emoji="⚠️" onclick="selecionarEmoji('dificuldade','⚠️',this)">⚠️</button>
+              <button type="button" class="emoji-btn" data-emoji="📉" onclick="selecionarEmoji('dificuldade','📉',this)">📉</button>
+              <button type="button" class="emoji-btn" data-emoji="🚨" onclick="selecionarEmoji('dificuldade','🚨',this)">🚨</button>
+              <button type="button" class="emoji-btn" data-emoji="😟" onclick="selecionarEmoji('dificuldade','😟',this)">😟</button>
+              <button type="button" class="emoji-btn" data-emoji="📚" onclick="selecionarEmoji('dificuldade','📚',this)">📚</button>
+              <button type="button" class="emoji-btn" data-emoji="🎯" onclick="selecionarEmoji('dificuldade','🎯',this)">🎯</button>
+              <button type="button" class="emoji-btn" data-emoji="💪" onclick="selecionarEmoji('dificuldade','💪',this)">💪</button>
+              <button type="button" class="emoji-btn" data-emoji="🤝" onclick="selecionarEmoji('dificuldade','🤝',this)">🤝</button>
+            </div>
+            <input id="form-dificuldade" type="text" placeholder="Nome do aluno com dificuldade...">
+          </div>
+        </div>
+      </div>
+
+      <div id="form-perguntas"></div>
+      <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+        <button class="btn ok" onclick="salvarFicha()">💾 Salvar Ficha</button>
+        <button class="btn ghost" onclick="voltarProfessor()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DB = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k, v){ localStorage.setItem(k, JSON.stringify(v)); }
+};
+const uid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(36).slice(2));
+
+const PERGUNTAS_PADRAO = [
+  "Como você avalia o desempenho geral da turma neste período?",
+  "Quais alunos apresentam maiores dificuldades de aprendizagem?",
+  "Quais alunos se destacam positivamente?",
+  "Como está o comportamento e a disciplina da turma?",
+  "Quais conteúdos precisam ser retomados no próximo período?",
+  "Quais estratégias ou metodologias você sugere para melhorar o aprendizado?",
+  "Como está a frequência dos alunos?",
+  "Há alunos com necessidades específicas? Como está o acompanhamento?",
+  "Como tem sido a participação das famílias no processo educativo?",
+  "Observações gerais e encaminhamentos necessários."
+];
+
+const EMOJI_MELHOR_PADRAO = '🏆';
+const EMOJI_DIFICULDADE_PADRAO = '⚠️';
+
+function init(){
+  if(!DB.get('pc_director')){
+    DB.set('pc_director', { nome:'Diretora', cpf:'00000000000', senha:'admin123' });
+  }
+  if(!DB.get('pc_questions')) DB.set('pc_questions', PERGUNTAS_PADRAO);
+  if(!DB.get('pc_teachers')) DB.set('pc_teachers', []);
+  if(!DB.get('pc_classes')) DB.set('pc_classes', []);
+  if(!DB.get('pc_forms')) DB.set('pc_forms', []);
+}
+init();
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const soDigitos = v => String(v).replace(/\D/g,'');
+function maskCPF(v){
+  v = soDigitos(v).slice(0,11);
+  return v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+}
+const fmtCPF = c => maskCPF(c);
+
+let session = null;
+let fichaAtual = { classId:null, teacherId:null };
+let emojiMelhor = EMOJI_MELHOR_PADRAO;
+let emojiDificuldade = EMOJI_DIFICULDADE_PADRAO;
+
+function toast(msg, tipo){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + (tipo || '');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.className = 'toast ' + (tipo || ''), 2800);
+}
+function show(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function selecionarEmoji(tipo, emoji, btn){
+  const picker = btn.parentElement;
+  picker.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  if(tipo === 'melhor') emojiMelhor = emoji;
+  else emojiDificuldade = emoji;
+}
+
+function marcarEmojiSelecionado(tipo, emoji){
+  const id = tipo === 'melhor' ? 'emoji-picker-melhor' : 'emoji-picker-dificuldade';
+  document.querySelectorAll(`#${id} .emoji-btn`).forEach(b => {
+    b.classList.toggle('selected', b.dataset.emoji === emoji);
+  });
+}
+
+document.getElementById('login-cpf').addEventListener('input', e => e.target.value = maskCPF(e.target.value));
+document.getElementById('login-senha').addEventListener('keydown', e => { if(e.key === 'Enter') fazerLogin(); });
+document.getElementById('login-cpf').addEventListener('keydown', e => { if(e.key === 'Enter') document.getElementById('login-senha').focus(); });
+
+function fazerLogin(){
+  const cpf = soDigitos(document.getElementById('login-cpf').value);
+  const senha = document.getElementById('login-senha').value;
+
+  if(cpf.length !== 11) return toast('Informe um CPF válido (11 dígitos).', 'err');
+  if(!senha) return toast('Informe a senha de acesso.', 'err');
+
+  const diretora = DB.get('pc_director');
+  if(cpf === soDigitos(diretora.cpf) && senha === diretora.senha){
+    session = { tipo:'diretora', nome:diretora.nome };
+    abrirPainelDiretora();
+    return;
+  }
+
+  const prof = DB.get('pc_teachers', []).find(p => soDigitos(p.cpf) === cpf && p.senha === senha);
+  if(prof){
+    session = { tipo:'professor', id:prof.id, nome:prof.nome };
+    abrirPainelProfessor();
+    return;
+  }
+
+  toast('CPF ou senha incorretos. Verifique os dados.', 'err');
+}
+
+function sair(){
+  session = null;
+  document.getElementById('login-cpf').value = '';
+  document.getElementById('login-senha').value = '';
+  show('screen-login');
+}
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+    if(tab.dataset.tab === 'rel') atualizarSelectRel();
+  });
+});
+
+function abrirPainelDiretora(){
+  show('screen-director');
+  renderProfessores();
+  renderTurmas();
+  renderPerguntas();
+  atualizarSelectRel();
+  limparFormProfessor();
+}
+
+function renderChecksTurmas(selecionadas = []){
+  const turmas = DB.get('pc_classes', []);
+  const box = document.getElementById('prof-turmas-checks');
+  if(!turmas.length){
+    box.innerHTML = '<span class="meta">Nenhuma turma cadastrada. Cadastre primeiro na aba "🏫 Turmas".</span>';
+    return;
+  }
+  box.innerHTML = turmas.map(t => `
+    <label>
+      <input type="checkbox" value="${t.id}" ${selecionadas.includes(t.id) ? 'checked' : ''}>
+      <span>${esc(t.nome)} · ${esc(t.turno)}</span>
+    </label>`).join('');
+}
+
+document.getElementById('prof-cpf').addEventListener('input', e => e.target.value = maskCPF(e.target.value));
+
+function salvarProfessor(){
+  const nome = document.getElementById('prof-nome').value.trim();
+  const cpf = soDigitos(document.getElementById('prof-cpf').value);
+  const senha = document.getElementById('prof-senha').value.trim();
+  const disciplina = document.getElementById('prof-disciplina').value.trim();
+  const turmas = [...document.querySelectorAll('#prof-turmas-checks input:checked')].map(i => i.value);
+  const editId = document.getElementById('prof-id').value;
+
+  if(!nome) return toast('Informe o nome completo do professor.', 'err');
+  if(cpf.length !== 11) return toast('CPF inválido (deve ter 11 dígitos).', 'err');
+  if(!senha || senha.length < 4) return toast('A senha deve ter ao menos 4 caracteres.', 'err');
+
+  const teachers = DB.get('pc_teachers', []);
+  const diretora = DB.get('pc_director');
+  if(cpf === soDigitos(diretora.cpf)) return toast('Este CPF pertence à Diretora.', 'err');
+  if(teachers.some(t => soDigitos(t.cpf) === cpf && t.id !== editId))
+    return toast('Já existe um professor cadastrado com este CPF.', 'err');
+
+  if(editId){
+    const t = teachers.find(x => x.id === editId);
+    Object.assign(t, { nome, cpf, senha, disciplina, turmas });
+    toast('✅ Professor atualizado com sucesso!', 'ok');
+  } else {
+    teachers.push({ id: uid(), nome, cpf, senha, disciplina, turmas });
+    toast('✅ Professor cadastrado com sucesso!', 'ok');
+  }
+  DB.set('pc_teachers', teachers);
+  limparFormProfessor();
+  renderProfessores();
+  atualizarSelectRel();
+}
+
+function limparFormProfessor(){
+  document.getElementById('prof-id').value = '';
+  document.getElementById('prof-nome').value = '';
+  document.getElementById('prof-cpf').value = '';
+  document.getElementById('prof-senha').value = '';
+  document.getElementById('prof-disciplina').value = '';
+  document.getElementById('titulo-form-prof').textContent = 'Cadastrar Novo Professor';
+  document.getElementById('btn-salvar-prof').textContent = '💾 Cadastrar Professor';
+  document.getElementById('btn-cancelar-prof').style.display = 'none';
+  renderChecksTurmas([]);
+}
+
+function editTeacher(id){
+  const t = DB.get('pc_teachers', []).find(x => x.id === id);
+  if(!t) return;
+  document.getElementById('prof-id').value = t.id;
+  document.getElementById('prof-nome').value = t.nome;
+  document.getElementById('prof-cpf').value = fmtCPF(t.cpf);
+  document.getElementById('prof-senha').value = t.senha;
+  document.getElementById('prof-disciplina').value = t.disciplina || '';
+  document.getElementById('titulo-form-prof').textContent = 'Editar Professor';
+  document.getElementById('btn-salvar-prof').textContent = '💾 Salvar Alterações';
+  document.getElementById('btn-cancelar-prof').style.display = 'inline-flex';
+  renderChecksTurmas(t.turmas || []);
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function delTeacher(id){
+  if(!confirm('Excluir este professor? Todas as fichas dele também serão removidas.')) return;
+  DB.set('pc_teachers', DB.get('pc_teachers', []).filter(t => t.id !== id));
+  DB.set('pc_forms', DB.get('pc_forms', []).filter(f => f.teacherId !== id));
+  renderProfessores();
+  atualizarSelectRel();
+  toast('Professor excluído.', 'ok');
+}
+
+function renderProfessores(){
+  const teachers = DB.get('pc_teachers', []);
+  const classes = DB.get('pc_classes', []);
+  const el = document.getElementById('lista-professores');
+
+  if(!teachers.length){
+    el.innerHTML = '<div class="empty"><span class="empty-icon">👤</span>Nenhum professor cadastrado ainda.</div>';
+    return;
+  }
+  el.innerHTML = teachers.map(t => {
+    const nomes = (t.turmas || []).map(id => classes.find(c => c.id === id)?.nome).filter(Boolean);
+    const chips = nomes.length
+      ? nomes.map(n => `<span class="chip">${esc(n)}</span>`).join('')
+      : '<span class="chip info">🌐 Acesso a todas as turmas</span>';
+    return `<div class="item">
+      <div style="flex:1;min-width:240px">
+        <strong>👨‍🏫 ${esc(t.nome)}</strong>
+        <div class="meta">🔑 CPF: ${fmtCPF(t.cpf)} &nbsp;•&nbsp; 📚 ${esc(t.disciplina || 'Sem disciplina')}</div>
+        <div style="margin-top:8px">${chips}</div>
+      </div>
+      <div class="actions">
+        <button class="btn sm ghost" onclick="editTeacher('${t.id}')">✏️ Editar</button>
+        <button class="btn sm danger" onclick="delTeacher('${t.id}')">🗑️ Excluir</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function salvarTurma(){
+  const nome = document.getElementById('turma-nome').value.trim();
+  const turno = document.getElementById('turma-turno').value;
+  if(!nome) return toast('Informe o nome da turma.', 'err');
+
+  const classes = DB.get('pc_classes', []);
+  if(classes.some(c => c.nome.toLowerCase() === nome.toLowerCase() && c.turno === turno))
+    return toast('Esta turma já está cadastrada.', 'err');
+
+  classes.push({ id: uid(), nome, turno });
+  DB.set('pc_classes', classes);
+  document.getElementById('turma-nome').value = '';
+  renderTurmas();
+  const marcadas = [...document.querySelectorAll('#prof-turmas-checks input:checked')].map(i => i.value);
+  renderChecksTurmas(marcadas);
+  atualizarSelectRel();
+  toast('✅ Turma cadastrada!', 'ok');
+}
+
+function delTurma(id){
+  if(!confirm('Excluir esta turma? As fichas e vínculos com professores serão removidos.')) return;
+  DB.set('pc_classes', DB.get('pc_classes', []).filter(c => c.id !== id));
+  DB.set('pc_forms', DB.get('pc_forms', []).filter(f => f.classId !== id));
+  const teachers = DB.get('pc_teachers', []).map(t => ({ ...t, turmas:(t.turmas || []).filter(x => x !== id) }));
+  DB.set('pc_teachers', teachers);
+  renderTurmas();
+  renderProfessores();
+  atualizarSelectRel();
+  toast('Turma excluída.', 'ok');
+}
+
+function renderTurmas(){
+  const classes = DB.get('pc_classes', []);
+  const teachers = DB.get('pc_teachers', []);
+  const el = document.getElementById('lista-turmas');
+
+  if(!classes.length){
+    el.innerHTML = '<div class="empty"><span class="empty-icon">🏫</span>Nenhuma turma cadastrada ainda.</div>';
+    return;
+  }
+  el.innerHTML = classes.map(c => {
+    const profs = teachers.filter(t => (t.turmas || []).includes(c.id));
+    return `<div class="item">
+      <div style="flex:1;min-width:220px">
+        <strong>🏫 ${esc(c.nome)}</strong>
+        <div class="meta">Turno: ${esc(c.turno)} &nbsp;•&nbsp; ${profs.length} professor(es)</div>
+      </div>
+      <div class="actions">
+        <button class="btn sm danger" onclick="delTurma('${c.id}')">🗑️ Excluir</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function addPergunta(){
+  const txt = document.getElementById('nova-pergunta').value.trim();
+  if(!txt) return toast('Digite a pergunta antes de adicionar.', 'err');
+  const qs = DB.get('pc_questions', []);
+  qs.push(txt);
+  DB.set('pc_questions', qs);
+  document.getElementById('nova-pergunta').value = '';
+  renderPerguntas();
+  toast('✅ Pergunta adicionada!', 'ok');
+}
+
+function delPergunta(i){
+  if(!confirm('Remover esta pergunta da ficha?')) return;
+  const qs = DB.get('pc_questions', []);
+  qs.splice(i,1);
+  DB.set('pc_questions', qs);
+  renderPerguntas();
+}
+
+function renderPerguntas(){
+  const qs = DB.get('pc_questions', []);
+  const el = document.getElementById('lista-perguntas');
+  if(!qs.length){
+    el.innerHTML = '<div class="empty"><span class="empty-icon">❓</span>Nenhuma pergunta cadastrada.</div>';
+    return;
+  }
+  el.innerHTML = qs.map((q, i) => `
+    <div class="item">
+      <div style="flex:1;display:flex;gap:12px;align-items:flex-start">
+        <span class="q-num">${i+1}</span>
+        <span style="font-size:.9rem;line-height:1.5;padding-top:2px">${esc(q)}</span>
+      </div>
+      <button class="btn sm danger" onclick="delPergunta(${i})">🗑️</button>
+    </div>`).join('');
+}
+
+function abrirPainelProfessor(){
+  const t = DB.get('pc_teachers', []).find(x => x.id === session.id);
+  if(!t) return sair();
+  document.getElementById('prof-logado-info').textContent =
+    `${t.nome} • ${t.disciplina || 'Professor(a)'} • CPF ${fmtCPF(t.cpf)}`;
+  renderMinhasTurmas();
+  show('screen-teacher');
+}
+
+function renderMinhasTurmas(){
+  const t = DB.get('pc_teachers', []).find(x => x.id === session.id);
+  if(!t) return;
+  const classes = DB.get('pc_classes', []);
+  const forms = DB.get('pc_forms', []);
+  const el = document.getElementById('lista-minhas-turmas');
+
+  let minhas = (t.turmas || []).map(id => classes.find(c => c.id === id)).filter(Boolean);
+  let avisoAuto = '';
+
+  if(!minhas.length && classes.length){
+    minhas = classes;
+    avisoAuto = `<div class="aviso-auto">
+      ℹ️ <span>Você ainda não foi vinculado a turmas específicas. <strong>Mostrando todas as turmas cadastradas.</strong></span>
+    </div>`;
+  }
+
+  if(!classes.length){
+    el.innerHTML = '<div class="empty"><span class="empty-icon">🏫</span>Nenhuma turma foi cadastrada pela Diretora ainda.<br>Procure a Diretora para mais informações.</div>';
+    return;
+  }
+
+  const lista = minhas.map(c => {
+    const preenchidas = forms.filter(f => f.teacherId === t.id && f.classId === c.id);
+    const chips = preenchidas.length
+      ? preenchidas.map(f => `<span class="chip ok">${esc(f.bimestre)} ✓</span>`).join('')
+      : '<span class="chip warn">⏳ Pendente</span>';
+    return `<div class="item">
+      <div style="flex:1;min-width:220px">
+        <strong>🏫 ${esc(c.nome)}</strong>
+        <div class="meta">Turno: ${esc(c.turno)}</div>
+        <div style="margin-top:8px">${chips}</div>
+      </div>
+      <button class="btn sm" onclick="abrirFicha('${c.id}')">📝 Preencher Ficha</button>
+    </div>`;
+  }).join('');
+
+  el.innerHTML = avisoAuto + lista;
+}
+
+function abrirFicha(classId){
+  const t = DB.get('pc_teachers', []).find(x => x.id === session.id);
+  const c = DB.get('pc_classes', []).find(x => x.id === classId);
+  if(!t || !c) return;
+  fichaAtual = { classId, teacherId: t.id };
+  document.getElementById('form-titulo').textContent = '📝 Ficha Pré-Conselho';
+  document.getElementById('form-sub').textContent = `${t.nome} • ${c.nome} (${c.turno})`;
+  document.getElementById('form-bim').value = '1º Bimestre';
+  carregarFicha();
+  show('screen-form');
+}
+
+function carregarFicha(){
+  const bim = document.getElementById('form-bim').value;
+  const qs = DB.get('pc_questions', []);
+  const existente = DB.get('pc_forms', []).find(f =>
+    f.teacherId === fichaAtual.teacherId &&
+    f.classId === fichaAtual.classId &&
+    f.bimestre === bim
+  );
+
+  document.getElementById('form-melhor').value = existente?.melhorAluno || '';
+  document.getElementById('form-dificuldade').value = existente?.alunoDificuldade || '';
+
+  emojiMelhor = existente?.emojiMelhor || EMOJI_MELHOR_PADRAO;
+  emojiDificuldade = existente?.emojiDificuldade || EMOJI_DIFICULDADE_PADRAO;
+  marcarEmojiSelecionado('melhor', emojiMelhor);
+  marcarEmojiSelecionado('dificuldade', emojiDificuldade);
+
+  const el = document.getElementById('form-perguntas');
+  if(!qs.length){
+    el.innerHTML = '<div class="empty">A Diretora ainda não cadastrou perguntas para a ficha.</div>';
+    return;
+  }
+  el.innerHTML = qs.map((q, i) => {
+    const val = existente?.respostas?.find(r => r.q === q)?.a || '';
+    return `<div class="q-block">
+      <div class="q-text"><span class="q-num">${i+1}</span><span>${esc(q)}</span></div>
+      <textarea data-q="${esc(q)}" placeholder="Digite sua resposta...">${esc(val)}</textarea>
+    </div>`;
+  }).join('');
+}
+
+function salvarFicha(){
+  const bim = document.getElementById('form-bim').value;
+  const melhorAluno = document.getElementById('form-melhor').value.trim();
+  const alunoDificuldade = document.getElementById('form-dificuldade').value.trim();
+
+  const respostas = [...document.querySelectorAll('#form-perguntas textarea')].map(ta => ({
+    q: ta.dataset.q,
+    a: ta.value.trim()
+  }));
+
+  if(!respostas.length && !melhorAluno && !alunoDificuldade)
+    return toast('Preencha ao menos uma informação na ficha.', 'err');
+  if(respostas.length && respostas.every(r => !r.a) && !melhorAluno && !alunoDificuldade)
+    return toast('Preencha ao menos uma resposta ou indique os destaques.', 'err');
+
+  const forms = DB.get('pc_forms', []);
+  const idx = forms.findIndex(f =>
+    f.teacherId === fichaAtual.teacherId &&
+    f.classId === fichaAtual.classId &&
+    f.bimestre === bim
+  );
+
+  const registro = {
+    id: idx >= 0 ? forms[idx].id : uid(),
+    teacherId: fichaAtual.teacherId,
+    classId: fichaAtual.classId,
+    bimestre: bim,
+    melhorAluno,
+    alunoDificuldade,
+    emojiMelhor: emojiMelhor || EMOJI_MELHOR_PADRAO,
+    emojiDificuldade: emojiDificuldade || EMOJI_DIFICULDADE_PADRAO,
+    respostas,
+    atualizadoEm: new Date().toISOString()
+  };
+
+  if(idx >= 0) forms[idx] = registro; else forms.push(registro);
+  DB.set('pc_forms', forms);
+  toast('✅ Ficha salva com sucesso!', 'ok');
+  renderMinhasTurmas();
+  setTimeout(voltarProfessor, 900);
+}
+
+function voltarProfessor(){
+  renderMinhasTurmas();
+  show('screen-teacher');
+}
+
+function atualizarSelectRel(){
+  const tipo = document.getElementById('rel-tipo').value;
+  const sel = document.getElementById('rel-alvo');
+  sel.innerHTML = '';
+
+  if(tipo === 'professor'){
+    const teachers = DB.get('pc_teachers', []);
+    if(!teachers.length){ sel.innerHTML = '<option value="">Nenhum professor cadastrado</option>'; return; }
+    sel.innerHTML = teachers.map(t => `<option value="${t.id}">${esc(t.nome)} — ${esc(t.disciplina || 'Sem disciplina')}</option>`).join('');
+  } else {
+    const classes = DB.get('pc_classes', []);
+    if(!classes.length){ sel.innerHTML = '<option value="">Nenhuma turma cadastrada</option>'; return; }
+    sel.innerHTML = classes.map(c => `<option value="${c.id}">${esc(c.nome)} — ${esc(c.turno)}</option>`).join('');
+  }
+}
+
+function gerarRelatorio(){
+  const tipo = document.getElementById('rel-tipo').value;
+  const alvo = document.getElementById('rel-alvo').value;
+  const bim = document.getElementById('rel-bim').value;
+  const out = document.getElementById('saida-relatorio');
+
+  if(!alvo) return toast('Selecione um item para gerar o relatório.', 'err');
+
+  const teachers = DB.get('pc_teachers', []);
+  const classes = DB.get('pc_classes', []);
+  let forms = DB.get('pc_forms', []);
+  if(bim) forms = forms.filter(f => f.bimestre === bim);
+
+  if(tipo === 'professor'){
+    forms = forms.filter(f => f.teacherId === alvo);
+    const t = teachers.find(x => x.id === alvo);
+    if(!t) return;
+
+    const fichas = forms
+      .map(f => ({ f, c: classes.find(c => c.id === f.classId) }))
+      .filter(x => x.c);
+
+    if(!fichas.length){
+      out.innerHTML = `<div class="rel-box"><div class="empty"><span class="empty-icon">📄</span>Nenhuma ficha registrada para <b>${esc(t.nome)}</b>${bim ? ' no ' + esc(bim) : ''}.</div></div>`;
+      return;
+    }
+
+    const stats = `
+      <div class="stat-grid">
+        <div class="stat"><b>${fichas.length}</b><span>Fichas Preenchidas</span></div>
+        <div class="stat"><b>${(t.turmas || []).length || classes.length}</b><span>Turmas</span></div>
+        <div class="stat"><b>${esc(t.disciplina || '—')}</b><span>Disciplina</span></div>
+      </div>`;
+
+    const corpo = fichas.map(({ f, c }) => blocoFicha(
+      `🏫 ${c.nome} (${c.turno})`,
+      `Professor(a): ${t.nome} • Disciplina: ${t.disciplina || '—'} • ${f.bimestre} • Atualizado em ${new Date(f.atualizadoEm).toLocaleString('pt-BR')}`,
+      f
+    )).join('');
+
+    out.innerHTML = `<div class="rel-box">
+      ${cabecalhoRel('📋 Relatório por Professor', `${t.nome} • ${fichas.length} ficha(s)${bim ? ' • ' + bim : ''}`)}
+      ${stats}
+      ${corpo}
+    </div>`;
+  } else {
+    forms = forms.filter(f => f.classId === alvo);
+    const c = classes.find(x => x.id === alvo);
+    if(!c) return;
+
+    const fichas = forms
+      .map(f => ({ f, t: teachers.find(t => t.id === f.teacherId) }))
+      .filter(x => x.t);
+
+    if(!fichas.length){
+      out.innerHTML = `<div class="rel-box"><div class="empty"><span class="empty-icon">📄</span>Nenhuma ficha registrada para a turma <b>${esc(c.nome)}</b>${bim ? ' no ' + esc(bim) : ''}.</div></div>`;
+      return;
+    }
+
+    const contagemMelhor = {};
+    const contagemDificuldade = {};
+    fichas.forEach(({ f }) => {
+      if(f.melhorAluno){
+        const k = f.melhorAluno.toLowerCase();
+        if(!contagemMelhor[k]) contagemMelhor[k] = { nome:f.melhorAluno, votos:0, emojis:{} };
+        contagemMelhor[k].votos++;
+        const emj = f.emojiMelhor || EMOJI_MELHOR_PADRAO;
+        contagemMelhor[k].emojis[emj] = (contagemMelhor[k].emojis[emj] || 0) + 1;
+      }
+      if(f.alunoDificuldade){
+        const k = f.alunoDificuldade.toLowerCase();
+        if(!contagemDificuldade[k]) contagemDificuldade[k] = { nome:f.alunoDificuldade, votos:0, emojis:{} };
+        contagemDificuldade[k].votos++;
+        const emj = f.emojiDificuldade || EMOJI_DIFICULDADE_PADRAO;
+        contagemDificuldade[k].emojis[emj] = (contagemDificuldade[k].emojis[emj] || 0) + 1;
+      }
+    });
+
+    const rankingMelhor = Object.values(contagemMelhor).sort((a,b) => b.votos - a.votos);
+    const rankingDificuldade = Object.values(contagemDificuldade).sort((a,b) => b.votos - a.votos);
+
+    const medalha = (i) => i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '⭐';
+
+    const renderRanking = (lista) => lista.map((r, i) => {
+      const emjMaisVotado = Object.entries(r.emojis).sort((a,b) => b[1]-a[1])[0][0];
+      return `<div class="rank-item">
+        <span class="pos">${medalha(i)}</span>
+        <span class="emj">${emjMaisVotado}</span>
+        <strong>${esc(r.nome)}</strong>
+        <span style="margin-left:auto;font-weight:700">${r.votos} voto(s)</span>
+      </div>`;
+    }).join('');
+
+    const blocoRanking = (rankingMelhor.length || rankingDificuldade.length) ? `
+      <div class="rel-destaque" style="grid-template-columns:1fr 1fr">
+        ${rankingMelhor.length ? `
+          <div class="rel-destaque-item melhor" style="flex-direction:column;align-items:stretch;gap:4px">
+            <strong style="font-size:.9rem;margin-bottom:6px">🏆 Alunos mais citados como MELHOR da sala</strong>
+            ${renderRanking(rankingMelhor)}
+          </div>` : ''}
+        ${rankingDificuldade.length ? `
+          <div class="rel-destaque-item dificuldade" style="flex-direction:column;align-items:stretch;gap:4px">
+            <strong style="font-size:.9rem;margin-bottom:6px">⚠️ Alunos mais citados com DIFICULDADE</strong>
+            ${renderRanking(rankingDificuldade)}
+          </div>` : ''}
+      </div>` : '';
+
+    const stats = `
+      <div class="stat-grid">
+        <div class="stat"><b>${fichas.length}</b><span>Fichas da Turma</span></div>
+        <div class="stat"><b>${new Set(fichas.map(x => x.t.id)).size}</b><span>Professores</span></div>
+        <div class="stat"><b>${esc(c.turno)}</b><span>Turno</span></div>
+      </div>`;
+
+    const corpo = fichas.map(({ f, t }) => blocoFicha(
+      `👨‍🏫 ${t.nome}`,
+      `Disciplina: ${t.disciplina || '—'} • Turma: ${c.nome} (${c.turno}) • ${f.bimestre} • Atualizado em ${new Date(f.atualizadoEm).toLocaleString('pt-BR')}`,
+      f
+    )).join('');
+
+    out.innerHTML = `<div class="rel-box">
+      ${cabecalhoRel('🏫 Relatório por Turma', `${c.nome} • ${c.turno} • ${fichas.length} ficha(s)${bim ? ' • ' + bim : ''}`)}
+      ${stats}
+      ${blocoRanking}
+      ${corpo}
+    </div>`;
+  }
+}
+
+function cabecalhoRel(titulo, sub){
+  const d = new Date().toLocaleString('pt-BR');
+  return `<div class="rel-head">
+    <h2>${esc(titulo)}</h2>
+    <p><b>${esc(sub)}</b></p>
+    <p>Emitido em ${d}</p>
+  </div>`;
+}
+
+function blocoFicha(titulo, sub, f){
+  const emjM = f.emojiMelhor || EMOJI_MELHOR_PADRAO;
+  const emjD = f.emojiDificuldade || EMOJI_DIFICULDADE_PADRAO;
+
+  const destaques = (f.melhorAluno || f.alunoDificuldade) ? `
+    <div class="rel-destaque">
+      ${f.melhorAluno ? `<div class="rel-destaque-item melhor"><span class="emj">${emjM}</span><span><strong>Melhor aluno:</strong> ${esc(f.melhorAluno)}</span></div>` : ''}
+      ${f.alunoDificuldade ? `<div class="rel-destaque-item dificuldade"><span class="emj">${emjD}</span><span><strong>Com dificuldade:</strong> ${esc(f.alunoDificuldade)}</span></div>` : ''}
+    </div>` : '';
+
+  const qa = (f.respostas || []).filter(r => r.a).map(r => `
+    <div class="rel-qa">
+      <b>${esc(r.q)}</b>
+      <span>${esc(r.a)}</span>
+    </div>`).join('') || '<p class="meta">Sem respostas registradas nesta ficha.</p>';
+
+  return `<div class="rel-ficha">
+    <h3>${esc(titulo)}</h3>
+    <div class="sub">${esc(sub)}</div>
+    ${destaques}
+    ${qa}
+  </div>`;
+}
+
+function imprimir(){
+  if(!document.getElementById('saida-relatorio').innerHTML.trim())
+    return toast('Gere um relatório antes de imprimir.', 'err');
+  window.print();
+}
+</script>
+</body>
+</html>
