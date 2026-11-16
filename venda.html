@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌞 Vendas de Domingo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  *{box-sizing:border-box}
+  :root{color-scheme:dark}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#0a1120;color:#e6edf6}
+  main{padding:16px;max-width:1100px;margin:0 auto}
+  .aba{display:none;animation:fade .2s ease}
+  .aba.ativo{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .card{background:#111a2b;border-radius:14px;padding:16px;margin-bottom:16px;border:1px solid #1f2d44;box-shadow:0 1px 3px rgba(0,0,0,.4)}
+  .card h2{margin:0 0 14px;font-size:15px;text-transform:uppercase;letter-spacing:.6px;color:#93a4bd}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .kpi{background:#111a2b;border-radius:14px;padding:14px 16px;border:1px solid #1f2d44;border-left:4px solid #7c3aed;box-shadow:0 1px 3px rgba(0,0,0,.4)}
+  .kpi .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:#93a4bd;margin-bottom:6px}
+  .kpi .val{font-size:20px;font-weight:700;color:#e6edf6}
+  .kpi.green{border-left-color:#10b981}.kpi.green .val{color:#34d399}
+  .kpi.red{border-left-color:#ef4444}.kpi.red .val{color:#f87171}
+  .kpi.blue{border-left-color:#0ea5e9}.kpi.blue .val{color:#38bdf8}
+  .kpi.gray{border-left-color:#64748b}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:12px}
+  .field{display:flex;flex-direction:column;gap:4px;flex:1 1 140px;min-width:120px}
+  .field label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#93a4bd}
+  input,select{border:1.5px solid #2a3a55;border-radius:9px;padding:9px 11px;font-size:14px;background:#0d1626;color:#e6edf6;font-family:inherit;width:100%}
+  input:focus,select:focus{outline:none;border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.25)}
+  button{font-family:inherit}
+  .btn{border:none;border-radius:9px;padding:10px 16px;font-size:14px;font-weight:700;cursor:pointer;background:#7c3aed;color:#fff;transition:.15s}
+  .btn:hover{background:#6d28d9}
+  .btn.sec{background:#26354d;color:#cbd5e1}
+  .btn.sec:hover{background:#33475f}
+  .btn.green{background:#059669}.btn.green:hover{background:#047857}
+  .btn-sm{border:none;border-radius:7px;padding:6px 10px;font-size:12px;font-weight:700;cursor:pointer;background:#26354d;color:#cbd5e1}
+  .btn-sm.danger{background:#3f1d24;color:#fca5a5}
+  .btn-sm.danger:hover{background:#55242c}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#93a4bd;padding:8px 6px;border-bottom:2px solid #1f2d44}
+  td{padding:9px 6px;border-bottom:1px solid #182236;vertical-align:middle;color:#e6edf6}
+  tr:last-child td{border-bottom:none}
+  .empty{text-align:center;color:#7c8ba1;padding:22px 0;font-size:13px}
+  .muted{font-size:12px;color:#93a4bd}
+  .pill{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;margin:1px}
+  .pill.dinheiro{background:#052e22;color:#34d399}
+  .pill.pix{background:#082f49;color:#38bdf8}
+  .pill.cartao{background:#2a1a4d;color:#c4b5fd}
+  .pill.fiado{background:#3a2a06;color:#fbbf24}
+  .cart-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px dashed #2a3a55;font-size:14px}
+  .cart-item:last-child{border-bottom:none}
+  .cart-total{display:flex;justify-content:space-between;font-weight:800;font-size:16px;padding-top:10px;margin-top:6px;border-top:2px solid #2a3a55}
+  .fiado-card{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:14px;border-radius:12px;background:#0d1626;border:1px solid #1f2d44;margin-bottom:10px}
+  .fiado-card .saldo{font-size:18px;font-weight:800;color:#f87171}
+  .recv{display:flex;gap:6px}
+  .recv input{width:110px;padding:8px 10px}
+  .nota{font-size:12px;color:#93a4bd;background:#16223a;padding:8px 12px;border-radius:8px;margin-bottom:14px}
+  .novo-cliente-box{display:none;background:#16112b;border:1.5px dashed #7c3aed;border-radius:10px;padding:10px;margin-bottom:12px;gap:10px;flex-wrap:wrap}
+  .novo-cliente-box.show{display:flex}
+  .produtos-tag{display:inline-block;background:#26354d;border-radius:6px;padding:2px 7px;font-size:11.5px;margin:1px;color:#cbd5e1}
+  @media(max-width:600px){
+    .kpi .val{font-size:17px}
+    .produtos-tag{font-size:10.5px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= BARRA DE NAVEGAÇÃO (Tailwind + Lucide) ================= -->
+<header class="bg-slate-950 text-white p-2.5 md:p-3 shadow-md flex justify-between items-center flex-wrap gap-2 border-b border-slate-800">
+  <div class="flex items-center gap-2">
+    <i data-lucide="store" class="text-violet-400 w-5 h-5"></i>
+    <h1 class="font-bold text-base md:text-lg">Vendas de Domingo</h1>
+  </div>
+
+  <nav class="flex gap-1 md:gap-2 overflow-x-auto">
+    <button onclick="mudarAba('comandas')" id="btn-comandas" class="px-2.5 py-1.5 rounded-lg font-medium text-xs md:text-sm flex items-center gap-1 bg-violet-500 text-white">
+      <i data-lucide="shopping-bag" class="w-4 h-4"></i> Comandas
+    </button>
+    <button onclick="mudarAba('lucro')" id="btn-lucro" class="px-2.5 py-1.5 rounded-lg font-medium text-xs md:text-sm flex items-center gap-1 bg-slate-800 text-slate-300">
+      <i data-lucide="trending-up" class="w-4 h-4"></i> Lucro & Financeiro
+    </button>
+    <button onclick="mudarAba('compras')" id="btn-compras" class="px-2.5 py-1.5 rounded-lg font-medium text-xs md:text-sm flex items-center gap-1 bg-slate-800 text-slate-300">
+      <i data-lucide="shopping-cart" class="w-4 h-4"></i> Compras / Gastos
+    </button>
+    <button onclick="mudarAba('devedores')" id="btn-devedores" class="px-2.5 py-1.5 rounded-lg font-medium text-xs md:text-sm flex items-center gap-1 bg-slate-800 text-slate-300">
+      <i data-lucide="wallet" class="w-4 h-4"></i> Fiados por Data
+    </button>
+    <button onclick="mudarAba('historico')" id="btn-historico" class="px-2.5 py-1.5 rounded-lg font-medium text-xs md:text-sm flex items-center gap-1 bg-slate-800 text-slate-300">
+      <i data-lucide="history" class="w-4 h-4"></i> Pagamentos
+    </button>
+    <button onclick="mudarAba('clientes')" id="btn-clientes" class="px-2.5 py-1.5 rounded-lg font-medium text-xs md:text-sm flex items-center gap-1 bg-slate-800 text-slate-300">
+      <i data-lucide="users" class="w-4 h-4"></i> Clientes
+    </button>
+    <button onclick="mudarAba('produtos')" id="btn-produtos" class="px-2.5 py-1.5 rounded-lg font-medium text-xs md:text-sm flex items-center gap-1 bg-slate-800 text-slate-300">
+      <i data-lucide="package" class="w-4 h-4"></i> Produtos
+    </button>
+  </nav>
+
+  <div class="flex gap-2 items-center text-xs flex-wrap">
+    <label class="flex items-center gap-1">
+      <span>Data do evento:</span>
+      <input type="date" id="dataEvento" class="bg-slate-800 text-slate-100 rounded px-2 py-1 border border-slate-700">
+    </label>
+    <label class="flex items-center gap-1">
+      <span>Mostrar:</span>
+      <select id="filtro" class="bg-slate-800 text-slate-100 rounded px-2 py-1 border border-slate-700">
+        <option value="dia">Só este dia</option>
+        <option value="todos">Todas as datas</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ COMANDAS (VENDAS) ============ -->
+  <section id="aba-comandas" class="aba ativo">
+    <div class="card">
+      <h2>🛒 Nova comanda / venda</h2>
+      <div class="nota">A venda será salva na data do evento selecionada no topo.</div>
+
+      <div class="row">
+        <div class="field" style="flex:3 1 240px">
+          <label>👤 Cliente (selecione)</label>
+          <select id="vendaCliente"></select>
+        </div>
+        <button class="btn sec" onclick="abrirNovoCliente()">+ Novo cliente</button>
+      </div>
+
+      <div class="novo-cliente-box" id="novoClienteBox">
+        <div class="field" style="flex:2 1 180px">
+          <label>Nome do novo cliente</label>
+          <input type="text" id="novoClienteNome" placeholder="Ex.: Maria Souza">
+        </div>
+        <div class="field" style="flex:1 1 140px">
+          <label>Telefone (opcional)</label>
+          <input type="text" id="novoClienteTel" placeholder="(00) 00000-0000">
+        </div>
+        <button class="btn green" onclick="salvarNovoCliente()">Salvar cliente</button>
+        <button class="btn sec" onclick="fecharNovoCliente()">Cancelar</button>
+      </div>
+
+      <div class="row" style="margin-top:6px">
+        <div class="field" style="flex:2 1 220px">
+          <label>📦 Produto que o cliente pegou</label>
+          <select id="vendaProduto"></select>
+        </div>
+        <div class="field" style="flex:0 0 90px">
+          <label>Qtd</label>
+          <input type="number" id="vendaQtd" value="1" min="1">
+        </div>
+        <button class="btn sec" onclick="addItem()">+ Adicionar</button>
+      </div>
+
+      <div id="carrinho"></div>
+
+      <div class="row" style="margin-top:14px">
+        <div class="field" style="flex:1 1 180px">
+          <label>💳 Forma de pagamento</label>
+          <select id="vendaPagamento">
+            <option>Dinheiro</option>
+            <option>Pix</option>
+            <option>Cartão</option>
+            <option>Fiado</option>
+          </select>
+        </div>
+        <button class="btn green" onclick="finalizarVenda()">✅ Finalizar venda</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Comandas registradas</h2>
+      <div id="listaVendas"></div>
+    </div>
+  </section>
+
+  <!-- ============ LUCRO & FINANCEIRO ============ -->
+  <section id="aba-lucro" class="aba">
+    <div class="grid" id="kpisFin"></div>
+    <div class="card" style="margin-top:16px">
+      <h2>Resumo do período</h2>
+      <table id="tabelaResumo"></table>
+    </div>
+    <div class="card">
+      <h2>Últimas vendas</h2>
+      <div id="ultimasVendas"></div>
+    </div>
+    <div class="card">
+      <h2>Movimentações</h2>
+      <div id="movimentacoes"></div>
+    </div>
+  </section>
+
+  <!-- ============ COMPRAS / GASTOS ============ -->
+  <section id="aba-compras" class="aba">
+    <div class="card">
+      <h2>Registrar compra / gasto</h2>
+      <div class="row">
+        <div class="field" style="flex:2 1 200px">
+          <label>Descrição</label>
+          <input type="text" id="gastoDesc" placeholder="Ex.: Compra de farinha">
+        </div>
+        <div class="field">
+          <label>Valor (R$)</label>
+          <input type="number" id="gastoValor" step="0.01" min="0" placeholder="0,00">
+        </div>
+        <div class="field">
+          <label>Categoria</label>
+          <select id="gastoCat">
+            <option>Compra de mercadoria</option>
+            <option>Gás / água / luz</option>
+            <option>Transporte</option>
+            <option>Funcionário</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <button class="btn" onclick="addGasto()">Lançar</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Compras e gastos</h2>
+      <div id="listaGastos"></div>
+    </div>
+  </section>
+
+  <!-- ============ FIADOS POR DATA ============ -->
+  <section id="aba-devedores" class="aba">
+    <div class="card">
+      <h2>📒 Fiado em aberto</h2>
+      <div id="listaFiado"></div>
+    </div>
+  </section>
+
+  <!-- ============ PAGAMENTOS (HISTÓRICO) ============ -->
+  <section id="aba-historico" class="aba">
+    <div class="card">
+      <h2>Histórico de recebimentos de fiado</h2>
+      <div id="listaPagamentos"></div>
+    </div>
+  </section>
+
+  <!-- ============ CLIENTES ============ -->
+  <section id="aba-clientes" class="aba">
+    <div class="card">
+      <h2>Cadastrar cliente</h2>
+      <div class="row">
+        <div class="field" style="flex:2 1 200px">
+          <label>Nome do cliente</label>
+          <input type="text" id="cliNome" placeholder="Ex.: Maria Souza">
+        </div>
+        <div class="field" style="flex:1 1 150px">
+          <label>Telefone (opcional)</label>
+          <input type="text" id="cliTel" placeholder="(00) 00000-0000">
+        </div>
+        <button class="btn" onclick="addCliente()">Cadastrar</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>👥 Clientes — produtos que pegou e fiado</h2>
+      <div class="nota">Cada linha mostra os produtos que o cliente pegou, quanto deve e por quais formas pagou.</div>
+      <div id="listaClientes"></div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUTOS ============ -->
+  <section id="aba-produtos" class="aba">
+    <div class="card">
+      <h2>Cadastrar produto</h2>
+      <div class="row">
+        <div class="field" style="flex:2 1 180px">
+          <label>Nome</label>
+          <input type="text" id="prodNome" placeholder="Ex.: Pastel de carne">
+        </div>
+        <div class="field">
+          <label>Custo (R$)</label>
+          <input type="number" id="prodCusto" step="0.01" min="0" placeholder="0,00">
+        </div>
+        <div class="field">
+          <label>Preço de venda (R$)</label>
+          <input type="number" id="prodPreco" step="0.01" min="0" placeholder="0,00">
+        </div>
+        <div class="field" style="flex:0 0 100px">
+          <label>Estoque</label>
+          <input type="number" id="prodEstoque" min="0" placeholder="0">
+        </div>
+        <button class="btn" onclick="addProduto()">Cadastrar</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Produtos</h2>
+      <table>
+        <thead><tr><th>Produto</th><th>Custo</th><th>Venda</th><th>Lucro un.</th><th>Estoque</th><th></th></tr></thead>
+        <tbody id="listaProdutos"></tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+/* ============ UTIL ============ */
+const KEY = 'domingo_vendas_v3';
+const $  = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const uid = ()=> (crypto.randomUUID ? crypto.randomUUID() : 'id'+Date.now()+Math.random().toString(16).slice(2));
+const fmt = n => 'R$ ' + (Number(n)||0).toFixed(2).replace('.', ',');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const hoje = () => { const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
+const fmtData = iso => { if(!iso) return ''; const [a,m,d]=iso.split('-'); return `${d}/${m}/${a}`; };
+const fmtHora = iso => { if(!iso) return ''; const d=new Date(iso); return d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}); };
+const classePagto = p => 'pill ' + p.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+
+/* ============ ESTADO ============ */
+let db = carregar();
+let carrinho = [];
+let abaAtual = 'comandas';
+
+function carregar(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return { config:{dataEvento:hoje()}, produtos:[], clientes:[], vendas:[], gastos:[], pagamentos:[] };
+}
+function salvar(){ localStorage.setItem(KEY, JSON.stringify(db)); }
+function filtroAtivo(){ return $('#filtro').value === 'dia' ? $('#dataEvento').value : null; }
+
+/* ============ NAVEGAÇÃO ============ */
+function mudarAba(id){
+  abaAtual = id;
+  $$('.aba').forEach(a => a.classList.remove('ativo'));
+  $('#aba-' + id).classList.add('ativo');
+
+  $$('header nav button').forEach(b => {
+    b.classList.remove('bg-violet-500','text-white');
+    b.classList.add('bg-slate-800','text-slate-300');
+  });
+  const btn = $('#btn-' + id);
+  if(btn){
+    btn.classList.remove('bg-slate-800','text-slate-300');
+    btn.classList.add('bg-violet-500','text-white');
+  }
+  if(window.lucide) lucide.createIcons();
+  renderAll();
+}
+
+/* ============ INIT ============ */
+function init(){
+  if(!db.config) db.config = {dataEvento: hoje()};
+  $('#dataEvento').value = db.config.dataEvento || hoje();
+  $('#filtro').value = 'dia';
+
+  $('#dataEvento').addEventListener('change', e => {
+    db.config.dataEvento = e.target.value;
+    salvar(); renderAll();
+  });
+  $('#filtro').addEventListener('change', renderAll);
+
+  if(window.lucide) lucide.createIcons();
+  renderAll();
+}
+
+/* ============ PRODUTOS ============ */
+function addProduto(){
+  const nome = $('#prodNome').value.trim();
+  const custo = Number($('#prodCusto').value) || 0;
+  const preco = Number($('#prodPreco').value) || 0;
+  const estoque = $('#prodEstoque').value === '' ? null : Number($('#prodEstoque').value);
+  if(!nome) return alert('Digite o nome do produto.');
+  if(preco <= 0) return alert('Digite o preço de venda.');
+  db.produtos.push({ id: uid(), nome, custo, preco, estoque });
+  salvar();
+  $('#prodNome').value = ''; $('#prodCusto').value = ''; $('#prodPreco').value = ''; $('#prodEstoque').value = '';
+  renderAll();
+}
+function delProduto(id){
+  if(!confirm('Excluir este produto?')) return;
+  db.produtos = db.produtos.filter(p => p.id !== id);
+  salvar(); renderAll();
+}
+function renderProdutos(){
+  const tb = $('#listaProdutos');
+  tb.innerHTML = '';
+  if(db.produtos.length === 0) tb.innerHTML = '<tr><td colspan="6" class="empty">Nenhum produto cadastrado ainda.</td></tr>';
+  db.produtos.forEach(p => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${esc(p.nome)}</strong></td>
+      <td>${fmt(p.custo)}</td>
+      <td>${fmt(p.preco)}</td>
+      <td style="color:#34d399;font-weight:700">${fmt(p.preco - p.custo)}</td>
+      <td>${p.estoque === null || p.estoque === undefined ? '—' : p.estoque}</td>
+      <td style="text-align:right"><button class="btn-sm danger" onclick="delProduto('${p.id}')">Excluir</button></td>`;
+    tb.appendChild(tr);
+  });
+
+  const sel = $('#vendaProduto');
+  const atual = sel.value;
+  if(db.produtos.length === 0){
+    sel.innerHTML = '<option value="">— cadastre um produto —</option>';
+  } else {
+    sel.innerHTML = db.produtos.map(p => `<option value="${p.id}">${esc(p.nome)} — ${fmt(p.preco)}</option>`).join('');
+  }
+  if(atual && db.produtos.some(p => p.id === atual)) sel.value = atual;
+}
+
+/* ============ CLIENTES ============ */
+function addCliente(){
+  const nome = $('#cliNome').value.trim();
+  const tel = $('#cliTel').value.trim();
+  if(!nome) return alert('Digite o nome do cliente.');
+  if(db.clientes.some(c => c.nome.toLowerCase() === nome.toLowerCase()))
+    return alert('Já existe um cliente com esse nome.');
+  db.clientes.push({ id: uid(), nome, telefone: tel });
+  salvar();
+  $('#cliNome').value = ''; $('#cliTel').value = '';
+  renderAll();
+}
+function delCliente(id){
+  if(!confirm('Excluir este cliente? O histórico de vendas é mantido.')) return;
+  db.clientes = db.clientes.filter(c => c.id !== id);
+  salvar(); renderAll();
+}
+function saldoCliente(id){
+  return db.vendas
+    .filter(v => v.clienteId === id && v.pagamento === 'Fiado')
+    .reduce((s, v) => s + (v.total - (v.pago || 0)), 0);
+}
+function produtosDoCliente(id){
+  const map = {};
+  db.vendas.filter(v => v.clienteId === id).forEach(v => {
+    v.itens.forEach(i => { map[i.nome] = (map[i.nome] || 0) + i.qtd; });
+  });
+  return Object.entries(map);
+}
+
+function renderVendaClienteSelect(){
+  const sel = $('#vendaCliente');
+  const atual = sel.value;
+  sel.innerHTML = '<option value="">— Cliente avulso (sem cadastro) —</option>' +
+    db.clientes.map(c => `<option value="${c.id}">${esc(c.nome)}</option>`).join('');
+  if(atual && db.clientes.some(c => c.id === atual)) sel.value = atual;
+}
+
+function renderClientes(){
+  const box = $('#listaClientes');
+  if(db.clientes.length === 0){
+    box.innerHTML = '<div class="empty">Nenhum cliente cadastrado.</div>';
+    return;
+  }
+  let html = '<table><thead><tr><th>Cliente</th><th>Telefone</th><th>Comprou</th><th>Fiado em aberto</th><th>Formas de pgto</th><th>Produtos que pegou</th><th></th></tr></thead><tbody>';
+  db.clientes.forEach(c => {
+    const vendasCli = db.vendas.filter(v => v.clienteId === c.id);
+    const comprou = vendasCli.reduce((s,v) => s + v.total, 0);
+    const saldo = saldoCliente(c.id);
+    const formas = [...new Set(vendasCli.map(v => v.pagamento))];
+    const produtos = produtosDoCliente(c.id);
+
+    const formasHtml = formas.length === 0
+      ? '<span class="muted">—</span>'
+      : formas.map(f => `<span class="${classePagto(f)}">${esc(f)}</span>`).join('');
+
+    const produtosHtml = produtos.length === 0
+      ? '<span class="muted">—</span>'
+      : produtos.map(([n,q]) => `<span class="produtos-tag">${q}× ${esc(n)}</span>`).join('');
+
+    html += `<tr>
+      <td><strong>${esc(c.nome)}</strong></td>
+      <td>${esc(c.telefone) || '—'}</td>
+      <td>${fmt(comprou)}</td>
+      <td style="${saldo>0.001?'color:#f87171;font-weight:700':''}">${saldo>0.001 ? fmt(saldo) : '—'}</td>
+      <td>${formasHtml}</td>
+      <td>${produtosHtml}</td>
+      <td style="text-align:right"><button class="btn-sm danger" onclick="delCliente('${c.id}')">Excluir</button></td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  box.innerHTML = html;
+}
+
+/* ============ NOVO CLIENTE INLINE ============ */
+function abrirNovoCliente(){
+  $('#novoClienteBox').classList.add('show');
+  $('#novoClienteNome').focus();
+}
+function fecharNovoCliente(){
+  $('#novoClienteBox').classList.remove('show');
+  $('#novoClienteNome').value = '';
+  $('#novoClienteTel').value = '';
+}
+function salvarNovoCliente(){
+  const nome = $('#novoClienteNome').value.trim();
+  const tel = $('#novoClienteTel').value.trim();
+  if(!nome) return alert('Digite o nome do cliente.');
+  if(db.clientes.some(c => c.nome.toLowerCase() === nome.toLowerCase()))
+    return alert('Já existe cliente com esse nome.');
+  const c = { id: uid(), nome, telefone: tel };
+  db.clientes.push(c);
+  salvar();
+  fecharNovoCliente();
+  renderAll();
+  $('#vendaCliente').value = c.id;
+}
+
+/* ============ CARRINHO ============ */
+function addItem(){
+  const pid = $('#vendaProduto').value;
+  const qtd = Number($('#vendaQtd').value) || 0;
+  if(!pid) return alert('Cadastre um produto primeiro.');
+  if(qtd <= 0) return alert('Quantidade inválida.');
+  const p = db.produtos.find(x => x.id === pid);
+  if(!p) return;
+  const existente = carrinho.find(i => i.produtoId === pid);
+  if(existente) existente.qtd += qtd;
+  else carrinho.push({ produtoId: p.id, nome: p.nome, preco: p.preco, custo: p.custo, qtd });
+  $('#vendaQtd').value = 1;
+  renderCarrinho();
+}
+function removeItem(idx){ carrinho.splice(idx, 1); renderCarrinho(); }
+function renderCarrinho(){
+  const box = $('#carrinho');
+  if(carrinho.length === 0){ box.innerHTML = '<div class="empty">Nenhum item adicionado.</div>'; return; }
+  let html = '';
+  carrinho.forEach((i, idx) => {
+    html += `<div class="cart-item">
+      <span><strong>${i.qtd}×</strong> ${esc(i.nome)}</span>
+      <span style="display:flex;gap:10px;align-items:center">
+        <span>${fmt(i.preco * i.qtd)}</span>
+        <button class="btn-sm danger" onclick="removeItem(${idx})">×</button>
+      </span>
+    </div>`;
+  });
+  const total = carrinho.reduce((s,i)=>s+i.preco*i.qtd, 0);
+  html += `<div class="cart-total"><span>Total</span><span>${fmt(total)}</span></div>`;
+  box.innerHTML = html;
+}
+
+/* ============ VENDAS ============ */
+function finalizarVenda(){
+  if(carrinho.length === 0) return alert('Adicione pelo menos um produto.');
+  const clienteId = $('#vendaCliente').value;
+  const pagamento = $('#vendaPagamento').value;
+
+  if(pagamento === 'Fiado' && !clienteId)
+    return alert('Para venda fiada, selecione o cliente (não pode ser avulso).');
+
+  const cliente = clienteId ? db.clientes.find(c => c.id === clienteId) : null;
+  const total = carrinho.reduce((s,i)=>s + i.preco * i.qtd, 0);
+  const custoTotal = carrinho.reduce((s,i)=>s + i.custo * i.qtd, 0);
+
+  const venda = {
+    id: uid(),
+    data: db.config.dataEvento,
+    criadoEm: new Date().toISOString(),
+    clienteId: cliente ? cliente.id : null,
+    clienteNome: cliente ? cliente.nome : 'Cliente avulso',
+    itens: carrinho.map(i => ({ ...i })),
+    total, custoTotal, pagamento,
+    pago: pagamento === 'Fiado' ? 0 : total
+  };
+  db.vendas.push(venda);
+
+  carrinho.forEach(i => {
+    const p = db.produtos.find(x => x.id === i.produtoId);
+    if(p && typeof p.estoque === 'number' && p.estoque !== null)
+      p.estoque = Math.max(0, p.estoque - i.qtd);
+  });
+
+  carrinho = [];
+  $('#vendaCliente').value = '';
+  salvar(); renderAll();
+  alert('Venda registrada!\nTotal: ' + fmt(total));
+}
+function delVenda(id){
+  if(!confirm('Excluir esta venda?')) return;
+  db.vendas = db.vendas.filter(v => v.id !== id);
+  salvar(); renderAll();
+}
+function renderVendas(){
+  const f = filtroAtivo();
+  const vendas = db.vendas
+    .filter(v => !f || v.data === f)
+    .sort((a,b) => (b.criadoEm||'').localeCompare(a.criadoEm||''));
+  const box = $('#listaVendas');
+  if(vendas.length === 0){
+    box.innerHTML = '<div class="empty">Nenhuma venda registrada neste período.</div>';
+    return;
+  }
+  let html = '<table><thead><tr><th>Hora</th><th>Cliente</th><th>Produtos</th><th>Pagto</th><th>Total</th><th></th></tr></thead><tbody>';
+  vendas.forEach(v => {
+    const itens = v.itens.map(i => `${i.qtd}× ${i.nome}`).join(', ');
+    const statusFiado = v.pagamento === 'Fiado'
+      ? `<span class="muted"> (${fmt((v.total||0)-(v.pago||0))} em aberto)</span>` : '';
+    html += `<tr>
+      <td class="muted">${fmtHora(v.criadoEm)}</td>
+      <td><strong>${esc(v.clienteNome)}</strong></td>
+      <td class="muted">${esc(itens)}</td>
+      <td><span class="${classePagto(v.pagamento)}">${esc(v.pagamento)}</span>${statusFiado}</td>
+      <td style="font-weight:700">${fmt(v.total)}</td>
+      <td style="text-align:right"><button class="btn-sm danger" onclick="delVenda('${v.id}')">×</button></td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  box.innerHTML = html;
+}
+
+/* ============ GASTOS ============ */
+function addGasto(){
+  const desc = $('#gastoDesc').value.trim();
+  const valor = Number($('#gastoValor').value) || 0;
+  const cat = $('#gastoCat').value;
+  if(!desc) return alert('Digite a descrição.');
+  if(valor <= 0) return alert('Digite um valor válido.');
+  db.gastos.push({ id: uid(), data: db.config.dataEvento, desc, valor, cat, criadoEm: new Date().toISOString() });
+  salvar();
+  $('#gastoDesc').value = ''; $('#gastoValor').value = '';
+  renderAll();
+}
+function delGasto(id){
+  if(!confirm('Excluir este lançamento?')) return;
+  db.gastos = db.gastos.filter(g => g.id !== id);
+  salvar(); renderAll();
+}
+function renderGastos(){
+  const f = filtroAtivo();
+  const gastos = db.gastos
+    .filter(g => !f || g.data === f)
+    .sort((a,b) => (b.criadoEm||'').localeCompare(a.criadoEm||''));
+  const box = $('#listaGastos');
+  if(gastos.length === 0){
+    box.innerHTML = '<div class="empty">Nenhum gasto lançado neste período.</div>';
+    return;
+  }
+  let html = '<table><thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th>Valor</th><th></th></tr></thead><tbody>';
+  gastos.forEach(g => {
+    html += `<tr>
+      <td class="muted">${fmtData(g.data)}</td>
+      <td><strong>${esc(g.desc)}</strong></td>
+      <td class="muted">${esc(g.cat)}</td>
+      <td style="color:#f87171;font-weight:700">${fmt(g.valor)}</td>
+      <td style="text-align:right"><button class="btn-sm danger" onclick="delGasto('${g.id}')">×</button></td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  box.innerHTML = html;
+}
+
+/* ============ FIADO ============ */
+function receber(id){
+  const inp = $('#recv-' + id);
+  if(!inp) return;
+  let valor = Number(inp.value);
+  if(!valor || valor <= 0) return alert('Informe um valor válido.');
+
+  let restante = valor;
+  const abertas = db.vendas
+    .filter(v => v.clienteId === id && v.pagamento === 'Fiado' && (v.total - (v.pago||0)) > 0.001)
+    .sort((a,b) => a.data.localeCompare(b.data));
+
+  for(const v of abertas){
+    if(restante <= 0.001) break;
+    const saldo = v.total - (v.pago || 0);
+    const abate = Math.min(saldo, restante);
+    v.pago = (v.pago || 0) + abate;
+    restante -= abate;
+  }
+
+  const aplicado = valor - restante;
+  if(aplicado <= 0) return alert('Nada a receber para este cliente.');
+  if(restante > 0.001) alert('Valor maior que a dívida. Registrado apenas ' + fmt(aplicado));
+
+  db.pagamentos.push({
+    id: uid(), data: db.config.dataEvento, clienteId: id, valor: aplicado,
+    criadoEm: new Date().toISOString()
+  });
+  salvar(); renderAll();
+}
+
+function renderFiado(){
+  const lista = db.clientes
+    .map(c => {
+      const abertas = db.vendas.filter(v => v.clienteId === c.id && v.pagamento === 'Fiado' && (v.total - (v.pago||0)) > 0.001);
+      const saldo = abertas.reduce((s,v) => s + (v.total - (v.pago||0)), 0);
+      const datas = [...new Set(abertas.map(v => fmtData(v.data)))];
+      return { ...c, saldo, qtd: abertas.length, datas };
+    })
+    .filter(c => c.saldo > 0.001);
+
+  const box = $('#listaFiado');
+  if(lista.length === 0){
+    box.innerHTML = '<div class="empty">🎉 Ninguém devendo fiado no momento.</div>';
+  } else {
+    const total = lista.reduce((s,c) => s + c.saldo, 0);
+    box.innerHTML = `<div class="nota">Total em aberto: <strong>${fmt(total)}</strong></div>` +
+      lista.map(c => `
+        <div class="fiado-card">
+          <div style="flex:1 1 220px">
+            <strong>${esc(c.nome)}</strong>
+            <div class="muted">${c.qtd} venda(s) em aberto · datas: ${c.datas.join(', ')}${c.telefone ? ' · ' + esc(c.telefone) : ''}</div>
+          </div>
+          <div class="saldo">${fmt(c.saldo)}</div>
+          <div class="recv">
+            <input type="number" id="recv-${c.id}" step="0.01" min="0" placeholder="Valor">
+            <button class="btn green" onclick="receber('${c.id}')">Receber</button>
+          </div>
+        </div>`).join('');
+  }
+}
+
+function renderPagamentos(){
+  const f = filtroAtivo();
+  const pags = db.pagamentos
+    .filter(p => !f || p.data === f)
+    .sort((a,b) => (b.criadoEm||'').localeCompare(a.criadoEm||''));
+  const box = $('#listaPagamentos');
+  if(pags.length === 0){
+    box.innerHTML = '<div class="empty">Nenhum recebimento registrado.</div>';
+    return;
+  }
+  let html = '<table><thead><tr><th>Data</th><th>Cliente</th><th>Valor</th></tr></thead><tbody>';
+  pags.forEach(p => {
+    const c = db.clientes.find(x => x.id === p.clienteId);
+    html += `<tr>
+      <td class="muted">${fmtData(p.data)}</td>
+      <td><strong>${esc(c ? c.nome : 'Cliente removido')}</strong></td>
+      <td style="color:#34d399;font-weight:700">${fmt(p.valor)}</td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  box.innerHTML = html;
+}
+
+/* ============ CÁLCULOS ============ */
+function calc(){
+  const f = filtroAtivo();
+  const vendas = db.vendas.filter(v => !f || v.data === f);
+  const gastos = db.gastos.filter(g => !f || g.data === f);
+  const pagamentos = db.pagamentos.filter(p => !f || p.data === f);
+
+  const faturamento = vendas.reduce((s,v) => s + v.total, 0);
+  const custo       = vendas.reduce((s,v) => s + (v.custoTotal || 0), 0);
+  const lucroBruto  = faturamento - custo;
+  const totalGastos = gastos.reduce((s,g) => s + g.valor, 0);
+  const lucroLiquido = lucroBruto - totalGastos;
+
+  const aVista = vendas.filter(v => v.pagamento !== 'Fiado').reduce((s,v) => s + v.total, 0);
+  const recebidoFiado = pagamentos.reduce((s,p) => s + p.valor, 0);
+  const recebido = aVista + recebidoFiado;
+
+  const fiadoAberto = db.vendas
+    .filter(v => v.pagamento === 'Fiado')
+    .reduce((s,v) => s + (v.total - (v.pago||0)), 0);
+
+  return { vendas, gastos, pagamentos, faturamento, custo, lucroBruto, totalGastos, lucroLiquido, recebido, recebidoFiado, aVista, fiadoAberto };
+}
+
+/* ============ LUCRO / FINANCEIRO ============ */
+function renderKPIs(){
+  const c = calc();
+  $('#kpisFin').innerHTML = `
+    <div class="kpi"><div class="lbl">Faturamento</div><div class="val">${fmt(c.faturamento)}</div></div>
+    <div class="kpi blue"><div class="lbl">Recebido em caixa</div><div class="val">${fmt(c.recebido)}</div></div>
+    <div class="kpi gray"><div class="lbl">Fiado em aberto (total)</div><div class="val">${fmt(c.fiadoAberto)}</div></div>
+    <div class="kpi red"><div class="lbl">Compras / Gastos</div><div class="val">${fmt(c.totalGastos)}</div></div>
+    <div class="kpi ${c.lucroLiquido >= 0 ? 'green' : 'red'}"><div class="lbl">Lucro líquido</div><div class="val">${fmt(c.lucroLiquido)}</div></div>
+    <div class="kpi"><div class="lbl">Nº de vendas</div><div class="val">${c.vendas.length}</div></div>
+  `;
+
+  const ultimas = [...db.vendas]
+    .sort((a,b) => (b.criadoEm||'').localeCompare(a.criadoEm||''))
+    .slice(0, 8);
+  $('#ultimasVendas').innerHTML = ultimas.length === 0
+    ? '<div class="empty">Nenhuma venda ainda. Vá em "Comandas" para começar.</div>'
+    : '<table><thead><tr><th>Data</th><th>Cliente</th><th>Pagto</th><th>Total</th></tr></thead><tbody>' +
+      ultimas.map(v => `<tr>
+        <td class="muted">${fmtData(v.data)}</td>
+        <td><strong>${esc(v.clienteNome)}</strong></td>
+        <td><span class="${classePagto(v.pagamento)}">${esc(v.pagamento)}</span></td>
+        <td style="font-weight:700">${fmt(v.total)}</td>
+      </tr>`).join('') + '</tbody></table>';
+}
+
+function renderFinanceiro(){
+  const c = calc();
+  $('#tabelaResumo').innerHTML = `
+    <tbody>
+      <tr><td>Faturamento bruto</td><td style="text-align:right;font-weight:700">${fmt(c.faturamento)}</td></tr>
+      <tr><td>(−) Custo dos produtos vendidos</td><td style="text-align:right;color:#f87171">${fmt(c.custo)}</td></tr>
+      <tr><td><strong>Lucro bruto</strong></td><td style="text-align:right;font-weight:800">${fmt(c.lucroBruto)}</td></tr>
+      <tr><td>(−) Compras / gastos</td><td style="text-align:right;color:#f87171">${fmt(c.totalGastos)}</td></tr>
+      <tr style="background:#16112b"><td><strong>LUCRO LÍQUIDO</strong></td><td style="text-align:right;font-weight:800;font-size:16px;color:${c.lucroLiquido>=0?'#34d399':'#f87171'}">${fmt(c.lucroLiquido)}</td></tr>
+      <tr><td colspan="2" style="height:10px"></td></tr>
+      <tr><td>Recebido à vista (dinheiro/pix/cartão)</td><td style="text-align:right">${fmt(c.aVista)}</td></tr>
+      <tr><td>Recebido de fiado</td><td style="text-align:right">${fmt(c.recebidoFiado)}</td></tr>
+      <tr><td><strong>Total em caixa</strong></td><td style="text-align:right;font-weight:800;color:#34d399">${fmt(c.recebido)}</td></tr>
+      <tr><td>Fiado em aberto (geral)</td><td style="text-align:right;color:#fbbf24;font-weight:700">${fmt(c.fiadoAberto)}</td></tr>
+    </tbody>`;
+
+  const movs = [
+    ...c.vendas.map(v => ({ tipo:'venda', data:v.data, criadoEm:v.criadoEm, desc:`Venda — ${v.clienteNome} (${v.pagamento})`, valor:v.total })),
+    ...c.gastos.map(g => ({ tipo:'gasto', data:g.data, criadoEm:g.criadoEm, desc:`${g.cat} — ${g.desc}`, valor:g.valor })),
+    ...c.pagamentos.map(p => {
+      const cli = db.clientes.find(x => x.id === p.clienteId);
+      return { tipo:'recebimento', data:p.data, criadoEm:p.criadoEm, desc:`Fiado recebido — ${cli ? cli.nome : '?'}`, valor:p.valor };
+    })
+  ].sort((a,b) => (b.criadoEm||'').localeCompare(a.criadoEm||''));
+
+  $('#movimentacoes').innerHTML = movs.length === 0
+    ? '<div class="empty">Nenhuma movimentação no período.</div>'
+    : '<table><thead><tr><th>Data</th><th>Tipo</th><th>Descrição</th><th>Valor</th></tr></thead><tbody>' +
+      movs.map(m => {
+        const cor = m.tipo === 'gasto' ? '#f87171' : (m.tipo === 'recebimento' ? '#34d399' : '#e6edf6');
+        const sinal = m.tipo === 'gasto' ? '−' : '+';
+        const icone = m.tipo === 'venda' ? '🛒 Venda' : m.tipo === 'gasto' ? '💸 Gasto' : '📒 Recebimento';
+        return `<tr>
+          <td class="muted">${fmtData(m.data)}</td>
+          <td class="muted">${icone}</td>
+          <td>${esc(m.desc)}</td>
+          <td style="text-align:right;font-weight:700;color:${cor}">${sinal} ${fmt(m.valor)}</td>
+        </tr>`;
+      }).join('') + '</tbody></table>';
+}
+
+/* ============ RENDER GERAL ============ */
+function renderAll(){
+  renderProdutos();
+  renderVendaClienteSelect();
+  renderCarrinho();
+  renderVendas();
+  renderGastos();
+  renderClientes();
+  renderFiado();
+  renderPagamentos();
+  renderKPIs();
+  renderFinanceiro();
+}
+
+init();
+</script>
+</body>
+</html>
