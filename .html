@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca Virtual — Estante Interativa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root {
+    --madeira-escura: #4a2c17; --madeira: #7a4a22; --madeira-clara: #b8834b;
+    --parede: #efe3d0; --parede-2: #e3d2b8; --acento: #b8860b;
+    --texto: #2b1d0e; --branco: #fffaf3;
+    --ok: #2e7d32; --alerta: #d97706; --perigo: #c0392b;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background:
+      radial-gradient(1200px 600px at 10% -10%, #fff8ec 0%, transparent 60%),
+      radial-gradient(900px 500px at 110% 110%, #d8c2a0 0%, transparent 60%),
+      linear-gradient(180deg, var(--parede) 0%, var(--parede-2) 100%);
+    color: var(--texto); min-height: 100vh; padding: 40px 16px 100px;
+  }
+  .hero { text-align: center; max-width: 820px; margin: 0 auto 32px; }
+  .hero .ornamento { font-size: 1.4rem; letter-spacing: 12px; color: var(--madeira); opacity: .65; margin-bottom: 12px; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 800; margin: 0 0 10px; color: var(--madeira-escura); line-height: 1.1; }
+  .hero p { margin: 0; color: #6a5641; font-style: italic; font-size: 1.02rem; }
+  .abas-principais { display: flex; justify-content: center; gap: 8px; margin: 0 auto 32px; max-width: 760px; background: rgba(255,250,243,.7); padding: 6px; border-radius: 999px; box-shadow: 0 4px 14px rgba(74,44,23,.08); flex-wrap: wrap; }
+  .aba-principal { flex: 1 1 auto; padding: 10px 20px; border: none; border-radius: 999px; background: transparent; font: inherit; font-weight: 700; font-size: .9rem; color: var(--madeira-escura); cursor: pointer; transition: all .2s; white-space: nowrap; }
+  .aba-principal:hover { background: rgba(74,44,23,.08); }
+  .aba-principal.ativa { background: var(--madeira-escura); color: #fff; }
+  .painel { display: none; }
+  .painel.ativo { display: block; animation: fade .25s ease; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  .controles { max-width: 900px; margin: 0 auto 40px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; align-items: center; }
+  .campo-busca { position: relative; flex: 1 1 320px; max-width: 480px; }
+  .campo-busca input { width: 100%; padding: 14px 18px 14px 46px; font: inherit; font-size: .95rem; border-radius: 999px; border: 1px solid rgba(74,44,23,.18); background: rgba(255,250,243,.85); backdrop-filter: blur(4px); box-shadow: 0 4px 14px rgba(74,44,23,.08); color: var(--texto); }
+  .campo-busca input:focus { outline: none; border-color: var(--acento); box-shadow: 0 4px 18px rgba(184,134,11,.25); }
+  .campo-busca::before { content: "🔍"; position: absolute; left: 18px; top: 50%; transform: translateY(-50%); font-size: .95rem; opacity: .6; }
+  .filtros { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .chip { padding: 8px 16px; border-radius: 999px; border: 1px solid rgba(74,44,23,.2); background: rgba(255,250,243,.7); font: inherit; font-size: .85rem; font-weight: 600; color: var(--madeira-escura); cursor: pointer; transition: all .18s; }
+  .chip:hover { background: #fffaf3; }
+  .chip.ativo { background: var(--madeira-escura); color: #fff; border-color: var(--madeira-escura); }
+  .estante { max-width: 1140px; margin: 0 auto; display: flex; flex-direction: column; gap: 70px; }
+  .prateleira { position: relative; padding: 32px 32px 0; }
+  .livros { display: flex; align-items: flex-end; gap: 20px; flex-wrap: wrap; justify-content: center; padding: 0 16px; min-height: 250px; }
+  .livro { position: relative; width: 132px; flex: 0 0 auto; cursor: pointer; border: none; background: none; padding: 0; text-align: left; transition: transform .28s cubic-bezier(.2,.8,.2,1), filter .28s; transform-origin: bottom center; filter: drop-shadow(0 8px 12px rgba(40,20,5,.28)); }
+  .livro:hover, .livro:focus-visible { transform: translateY(-16px); filter: drop-shadow(0 22px 24px rgba(40,20,5,.4)); z-index: 3; outline: none; }
+  .livro .capa { width: 100%; aspect-ratio: 2/3; border-radius: 3px 6px 6px 3px; overflow: hidden; position: relative; background: linear-gradient(135deg, #c9b79a 0%, #8c7457 100%); box-shadow: inset 8px 0 10px -8px rgba(0,0,0,.6), inset -3px 0 8px -5px rgba(255,255,255,.35), inset 0 0 0 1px rgba(0,0,0,.18); }
+  .livro .capa img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .livro .capa .fallback { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 14px; text-align: center; color: #fff; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; line-height: 1.25; text-shadow: 0 2px 4px rgba(0,0,0,.55); background: #7a4a22; }
+  .livro .capa .fallback::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(255,255,255,.35); border-radius: 2px; pointer-events: none; }
+  .livro .capa::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, rgba(255,255,255,.35) 0%, transparent 40%); opacity: 0; transition: opacity .25s; pointer-events: none; }
+  .livro:hover .capa::after { opacity: 1; }
+  .selo { position: absolute; top: 6px; right: 6px; padding: 5px 10px; border-radius: 999px; font-size: .7rem; font-weight: 800; background: var(--ok); color: #fff; box-shadow: 0 3px 8px rgba(0,0,0,.25); }
+  .selo.emprestado.alerta { background: var(--alerta); }
+  .selo.emprestado.atraso { background: var(--perigo); animation: piscar 1.4s infinite; }
+  @keyframes piscar { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+  .tabua { height: 26px; margin: 0 -40px; border-radius: 5px; background: linear-gradient(180deg, var(--madeira-clara) 0%, var(--madeira) 45%, var(--madeira-escura) 100%); box-shadow: 0 12px 18px rgba(40,20,5,.32), inset 0 2px 0 rgba(255,255,255,.4), inset 0 -4px 0 rgba(0,0,0,.4); position: relative; }
+  .tabua::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background-image: repeating-linear-gradient(90deg, rgba(0,0,0,.08) 0 2px, transparent 2px 10px); opacity: .5; pointer-events: none; }
+  .tabua::after { content: ""; position: absolute; left: 4%; right: 4%; bottom: -18px; height: 18px; background: radial-gradient(ellipse at center, rgba(0,0,0,.4) 0%, transparent 70%); filter: blur(4px); }
+  .vazio { text-align: center; padding: 60px 20px; color: #8a7460; font-style: italic; }
+  .vazio .btn { font-style: normal; margin-top: 18px; }
+  .form-card { background: var(--branco); max-width: 520px; margin: 0 auto; padding: 28px; border-radius: 16px; box-shadow: 0 8px 24px rgba(74,44,23,.12); }
+  .form-card h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--madeira-escura); margin: 0 0 4px; }
+  .form-card > p.dica { margin: 0 0 22px; color: #7a6650; font-size: .9rem; font-style: italic; }
+  .grid-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px 18px; }
+  .campo { display: flex; flex-direction: column; gap: 5px; font-size: .82rem; font-weight: 600; color: #4a2c17; }
+  .campo.full { grid-column: 1 / -1; }
+  .campo input, .campo select, .campo textarea { font: inherit; font-weight: 400; font-size: .92rem; padding: 10px 12px; border: 1px solid #d3c2ac; border-radius: 8px; background: #fff; color: var(--texto); width: 100%; }
+  .campo input:focus, .campo select:focus, .campo textarea:focus { outline: none; border-color: var(--acento); box-shadow: 0 0 0 3px rgba(184,134,11,.15); }
+  .obrigatorio { color: var(--perigo); }
+  .linha-campo-botao { display: flex; gap: 8px; align-items: stretch; }
+  .linha-campo-botao input { flex: 1; }
+  .btn-ver { font: inherit; font-weight: 700; font-size: .82rem; padding: 0 14px; border-radius: 8px; border: 1px solid #d3c2ac; background: #ede4d6; color: var(--madeira-escura); cursor: pointer; white-space: nowrap; transition: all .15s; }
+  .btn-ver:hover { background: var(--acento); color: #fff; border-color: var(--acento); }
+  .modal-escolher { background: var(--branco); border-radius: 16px; width: 100%; max-width: 760px; max-height: 92vh; overflow-y: auto; padding: 26px; box-shadow: 0 30px 60px rgba(0,0,0,.4); position: relative; animation: subir .3s cubic-bezier(.2,.8,.2,1); }
+  .modal-escolher h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--madeira-escura); margin: 0 0 4px; }
+  .modal-escolher > p.dica { margin: 0 0 16px; color: #7a6650; font-size: .88rem; font-style: italic; }
+  .grid-escolher { display: grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); gap: 16px; margin-top: 8px; }
+  .item-escolher { cursor: pointer; border: none; background: none; padding: 0; text-align: left; transition: transform .18s; }
+  .item-escolher:hover { transform: translateY(-4px); }
+  .item-escolher .mini-capa { aspect-ratio: 2/3; border-radius: 4px; overflow: hidden; background: var(--madeira); box-shadow: 0 4px 10px rgba(40,20,5,.28); display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'Playfair Display', serif; font-weight: 700; font-size: .78rem; padding: 8px; text-align: center; line-height: 1.2; text-shadow: 0 1px 3px rgba(0,0,0,.4); }
+  .item-escolher .mini-capa img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .item-escolher .mini-titulo { font-size: .78rem; font-weight: 700; margin-top: 6px; line-height: 1.2; color: var(--texto); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .item-escolher .mini-autor { font-size: .72rem; color: #8a7460; line-height: 1.2; margin-top: 2px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
+  .acoes-form { display: flex; gap: 10px; justify-content: flex-end; margin-top: 22px; flex-wrap: wrap; }
+  .btn { font: inherit; font-weight: 700; font-size: .9rem; padding: 11px 24px; border-radius: 999px; border: none; cursor: pointer; transition: all .15s; }
+  .btn-primario { background: var(--madeira-escura); color: #fff; }
+  .btn-primario:hover { background: var(--acento); transform: translateY(-1px); }
+  .btn-secundario { background: #ede4d6; color: var(--madeira-escura); }
+  .btn-secundario:hover { background: #e3d5bf; }
+  .btn-ok { background: var(--ok); color: #fff; padding: 6px 14px; font-size: .8rem; }
+  .btn-ok:hover { background: #256629; }
+  .btn-alerta { background: var(--alerta); color: #fff; padding: 6px 12px; font-size: .78rem; }
+  .btn-alerta:hover { background: #b86305; }
+  .btn-perigo { background: var(--perigo); color: #fff; padding: 6px 12px; font-size: .78rem; }
+  .btn-perigo:hover { background: #a93226; }
+  .msg-form { margin-top: 16px; padding: 10px 14px; border-radius: 8px; font-size: .88rem; display: none; }
+  .msg-form.ok { display: block; background: #e8f6ec; color: #1e7b39; border: 1px solid #b6e2c1; }
+  .msg-form.erro { display: block; background: #fdecea; color: #a93226; border: 1px solid #f5b7b1; }
+  .msg-form.aviso { display: block; background: #fff4e0; color: #8a6d00; border: 1px solid #f5d78b; }
+  .alunos-wrap { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px; }
+  .lista-alunos { background: var(--branco); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(74,44,23,.12); }
+  .lista-alunos h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--madeira-escura); margin: 0; padding: 20px 24px 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .lista-alunos h2 .contador { font-family: 'Inter', sans-serif; font-size: .8rem; background: #f0e6d6; color: var(--madeira-escura); padding: 4px 12px; border-radius: 999px; font-weight: 700; }
+  .tabela-alunos { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  .tabela-alunos thead th { text-align: left; padding: 10px 16px; background: #f7efe2; color: var(--madeira-escura); font-size: .78rem; text-transform: uppercase; letter-spacing: .5px; border-bottom: 1px solid #e6d6bf; font-weight: 700; }
+  .tabela-alunos tbody td { padding: 12px 16px; border-bottom: 1px solid #f0e6d6; vertical-align: middle; }
+  .tabela-alunos tbody tr:last-child td { border-bottom: none; }
+  .tabela-alunos tbody tr:hover { background: #fdf8f0; }
+  .avatar-aluno { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: var(--madeira-clara); color: #fff; font-weight: 800; font-size: .85rem; margin-right: 10px; font-family: 'Playfair Display', serif; vertical-align: middle; }
+  .info-aluno { display: flex; align-items: center; }
+  .nome-aluno-txt { font-weight: 600; }
+  .matricula-badge { display: inline-block; padding: 2px 8px; background: #f0e6d6; border-radius: 6px; font-size: .75rem; font-weight: 700; color: #6a5641; font-family: 'Courier New', monospace; }
+  .turma-badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: .75rem; font-weight: 700; }
+  .turma-badge.matutino { background: #fff4e0; color: #8a6d00; }
+  .turma-badge.vespertino { background: #e0eaf5; color: #2c5d7c; }
+  .turma-badge.vazio { background: #f0f0f0; color: #888; }
+  .badge-emp { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: .75rem; font-weight: 700; }
+  .badge-emp.zero { background: #f0f0f0; color: #888; }
+  .badge-emp.ativo { background: #e8f6ec; color: var(--ok); }
+  .badge-emp.atraso { background: #fdecea; color: var(--perigo); }
+  .emprestimos-wrap { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px; }
+  .cards-resumo { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
+  .resumo-card { background: var(--branco); border-radius: 12px; padding: 16px 18px; box-shadow: 0 4px 14px rgba(74,44,23,.08); text-align: center; }
+  .resumo-card .num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; line-height: 1; color: var(--madeira-escura); }
+  .resumo-card .lbl { font-size: .78rem; text-transform: uppercase; letter-spacing: .5px; color: #8a7460; margin-top: 6px; font-weight: 600; }
+  .resumo-card.alerta .num { color: var(--alerta); }
+  .resumo-card.perigo .num { color: var(--perigo); }
+  .lista-emprestimos { background: var(--branco); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(74,44,23,.12); }
+  .lista-emprestimos h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--madeira-escura); margin: 0; padding: 20px 24px 12px; }
+  .tabela-emprestimos { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  .tabela-emprestimos thead th { text-align: left; padding: 10px 16px; background: #f7efe2; color: var(--madeira-escura); font-size: .78rem; text-transform: uppercase; letter-spacing: .5px; border-bottom: 1px solid #e6d6bf; font-weight: 700; }
+  .tabela-emprestimos tbody td { padding: 12px 16px; border-bottom: 1px solid #f0e6d6; vertical-align: middle; }
+  .tabela-emprestimos tbody tr:last-child td { border-bottom: none; }
+  .tabela-emprestimos tbody tr:hover { background: #fdf8f0; }
+  .nome-aluno { font-weight: 600; }
+  .titulo-livro { color: var(--madeira-escura); font-weight: 600; }
+  .autor-livro { font-size: .78rem; color: #8a7460; }
+  .prazo { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: .78rem; font-weight: 700; white-space: nowrap; }
+  .prazo.ok { background: #e8f6ec; color: var(--ok); }
+  .prazo.alerta { background: #fff4e0; color: var(--alerta); }
+  .prazo.atraso { background: #fdecea; color: var(--perigo); }
+  .dias-badge { display: inline-block; padding: 2px 8px; background: #f0e6d6; border-radius: 6px; font-size: .75rem; font-weight: 700; color: #6a5641; }
+  .tabela-vazia { text-align: center; padding: 40px 20px; color: #8a7460; font-style: italic; }
+  .celula-acoes { display: flex; gap: 6px; flex-wrap: wrap; }
+  .overlay { position: fixed; inset: 0; background: rgba(30,17,5,.55); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 100; animation: fade .22s ease; }
+  .overlay.aberto { display: flex; }
+  .modal { background: var(--branco); border-radius: 16px; width: 100%; max-width: 640px; max-height: 92vh; overflow-y: auto; display: grid; grid-template-columns: 180px 1fr; gap: 26px; padding: 26px; box-shadow: 0 30px 60px rgba(0,0,0,.4); position: relative; animation: subir .3s cubic-bezier(.2,.8,.2,1); }
+  @keyframes subir { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .modal .m-capa { aspect-ratio: 2/3; border-radius: 6px; overflow: hidden; box-shadow: 0 8px 20px rgba(40,20,5,.35); align-self: start; background: var(--madeira); }
+  .modal .m-capa img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .modal h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin: 0 0 4px; color: var(--madeira-escura); line-height: 1.15; }
+  .modal .m-autor { margin: 0 0 18px; color: #7a6650; font-style: italic; }
+  .m-status-emprestimo { display: grid; grid-template-columns: auto 1fr; gap: 8px 14px; margin-bottom: 18px; padding: 16px 18px; background: #fdecea; border-left: 4px solid var(--perigo); border-radius: 8px; font-size: .92rem; }
+  .m-status-emprestimo.alerta { background: #fff4e0; border-left-color: var(--alerta); }
+  .m-status-emprestimo.ok { background: #e8f6ec; border-left-color: var(--ok); }
+  .m-status-emprestimo .lbl { color: #6a5641; font-size: .8rem; text-transform: uppercase; letter-spacing: .4px; font-weight: 700; align-self: center; }
+  .m-status-emprestimo .val { font-weight: 700; color: var(--madeira-escura); }
+  .m-status-emprestimo .val.destaque { font-size: 1.05rem; }
+  .modal-acoes { display: flex; gap: 10px; flex-wrap: wrap; }
+  .modal .btn-ler { display: inline-flex; align-items: center; gap: 8px; background: var(--madeira-escura); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: 999px; font-weight: 700; font-size: .9rem; border: none; cursor: pointer; transition: background .15s, transform .15s; font-family: inherit; }
+  .modal .btn-ler:hover { background: var(--acento); transform: translateY(-1px); }
+  .modal .btn-ler.secundario { background: #ede4d6; color: var(--madeira-escura); }
+  .modal .btn-ler.secundario:hover { background: #e3d5bf; color: var(--madeira-escura); }
+  .modal .btn-ler.perigo { background: var(--perigo); }
+  .modal .btn-ler.perigo:hover { background: #a93226; }
+  .fechar { position: absolute; top: 12px; right: 14px; border: none; background: rgba(0,0,0,.06); width: 34px; height: 34px; border-radius: 50%; font-size: 1.3rem; line-height: 1; color: #6a5641; cursor: pointer; }
+  .fechar:hover { background: rgba(0,0,0,.14); color: #2b1d0e; }
+  .overlay-comprovante .modal-comprovante { background: white; border-radius: 12px; max-width: 520px; width: 100%; padding: 0; position: relative; overflow: hidden; animation: subir .3s cubic-bezier(.2,.8,.2,1); max-height: 92vh; display: flex; flex-direction: column; }
+  .comprovante { padding: 32px 36px; font-family: Georgia, serif; color: #2b1d0e; overflow-y: auto; }
+  .comprovante .cab { text-align: center; border-bottom: 2px solid var(--madeira-escura); padding-bottom: 14px; margin-bottom: 20px; }
+  .comprovante .cab h2 { font-family: 'Playfair Display', serif; margin: 0 0 4px; color: var(--madeira-escura); font-size: 1.4rem; }
+  .comprovante .cab p { margin: 0; font-size: .78rem; color: #8a7460; text-transform: uppercase; letter-spacing: 1px; }
+  .comprovante .linha { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px dotted #ccc; font-size: .92rem; }
+  .comprovante .linha span:first-child { color: #7a6650; font-weight: 600; }
+  .comprovante .linha span:last-child { text-align: right; font-weight: 700; color: var(--madeira-escura); }
+  .comprovante .destaque { background: #fff4e0; padding: 16px; margin: 20px 0; text-align: center; border-radius: 8px; border: 1px dashed var(--alerta); }
+  .comprovante .destaque .lbl { font-size: .75rem; text-transform: uppercase; letter-spacing: 1px; color: #8a6d00; font-weight: 700; }
+  .comprovante .destaque .data { font-size: 1.6rem; font-weight: 800; color: var(--alerta); margin: 4px 0; font-family: 'Playfair Display', serif; }
+  .comprovante .destaque .sub { font-size: .85rem; color: #6a5641; }
+  .comprovante .ass { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .comprovante .ass div { border-top: 1px solid #888; padding-top: 4px; text-align: center; font-size: .75rem; color: #666; }
+  .comprovante .rodape-recibo { text-align: center; margin-top: 20px; font-size: .7rem; color: #999; }
+  .comprovante-acoes { display: flex; gap: 8px; justify-content: center; padding: 16px; background: #f7efe2; border-top: 1px solid #e6d6bf; flex-wrap: wrap; }
+  .comprovante-acoes .btn { padding: 10px 18px; font-size: .85rem; }
+  .rodape { text-align: center; margin-top: 80px; color: #8a7460; font-size: .85rem; }
+  .rodape .ornamento { letter-spacing: 8px; opacity: .5; margin-bottom: 6px; }
+  .rodape #modoDados { display: block; margin-top: 8px; font-size: .78rem; opacity: .8; }
+  .rodape #contadorRodape { display: block; margin-top: 4px; font-size: .78rem; opacity: .8; }
+  .rodape #btnDebug { margin-top: 12px; font-size: .75rem; padding: 6px 14px; border-radius: 999px; border: 1px solid #c8b594; background: #f7efe2; color: #6a5641; cursor: pointer; font-family: inherit; font-weight: 600; }
+  .rodape #btnDebug:hover { background: #ede1cd; }
+  @media print {
+    body { padding: 0 !important; background: white !important; }
+    body > *:not(#overlayComprovante) { display: none !important; }
+    #overlayComprovante { position: static !important; background: none !important; padding: 0 !important; display: block !important; }
+    #overlayComprovante .modal-comprovante { box-shadow: none !important; max-width: 100% !important; border-radius: 0 !important; }
+    .comprovante-acoes, .overlay-comprovante .fechar { display: none !important; }
+    .comprovante { padding: 20px !important; }
+  }
+  @media (max-width: 720px) {
+    body { padding: 28px 12px 70px; }
+    .livro { width: 100px; }
+    .livros { gap: 14px; min-height: 180px; padding: 0 8px; }
+    .prateleira { padding: 24px 12px 0; }
+    .tabua { margin: 0 -20px; height: 20px; }
+    .modal { grid-template-columns: 1fr; gap: 18px; padding: 22px; text-align: center; }
+    .modal .m-capa { max-width: 160px; margin: 0 auto; }
+    .modal-acoes { justify-content: center; }
+    .m-status-emprestimo { text-align: left; }
+    .tabela-emprestimos thead, .tabela-alunos thead { display: none; }
+    .tabela-emprestimos tbody tr, .tabela-alunos tbody tr { display: block; padding: 14px 16px; border-bottom: 1px solid #f0e6d6; }
+    .tabela-emprestimos tbody td, .tabela-alunos tbody td { display: block; padding: 3px 0; border: none; text-align: left; }
+    .tabela-emprestimos tbody td::before, .tabela-alunos tbody td::before { content: attr(data-label) " "; font-weight: 700; color: #8a7460; font-size: .75rem; text-transform: uppercase; margin-right: 6px; }
+    .comprovante { padding: 22px 20px; }
+    .comprovante .ass { gap: 20px; }
+    .linha-campo-botao { flex-direction: column; }
+    .btn-ver { padding: 10px 14px; }
+    .grid-escolher { grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="ornamento">✦ ✦ ✦</div>
+  <h1>Biblioteca Virtual</h1>
+  <p>Livros, alunos e empréstimos — na prateleira e prontos para circular</p>
+</header>
+
+<nav class="abas-principais">
+  <button class="aba-principal ativa" data-painel="painelEstante">📚 Estante</button>
+  <button class="aba-principal" data-painel="painelCadastro">➕ Livros</button>
+  <button class="aba-principal" data-painel="painelAlunos">🎓 Alunos</button>
+  <button class="aba-principal" data-painel="painelEmprestimos">📋 Empréstimos</button>
+</nav>
+
+<section id="painelEstante" class="painel ativo">
+  <div class="controles">
+    <div class="campo-busca">
+      <input type="search" id="busca" placeholder="Buscar por título, autor ou categoria...">
+    </div>
+    <div class="filtros" id="filtros"></div>
+  </div>
+  <main class="estante" id="estante"></main>
+</section>
+
+<section id="painelCadastro" class="painel">
+  <div class="form-card">
+    <h2>Cadastrar novo livro</h2>
+    <p class="dica">Digite os dados ou clique em 📚 Escolher para reaproveitar capa e PDF de um livro já existente.</p>
+    <form id="formCadastro" novalidate>
+      <div class="grid-form">
+        <div class="campo full">
+          <span>Título <span class="obrigatorio">*</span></span>
+          <div class="linha-campo-botao">
+            <input type="text" name="titulo" id="inputTitulo" required maxlength="120" autocomplete="off">
+            <button type="button" class="btn-ver" id="btnEscolherLivro" title="Escolher livro da estante">📚 Escolher</button>
+          </div>
+        </div>
+        <label class="campo full">
+          Autor(a) <span class="obrigatorio">*</span>
+          <input type="text" name="autor" id="inputAutor" required maxlength="100" autocomplete="off">
+        </label>
+      </div>
+      <div class="acoes-form">
+        <button type="reset" class="btn btn-secundario">Limpar</button>
+        <button type="submit" class="btn btn-primario">Cadastrar livro</button>
+      </div>
+      <div id="msgCadastro" class="msg-form"></div>
+    </form>
+  </div>
+</section>
+
+<section id="painelAlunos" class="painel">
+  <div class="alunos-wrap">
+    <div class="form-card">
+      <h2>Cadastrar novo aluno</h2>
+      <p class="dica">Preencha nome, série, turma e turno.</p>
+      <form id="formAluno" novalidate>
+        <div class="grid-form">
+          <label class="campo full">Nome completo <span class="obrigatorio">*</span>
+            <input type="text" name="nome" required maxlength="120" placeholder="Ex.: Maria Silva Santos">
+          </label>
+          <label class="campo">Série
+            <select name="serie">
+              <option value="">-- selecione --</option>
+              <option value="6º ano">6º ano</option>
+              <option value="7º ano">7º ano</option>
+              <option value="8º ano">8º ano</option>
+              <option value="9º ano">9º ano</option>
+              <option value="1º ano EM">1º ano (EM)</option>
+              <option value="2º ano EM">2º ano (EM)</option>
+              <option value="3º ano EM">3º ano (EM)</option>
+            </select>
+          </label>
+          <label class="campo">Turma <input type="text" name="turma" maxlength="10" placeholder="Ex.: A, B, C"></label>
+          <label class="campo">Turno
+            <select name="turno">
+              <option value="">-- selecione --</option>
+              <option value="Matutino">Matutino</option>
+              <option value="Vespertino">Vespertino</option>
+            </select>
+          </label>
+        </div>
+        <div class="acoes-form">
+          <button type="reset" class="btn btn-secundario">Limpar</button>
+          <button type="submit" class="btn btn-primario">Cadastrar aluno</button>
+        </div>
+        <div id="msgAluno" class="msg-form"></div>
+      </form>
+    </div>
+    <div class="lista-alunos">
+      <h2>Alunos cadastrados <span class="contador" id="contadorAlunos">0</span></h2>
+      <div class="controles" style="margin: 0 0 16px;">
+        <div class="campo-busca" style="max-width: none;">
+          <input type="search" id="buscaAluno" placeholder="Buscar aluno por nome, série, turma ou turno...">
+        </div>
+      </div>
+      <table class="tabela-alunos">
+        <thead><tr><th>Nome</th><th>Série</th><th>Turma</th><th>Turno</th><th>Empréstimos</th><th>Ações</th></tr></thead>
+        <tbody id="corpoAlunos"></tbody>
+      </table>
+      <p class="tabela-vazia" id="vazioAlunos" style="display:none;">Nenhum aluno cadastrado ainda.</p>
+    </div>
+  </div>
+</section>
+
+<section id="painelEmprestimos" class="painel">
+  <div class="emprestimos-wrap">
+    <div class="cards-resumo">
+      <div class="resumo-card"><div class="num" id="resumoAtivos">0</div><div class="lbl">Empréstimos ativos</div></div>
+      <div class="resumo-card alerta"><div class="num" id="resumoVencendo">0</div><div class="lbl">Vencem em até 3 dias</div></div>
+      <div class="resumo-card perigo"><div class="num" id="resumoAtrasados">0</div><div class="lbl">Em atraso</div></div>
+    </div>
+    <div class="form-card">
+      <h2>Registrar empréstimo</h2>
+      <p class="dica">Escolha o aluno, o livro e o prazo.</p>
+      <form id="formEmprestimo" novalidate>
+        <div class="grid-form">
+          <label class="campo full">Aluno <span class="obrigatorio">*</span>
+            <select name="alunoId" required><option value="">-- selecione um aluno --</option></select>
+          </label>
+          <label class="campo full">Livro <span class="obrigatorio">*</span>
+            <select name="livroId" required><option value="">-- selecione um livro --</option></select>
+          </label>
+          <label class="campo">Prazo (dias) <span class="obrigatorio">*</span>
+            <input type="number" name="dias" required min="1" max="365" value="15">
+          </label>
+        </div>
+        <div class="acoes-form">
+          <button type="submit" class="btn btn-primario">Registrar empréstimo</button>
+        </div>
+        <div id="msgEmprestimo" class="msg-form"></div>
+      </form>
+    </div>
+    <div class="lista-emprestimos">
+      <h2>Empréstimos ativos</h2>
+      <table class="tabela-emprestimos">
+        <thead><tr><th>Aluno</th><th>Livro</th><th>Empréstimo</th><th>Devolver até</th><th>Prazo</th><th>Ações</th></tr></thead>
+        <tbody id="corpoEmprestimos"></tbody>
+      </table>
+      <p class="tabela-vazia" id="vazioEmprestimos" style="display:none;">Nenhum empréstimo ativo. Registre um acima.</p>
+    </div>
+  </div>
+</section>
+
+<div class="overlay" id="overlay">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="fechar" id="fecharModal" aria-label="Fechar">×</button>
+    <div class="m-capa" id="mCapa"></div>
+    <div>
+      <h2 id="mTitulo"></h2>
+      <p class="m-autor" id="mAutor"></p>
+      <div id="mStatusEmprestimo" class="m-status-emprestimo" style="display:none;"></div>
+      <div class="modal-acoes">
+        <a class="btn-ler" id="mLer" target="_blank" rel="noopener noreferrer" style="display:none;">📖 Abrir PDF</a>
+        <button class="btn-ler secundario" id="mEmprestar" type="button">👤 Emprestar</button>
+        <button class="btn-ler secundario" id="mRenovar" type="button" style="display:none;">🔄 Renovar +15d</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlayEscolher">
+  <div class="modal-escolher">
+    <button class="fechar" id="fecharEscolher" aria-label="Fechar">×</button>
+    <h2>Escolher da estante</h2>
+    <p class="dica">Clique em um livro para preencher o cadastro com os dados dele (inclusive capa e PDF).</p>
+    <div class="grid-escolher" id="gridEscolher"></div>
+  </div>
+</div>
+
+<div class="overlay overlay-comprovante" id="overlayComprovante">
+  <div class="modal-comprovante">
+    <button class="fechar" id="fecharComprovante" aria-label="Fechar">×</button>
+    <div class="comprovante" id="comprovanteConteudo"></div>
+    <div class="comprovante-acoes">
+      <button class="btn btn-secundario" id="btnFecharComp">Fechar</button>
+      <button class="btn btn-primario" id="btnImprimir">🖨️ Imprimir</button>
+    </div>
+  </div>
+</div>
+
+<footer class="rodape">
+  <div class="ornamento">· · ·</div>
+  Biblioteca Virtual
+  <span id="modoDados"></span>
+  <span id="contadorRodape"></span>
+  <button id="btnDebug" type="button">🔍 Ver estado salvo (console)</button>
+</footer>
+
+<script>
+/* ==========================================================
+   CONFIGURAÇÃO
+   ========================================================== */
+const SUPABASE_URL = '';
+const SUPABASE_KEY = '';
+const USAR_SUPABASE = Boolean(
+  SUPABASE_URL && SUPABASE_KEY &&
+  /^https?:\/\//.test(SUPABASE_URL) &&
+  !SUPABASE_URL.includes('SEU_PROJETO')
+);
+const _supabase = USAR_SUPABASE ? supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+/* ==========================================================
+   LIVROS DE EXEMPLO
+   ========================================================== */
+const LIVROS_DEMO = [
+  { titulo: 'Dom Casmurro',                        autor: 'Machado de Assis',          categoria: 'Romance' },
+  { titulo: 'Memórias Póstumas de Brás Cubas',     autor: 'Machado de Assis',          categoria: 'Romance' },
+  { titulo: 'O Cortiço',                           autor: 'Aluísio Azevedo',           categoria: 'Romance' },
+  { titulo: 'Iracema',                             autor: 'José de Alencar',           categoria: 'Romance' },
+  { titulo: 'Vidas Secas',                         autor: 'Graciliano Ramos',          categoria: 'Romance' },
+  { titulo: 'Capitães da Areia',                   autor: 'Jorge Amado',               categoria: 'Romance' },
+  { titulo: 'A Moreninha',                         autor: 'Joaquim Manuel de Macedo',  categoria: 'Romance' },
+  { titulo: 'O Ateneu',                            autor: 'Raul Pompeia',              categoria: 'Romance' },
+  { titulo: 'A Escrava Isaura',                    autor: 'Bernardo Guimarães',        categoria: 'Romance' },
+  { titulo: 'Poesias Completas',                   autor: 'Fernando Pessoa',           categoria: 'Poesia'  },
+  { titulo: 'O Corvo e Outros Poemas',             autor: 'Edgar Allan Poe',           categoria: 'Poesia'  },
+  { titulo: 'Contos de Machado de Assis',          autor: 'Machado de Assis',          categoria: 'Contos'  }
+];
+
+/* ==========================================================
+   CAMADA DE DADOS — LS → SS → MEMÓRIA
+   Com detecção RIGOROSA: escreve, lê e compara.
+   ========================================================== */
+const LS_KEY = 'bibliotecaVirtual.v2';
+
+function testarStorage(store) {
+  try {
+    const k = '__bv_test_' + Date.now();
+    const v = 'valor_teste_' + Math.random();
+    store.setItem(k, v);
+    const lido = store.getItem(k);
+    store.removeItem(k);
+    return lido === v; // só vale se voltar exatamente o que foi gravado
+  } catch (e) {
+    return false;
+  }
+}
+
+const TEM_LOCAL   = (function () { try { return testarStorage(window.localStorage); }   catch (e) { return false; } })();
+const TEM_SESSION = (function () { try { return testarStorage(window.sessionStorage); } catch (e) { return false; } })();
+
+console.log('[Biblioteca] localStorage:', TEM_LOCAL ? '✅ funcional' : '❌ indisponível/silencioso');
+console.log('[Biblioteca] sessionStorage:', TEM_SESSION ? '✅ funcional' : '❌ indisponível/silencioso');
+
+let memEstado = null;
+
+function estadoInicial() {
+  return {
+    livros: LIVROS_DEMO.map((l, i) => ({
+      id: i + 1,
+      titulo: l.titulo,
+      autor: l.autor,
+      categoria: l.categoria,
+      capa: null,
+      pdf: null
+    })),
+    alunos: [],
+    emprestimos: []
+  };
+}
+
+function normalizarEstado(d) {
+  if (!d || typeof d !== 'object') return null;
+  if (!Array.isArray(d.livros)) d.livros = [];
+  if (!Array.isArray(d.alunos)) d.alunos = [];
+  if (!Array.isArray(d.emprestimos)) d.emprestimos = [];
+  return d;
+}
+
+function lsEstado() {
+  // 1) localStorage
+  if (TEM_LOCAL) {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (raw) {
+        const d = normalizarEstado(JSON.parse(raw));
+        if (d) { memEstado = d; return d; }
+      }
+    } catch (e) { console.warn('[Biblioteca] LS corrompido:', e); }
+  }
+
+  // 2) sessionStorage
+  if (TEM_SESSION) {
+    try {
+      const raw = sessionStorage.getItem(LS_KEY);
+      if (raw) {
+        const d = normalizarEstado(JSON.parse(raw));
+        if (d) { memEstado = d; return d; }
+      }
+    } catch (e) { console.warn('[Biblioteca] SS corrompido:', e); }
+  }
+
+  // 3) memória
+  if (memEstado) return memEstado;
+
+  // 4) inicial
+  const inicial = estadoInicial();
+  lsSalvar(inicial);
+  return inicial;
+}
+
+function lsSalvar(estado) {
+  const json = JSON.stringify(estado);
+  let onde = 'memória';
+
+  if (TEM_LOCAL) {
+    try {
+      localStorage.setItem(LS_KEY, json);
+      // confirma se realmente gravou
+      if (localStorage.getItem(LS_KEY) === json) {
+        onde = 'localStorage';
+      }
+    } catch (e) { /* tenta SS */ }
+  }
+
+  if (onde === 'memória' && TEM_SESSION) {
+    try {
+      sessionStorage.setItem(LS_KEY, json);
+      if (sessionStorage.getItem(LS_KEY) === json) {
+        onde = 'sessionStorage';
+      }
+    } catch (e) { /* cai pra memória */ }
+  }
+
+  // SEMPRE atualiza memória como último recurso
+  memEstado = JSON.parse(json);
+  return onde;
+}
+
+function ondeEstaSalvo() {
+  if (USAR_SUPABASE) return 'supabase';
+  if (TEM_LOCAL)     return 'localStorage';
+  if (TEM_SESSION)   return 'sessionStorage';
+  return 'memória';
+}
+
+function proximoId(lista) {
+  return lista.reduce((m, x) => Math.max(m, Number(x.id) || 0), 0) + 1;
+}
+function juntar(emp, estado) {
+  return Object.assign({}, emp, {
+    alunos: estado.alunos.find(a => Number(a.id) === Number(emp.aluno_id)) || null,
+    livros: estado.livros.find(l => Number(l.id) === Number(emp.livro_id)) || null
+  });
+}
+
+const api = {
+  async listarLivros() {
+    if (USAR_SUPABASE) {
+      const { data, error } = await _supabase.from('livros').select('*').order('id', { ascending: true });
+      if (error) throw error;
+      return data || [];
+    }
+    return lsEstado().livros.slice().sort((a, b) => a.id - b.id);
+  },
+
+  async criarLivro(dados) {
+    if (USAR_SUPABASE) {
+      const { data, error } = await _supabase.from('livros').insert([dados]).select();
+      if (error) throw error;
+      return (data || [])[0];
+    }
+    const e = lsEstado();
+    const novo = Object.assign({ id: proximoId(e.livros) }, dados);
+    e.livros.push(novo);
+    const onde = lsSalvar(e);
+    console.log(`[Biblioteca] Livro "${dados.titulo}" salvo em ${onde}. Total agora: ${e.livros.length}`);
+    return novo;
+  },
+
+  async listarAlunos() {
+    if (USAR_SUPABASE) {
+      const { data, error } = await _supabase.from('alunos').select('*').order('nome', { ascending: true });
+      if (error) throw error;
+      return data || [];
+    }
+    return lsEstado().alunos.slice().sort((a, b) => String(a.nome || '').localeCompare(String(b.nome || ''), 'pt-BR'));
+  },
+
+  async criarAluno(dados) {
+    if (USAR_SUPABASE) {
+      const { data, error } = await _supabase.from('alunos').insert([dados]).select();
+      if (error) throw error;
+      return (data || [])[0];
+    }
+    const e = lsEstado();
+    const novo = Object.assign({ id: proximoId(e.alunos) }, dados);
+    e.alunos.push(novo);
+    lsSalvar(e);
+    return novo;
+  },
+
+  async removerAluno(id) {
+    if (USAR_SUPABASE) {
+      const { error } = await _supabase.from('alunos').delete().eq('id', id);
+      if (error) throw error;
+      return;
+    }
+    const e = lsEstado();
+    e.alunos = e.alunos.filter(a => Number(a.id) !== Number(id));
+    lsSalvar(e);
+  },
+
+  async listarEmprestimos() {
+    if (USAR_SUPABASE) {
+      const { data, error } = await _supabase.from('emprestimos')
+        .select('*, alunos(*), livros(*)')
+        .order('data_devolucao', { ascending: true });
+      if (error) throw error;
+      return data || [];
+    }
+    const e = lsEstado();
+    return e.emprestimos
+      .map(x => juntar(x, e))
+      .sort((a, b) => String(a.data_devolucao || '').localeCompare(String(b.data_devolucao || '')));
+  },
+
+  async criarEmprestimo(dados) {
+    if (USAR_SUPABASE) {
+      const { data, error } = await _supabase.from('emprestimos')
+        .insert([dados]).select('*, alunos(*), livros(*)');
+      if (error) throw error;
+      return (data || [])[0];
+    }
+    const e = lsEstado();
+    const novo = {
+      id: proximoId(e.emprestimos),
+      aluno_id: Number(dados.aluno_id),
+      livro_id: Number(dados.livro_id),
+      dias: Number(dados.dias),
+      data_inicio: dados.data_inicio,
+      data_devolucao: dados.data_devolucao
+    };
+    e.emprestimos.push(novo);
+    lsSalvar(e);
+    return juntar(novo, e);
+  },
+
+  async removerEmprestimo(id) {
+    if (USAR_SUPABASE) {
+      const { error } = await _supabase.from('emprestimos').delete().eq('id', id);
+      if (error) throw error;
+      return;
+    }
+    const e = lsEstado();
+    e.emprestimos = e.emprestimos.filter(x => Number(x.id) !== Number(id));
+    lsSalvar(e);
+  },
+
+  async atualizarEmprestimo(id, dados) {
+    if (USAR_SUPABASE) {
+      const { error } = await _supabase.from('emprestimos').update(dados).eq('id', id);
+      if (error) throw error;
+      return;
+    }
+    const e = lsEstado();
+    const emp = e.emprestimos.find(x => Number(x.id) === Number(id));
+    if (emp) Object.assign(emp, dados);
+    lsSalvar(e);
+  }
+};
+
+/* ==========================================================
+   ESTADO
+   ========================================================== */
+let livros = [];
+let emprestimos = [];
+let alunos = [];
+
+const LIVROS_POR_PRATELEIRA = 5;
+let filtroCategoria = "Todas";
+let termoBusca = "";
+let termoBuscaAluno = "";
+let livroAtualId = null;
+let capaHerdada = null;
+let pdfHerdado  = null;
+
+const estante   = document.getElementById('estante');
+const busca     = document.getElementById('busca');
+const filtrosEl = document.getElementById('filtros');
+const overlay   = document.getElementById('overlay');
+const overlayComprovante = document.getElementById('overlayComprovante');
+const overlayEscolher = document.getElementById('overlayEscolher');
+
+function formatarData(d) { return d.toLocaleDateString('pt-BR'); }
+function hoje() { const h = new Date(); h.setHours(0,0,0,0); return h; }
+function diasEntre(a, b) { return Math.round((b - a) / 86400000); }
+function emprestimoAtivoDoLivro(id) { return emprestimos.find(e => Number(e.livro_id) === Number(id)); }
+function emprestimosDoAluno(alunoId) { return emprestimos.filter(e => Number(e.aluno_id) === Number(alunoId)); }
+function esc(str) {
+  return String(str == null ? '' : str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+function iniciais(nome) {
+  const parts = String(nome || '').trim().split(/\s+/);
+  if (parts.length === 0 || !parts[0]) return '?';
+  if (parts.length === 1) return parts[0].slice(0,2).toUpperCase();
+  return (parts[0][0] + parts[parts.length-1][0]).toUpperCase();
+}
+function classeTurma(t) {
+  if (!t) return 'vazio';
+  return t.toLowerCase() === 'matutino' ? 'matutino' : 'vespertino';
+}
+function infoAlunoCurta(a) {
+  if (!a) return '';
+  const serieTurma = [a.serie, a.turma].filter(Boolean).join(' ');
+  return [serieTurma, a.turno].filter(Boolean).join(' · ');
+}
+
+/* ==========================================================
+   CARREGAMENTO
+   ========================================================== */
+async function carregarLivros()      { livros = await api.listarLivros(); }
+async function carregarAlunos()      { alunos = await api.listarAlunos(); }
+async function carregarEmprestimos() { emprestimos = await api.listarEmprestimos(); }
+
+async function carregarDados() {
+  try {
+    await Promise.all([carregarLivros(), carregarAlunos(), carregarEmprestimos()]);
+  } catch (err) {
+    console.error('Erro ao carregar dados:', err);
+  }
+  montarFiltros();
+  renderizarEstante();
+  renderizarAlunos();
+  renderizarEmprestimos();
+  atualizarModoRodape();
+}
+
+function atualizarModoRodape() {
+  const el = document.getElementById('modoDados');
+  const cont = document.getElementById('contadorRodape');
+  if (!el) return;
+  el.style.color = '';
+  el.style.fontWeight = '';
+
+  if (USAR_SUPABASE) {
+    el.textContent = '☁️ Dados sincronizados com o Supabase';
+  } else if (TEM_LOCAL) {
+    el.textContent = '💾 Modo local — os dados ficam salvos neste navegador';
+  } else if (TEM_SESSION) {
+    el.textContent = '💾 Modo sessão — os dados duram enquanto a aba estiver aberta';
+    el.style.color = 'var(--alerta)';
+    el.style.fontWeight = '700';
+  } else {
+    el.textContent = '⚠️ Modo memória — os dados NÃO serão salvos após fechar a página';
+    el.style.color = 'var(--perigo)';
+    el.style.fontWeight = '700';
+  }
+
+  if (cont) {
+    cont.textContent = `${livros.length} livros · ${alunos.length} alunos · ${emprestimos.length} empréstimos`;
+  }
+}
+
+/* ==========================================================
+   NAVEGAÇÃO
+   ========================================================== */
+document.querySelectorAll('.aba-principal').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.aba-principal').forEach(b => b.classList.remove('ativa'));
+    document.querySelectorAll('.painel').forEach(p => p.classList.remove('ativo'));
+    btn.classList.add('ativa');
+    document.getElementById(btn.dataset.painel).classList.add('ativo');
+    if (btn.dataset.painel === 'painelEmprestimos') renderizarEmprestimos();
+    if (btn.dataset.painel === 'painelAlunos')      renderizarAlunos();
+  });
+});
+
+/* ==========================================================
+   ESTANTE
+   ========================================================== */
+function montarFiltros() {
+  const categorias = ["Todas", ...new Set(livros.map(l => l.categoria).filter(Boolean))];
+  if (!categorias.includes(filtroCategoria)) filtroCategoria = "Todas";
+
+  filtrosEl.innerHTML = '';
+  categorias.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'chip' + (cat === filtroCategoria ? ' ativo' : '');
+    btn.textContent = cat;
+    btn.addEventListener('click', () => {
+      filtroCategoria = cat;
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('ativo'));
+      btn.classList.add('ativo');
+      renderizarEstante();
+    });
+    filtrosEl.appendChild(btn);
+  });
+}
+
+function criarLivro(livro) {
+  const btn = document.createElement('button');
+  btn.className = 'livro';
+  btn.type = 'button';
+  btn.setAttribute('aria-label', `Abrir ${livro.titulo}`);
+
+  const capa = document.createElement('div');
+  capa.className = 'capa';
+
+  if (livro.capa) {
+    const img = document.createElement('img');
+    img.src = livro.capa;
+    img.alt = `Capa: ${livro.titulo}`;
+    img.loading = 'lazy';
+    img.addEventListener('error', () => {
+      img.remove();
+      const fb = document.createElement('div');
+      fb.className = 'fallback';
+      fb.textContent = livro.titulo;
+      capa.appendChild(fb);
+    });
+    capa.appendChild(img);
+  } else {
+    const fb = document.createElement('div');
+    fb.className = 'fallback';
+    fb.textContent = livro.titulo;
+    capa.appendChild(fb);
+  }
+  btn.appendChild(capa);
+
+  const emp = emprestimoAtivoDoLivro(livro.id);
+  if (emp) {
+    const dev = new Date(emp.data_devolucao + 'T00:00:00');
+    const rest = diasEntre(hoje(), dev);
+    const seloEmp = document.createElement('span');
+    let classe = 'selo emprestado';
+    let texto;
+    if (rest < 0)        { classe += ' atraso'; texto = `${Math.abs(rest)}d atraso`; }
+    else if (rest <= 3)  { classe += ' alerta'; texto = `${rest}d`; }
+    else                 { texto = `${rest}d`; }
+    seloEmp.className = classe;
+    seloEmp.textContent = texto;
+    seloEmp.title = `Emprestado para ${emp.alunos ? emp.alunos.nome : 'Aluno'} — devolver em ${formatarData(dev)}`;
+    btn.appendChild(seloEmp);
+  }
+
+  btn.addEventListener('click', () => abrirModal(livro.id));
+  return btn;
+}
+
+function aplicarFiltros() {
+  return livros.filter(l => {
+    const okCat = filtroCategoria === "Todas" || l.categoria === filtroCategoria;
+    const t = termoBusca.toLowerCase();
+    const okBusca = !t ||
+      (l.titulo || '').toLowerCase().includes(t) ||
+      (l.autor || '').toLowerCase().includes(t) ||
+      (l.categoria || '').toLowerCase().includes(t);
+    return okCat && okBusca;
+  });
+}
+
+function renderizarEstante() {
+  const lista = aplicarFiltros();
+  estante.innerHTML = '';
+
+  if (lista.length === 0) {
+    const v = document.createElement('div');
+    v.className = 'vazio';
+    const p = document.createElement('p');
+    p.textContent = livros.length === 0
+      ? 'A prateleira está vazia.'
+      : 'Nenhum livro encontrado com esse filtro.';
+    v.appendChild(p);
+    if (livros.length === 0) {
+      const btn = document.createElement('button');
+      btn.className = 'btn btn-primario';
+      btn.type = 'button';
+      btn.textContent = '📚 Colocar livros de exemplo na prateleira';
+      btn.addEventListener('click', colocarExemplos);
+      v.appendChild(btn);
+    }
+    estante.appendChild(v);
+    return;
+  }
+
+  for (let i = 0; i < lista.length; i += LIVROS_POR_PRATELEIRA) {
+    const grupo = lista.slice(i, i + LIVROS_POR_PRATELEIRA);
+    const prateleira = document.createElement('section');
+    prateleira.className = 'prateleira';
+    const fileira = document.createElement('div');
+    fileira.className = 'livros';
+    grupo.forEach(livro => fileira.appendChild(criarLivro(livro)));
+    const tabua = document.createElement('div');
+    tabua.className = 'tabua';
+    prateleira.appendChild(fileira);
+    prateleira.appendChild(tabua);
+    estante.appendChild(prateleira);
+  }
+}
+
+async function colocarExemplos() {
+  try {
+    for (const l of LIVROS_DEMO) {
+      await api.criarLivro({ titulo: l.titulo, autor: l.autor, categoria: l.categoria, capa: null, pdf: null });
+    }
+    await carregarLivros();
+    montarFiltros();
+    renderizarEstante();
+    renderizarEmprestimos();
+    atualizarModoRodape();
+  } catch (err) {
+    console.error(err);
+    alert('Não foi possível adicionar os livros de exemplo.');
+  }
+}
+
+/* ==========================================================
+   MODAL DO LIVRO
+   ========================================================== */
+function abrirModal(id) {
+  livroAtualId = id;
+  const livro = livros.find(l => Number(l.id) === Number(id));
+  if (!livro) return;
+
+  const mCapa = document.getElementById('mCapa');
+  mCapa.innerHTML = '';
+  mCapa.style.background = '';
+  if (livro.capa) {
+    const img = document.createElement('img');
+    img.src = livro.capa;
+    img.alt = `Capa: ${livro.titulo}`;
+    img.addEventListener('error', () => { img.remove(); mCapa.style.background = '#7a4a22'; });
+    mCapa.appendChild(img);
+  } else {
+    mCapa.style.background = '#7a4a22';
+  }
+
+  document.getElementById('mTitulo').textContent = livro.titulo;
+  document.getElementById('mAutor').textContent  = livro.autor;
+
+  const btnLer = document.getElementById('mLer');
+  if (livro.pdf) { btnLer.href = livro.pdf; btnLer.style.display = 'inline-flex'; }
+  else { btnLer.style.display = 'none'; btnLer.href = '#'; }
+
+  const statusEl = document.getElementById('mStatusEmprestimo');
+  const btnEmp   = document.getElementById('mEmprestar');
+  const btnRen   = document.getElementById('mRenovar');
+  const emp      = emprestimoAtivoDoLivro(id);
+
+  if (emp) {
+    const dev  = new Date(emp.data_devolucao + 'T00:00:00');
+    const ini  = new Date(emp.data_inicio + 'T00:00:00');
+    const rest = diasEntre(hoje(), dev);
+    let classe, prazoTexto;
+    if (rest < 0)       { classe = '';       prazoTexto = `${Math.abs(rest)} dia(s) em atraso`; }
+    else if (rest === 0){ classe = 'alerta'; prazoTexto = 'Devolve hoje'; }
+    else                { classe = rest <= 3 ? 'alerta' : 'ok'; prazoTexto = `Faltam ${rest} dia(s)`; }
+    const infoAluno = infoAlunoCurta(emp.alunos);
+    statusEl.style.display = 'grid';
+    statusEl.className = 'm-status-emprestimo ' + classe;
+    statusEl.innerHTML = `
+      <span class="lbl">Aluno</span>
+      <span class="val">${esc(emp.alunos ? emp.alunos.nome : '')}${infoAluno ? ' · ' + esc(infoAluno) : ''}</span>
+      <span class="lbl">Devolver até</span>
+      <span class="val destaque">${formatarData(dev)}</span>
+      <span class="lbl">Prazo total</span>
+      <span class="val">${emp.dias} dias (desde ${formatarData(ini)})</span>
+      <span class="lbl">Situação</span>
+      <span class="val destaque">${prazoTexto}</span>
+    `;
+    btnEmp.textContent = '↩️ Devolver';
+    btnEmp.dataset.acao = 'devolver';
+    btnEmp.classList.add('perigo');
+    btnRen.style.display = 'inline-flex';
+  } else {
+    statusEl.style.display = 'none';
+    btnEmp.textContent = '👤 Emprestar';
+    btnEmp.dataset.acao = 'emprestar';
+    btnEmp.classList.remove('perigo');
+    btnRen.style.display = 'none';
+  }
+
+  overlay.classList.add('aberto');
+  document.body.style.overflow = 'hidden';
+}
+
+function fecharModal() {
+  overlay.classList.remove('aberto');
+  document.body.style.overflow = '';
+  livroAtualId = null;
+}
+
+document.getElementById('fecharModal').addEventListener('click', fecharModal);
+overlay.addEventListener('click', e => { if (e.target === overlay) fecharModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('aberto')) fecharModal(); });
+
+document.getElementById('mEmprestar').addEventListener('click', async function () {
+  if (livroAtualId === null) return;
+  const acao = this.dataset.acao;
+  const idSelecionado = livroAtualId;
+
+  if (acao === 'devolver') {
+    const emp = emprestimoAtivoDoLivro(idSelecionado);
+    const livro = livros.find(l => Number(l.id) === Number(idSelecionado));
+    if (emp && confirm(`Confirmar devolução de "${livro ? livro.titulo : ''}"?`)) {
+      try {
+        await api.removerEmprestimo(emp.id);
+        await carregarEmprestimos();
+        fecharModal();
+        renderizarEstante();
+        renderizarEmprestimos();
+        renderizarAlunos();
+        atualizarModoRodape();
+      } catch (err) {
+        console.error(err);
+        alert('Erro ao registrar a devolução.');
+      }
+    }
+  } else {
+    fecharModal();
+    if (alunos.length === 0) {
+      alert('Cadastre um aluno primeiro na aba 🎓 Alunos.');
+      document.querySelector('.aba-principal[data-painel="painelAlunos"]').click();
+      return;
+    }
+    document.querySelectorAll('.aba-principal').forEach(b => b.classList.remove('ativa'));
+    document.querySelector('.aba-principal[data-painel="painelEmprestimos"]').classList.add('ativa');
+    document.querySelectorAll('.painel').forEach(p => p.classList.remove('ativo'));
+    document.getElementById('painelEmprestimos').classList.add('ativo');
+    renderizarEmprestimos();
+    const selLivro = document.querySelector('#formEmprestimo select[name="livroId"]');
+    if (selLivro) selLivro.value = idSelecionado;
+  }
+});
+
+document.getElementById('mRenovar').addEventListener('click', async () => {
+  if (livroAtualId === null) return;
+  const emp = emprestimoAtivoDoLivro(livroAtualId);
+  if (!emp) return;
+  const livro = livros.find(l => Number(l.id) === Number(livroAtualId));
+  if (!confirm(`Renovar empréstimo de "${livro ? livro.titulo : ''}" por mais 15 dias?`)) return;
+  const novaDev = new Date(emp.data_devolucao + 'T00:00:00');
+  novaDev.setDate(novaDev.getDate() + 15);
+  try {
+    await api.atualizarEmprestimo(emp.id, {
+      data_devolucao: novaDev.toISOString().slice(0,10),
+      dias: Number(emp.dias) + 15
+    });
+    await carregarEmprestimos();
+    abrirModal(livroAtualId);
+    renderizarEstante();
+    renderizarEmprestimos();
+    atualizarModoRodape();
+  } catch (err) {
+    console.error(err);
+    alert('Erro ao renovar o empréstimo.');
+  }
+});
+
+/* ==========================================================
+   COMPROVANTE
+   ========================================================== */
+function mostrarComprovante(emp) {
+  const livro = emp.livros || {};
+  const aluno = emp.alunos || {};
+  const dev   = new Date(emp.data_devolucao + 'T00:00:00');
+  const ini   = new Date(emp.data_inicio + 'T00:00:00');
+  document.getElementById('comprovanteConteudo').innerHTML = `
+    <div class="cab"><h2>Comprovante de Empréstimo</h2><p>Biblioteca Virtual</p></div>
+    <div class="linha"><span>Aluno</span><span>${esc(aluno.nome)}</span></div>
+    ${aluno.serie ? `<div class="linha"><span>Série</span><span>${esc(aluno.serie)}</span></div>` : ''}
+    ${aluno.turma ? `<div class="linha"><span>Turma</span><span>${esc(aluno.turma)}</span></div>` : ''}
+    ${aluno.turno ? `<div class="linha"><span>Turno</span><span>${esc(aluno.turno)}</span></div>` : ''}
+    <div class="linha"><span>Livro</span><span>${esc(livro.titulo)}</span></div>
+    <div class="linha"><span>Autor</span><span>${esc(livro.autor || '—')}</span></div>
+    <div class="linha"><span>Data do empréstimo</span><span>${formatarData(ini)}</span></div>
+    <div class="linha"><span>Prazo</span><span>${emp.dias} dias</span></div>
+    <div class="destaque">
+      <div class="lbl">Devolver até</div>
+      <div class="data">${formatarData(dev)}</div>
+      <div class="sub">Devolver na biblioteca no prazo acima</div>
+    </div>
+    <div class="ass"><div>Assinatura do aluno</div><div>Assinatura do bibliotecário</div></div>
+    <div class="rodape-recibo">Emitido em ${formatarData(new Date())}</div>
+  `;
+  overlayComprovante.classList.add('aberto');
+  document.body.style.overflow = 'hidden';
+}
+
+function fecharComprovante() {
+  overlayComprovante.classList.remove('aberto');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('fecharComprovante').addEventListener('click', fecharComprovante);
+document.getElementById('btnFecharComp').addEventListener('click', fecharComprovante);
+overlayComprovante.addEventListener('click', e => { if (e.target === overlayComprovante) fecharComprovante(); });
+document.getElementById('btnImprimir').addEventListener('click', () => window.print());
+
+/* ==========================================================
+   CADASTRO DE LIVRO  ← CORRIGIDO
+   ========================================================== */
+const formCadastro = document.getElementById('formCadastro');
+const msgCadastro  = document.getElementById('msgCadastro');
+const inputTitulo  = document.getElementById('inputTitulo');
+
+formCadastro.addEventListener('submit', async e => {
+  e.preventDefault();
+  msgCadastro.className = 'msg-form';
+
+  const titulo = (formCadastro.titulo.value || '').trim();
+  const autor  = (formCadastro.autor.value  || '').trim();
+
+  console.log('[Cadastro] submit →', { titulo, autor, temCapa: !!capaHerdada, temPdf: !!pdfHerdado });
+
+  if (!titulo || !autor) {
+    msgCadastro.className = 'msg-form erro';
+    msgCadastro.textContent = 'Preencha título e autor para cadastrar.';
+    return;
+  }
+
+  let novo = null;
+  try {
+    novo = await api.criarLivro({
+      titulo, autor, categoria: 'Geral',
+      capa: capaHerdada, pdf: pdfHerdado
+    });
+  } catch (err) {
+    console.error('Erro ao cadastrar livro:', err);
+    msgCadastro.className = 'msg-form erro';
+    msgCadastro.textContent = 'Erro ao cadastrar o livro: ' + (err && err.message ? err.message : err);
+    return;
+  }
+
+  // recarrega do storage e confirma que o livro está lá
+  await carregarLivros();
+  const existe = livros.some(l =>
+    String(l.titulo) === String(titulo) &&
+    String(l.autor)  === String(autor)
+  );
+
+  montarFiltros();
+  renderizarEstante();
+  renderizarEmprestimos();
+  atualizarModoRodape();
+
+  formCadastro.reset();
+  capaHerdada = null;
+  pdfHerdado  = null;
+
+  if (!existe) {
+    msgCadastro.className = 'msg-form erro';
+    msgCadastro.textContent = '❌ Algo deu errado: o livro não aparece na lista após salvar. Veja o console (F12).';
+    return;
+  }
+
+  const apareceComFiltro = aplicarFiltros().some(l =>
+    String(l.titulo) === String(titulo) && String(l.autor) === String(autor)
+  );
+
+  if (!apareceComFiltro) {
+    msgCadastro.className = 'msg-form aviso';
+    msgCadastro.textContent = `✅ Livro "${titulo}" cadastrado com sucesso! Ele está na estante, mas não aparece agora porque há um filtro/busca ativa. Clique em "Todas" e limpe a busca para vê-lo.`;
+  } else {
+    msgCadastro.className = 'msg-form ok';
+    msgCadastro.textContent = `✅ Livro "${titulo}" cadastrado com sucesso! (${livros.length} livros no total)`;
+  }
+
+  setTimeout(() => { msgCadastro.className = 'msg-form'; }, 6000);
+});
+
+/* ==========================================================
+   ESCOLHER DA ESTANTE
+   ========================================================== */
+const btnEscolherLivro = document.getElementById('btnEscolherLivro');
+const gridEscolher     = document.getElementById('gridEscolher');
+
+btnEscolherLivro.addEventListener('click', abrirEscolher);
+
+function abrirEscolher() {
+  if (livros.length === 0) {
+    alert('A estante está vazia. Cadastre um livro primeiro.');
+    return;
+  }
+  renderizarEscolher();
+  overlayEscolher.classList.add('aberto');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderizarEscolher() {
+  gridEscolher.innerHTML = '';
+  livros.forEach((l) => {
+    const btn = document.createElement('button');
+    btn.className = 'item-escolher';
+    btn.type = 'button';
+    const miniCapa = document.createElement('div');
+    miniCapa.className = 'mini-capa';
+    if (l.capa) {
+      const img = document.createElement('img');
+      img.src = l.capa;
+      img.alt = l.titulo;
+      img.loading = 'lazy';
+      img.addEventListener('error', () => { img.remove(); miniCapa.textContent = l.titulo; });
+      miniCapa.appendChild(img);
+    } else {
+      miniCapa.textContent = l.titulo;
+    }
+    const titEl = document.createElement('div');
+    titEl.className = 'mini-titulo';
+    titEl.textContent = l.titulo;
+    const autEl = document.createElement('div');
+    autEl.className = 'mini-autor';
+    autEl.textContent = l.autor;
+    btn.appendChild(miniCapa);
+    btn.appendChild(titEl);
+    btn.appendChild(autEl);
+
+    btn.addEventListener('click', () => {
+      inputTitulo.value         = l.titulo;
+      formCadastro.autor.value  = l.autor;
+      capaHerdada               = l.capa || null;
+      pdfHerdado                = l.pdf  || null;
+      fecharEscolher();
+      msgCadastro.className = 'msg-form ok';
+      msgCadastro.textContent = `📚 Dados de "${l.titulo}" carregados. Edite se quiser e clique em Cadastrar.`;
+      setTimeout(() => { msgCadastro.className = 'msg-form'; }, 5000);
+    });
+
+    gridEscolher.appendChild(btn);
+  });
+}
+
+function fecharEscolher() {
+  overlayEscolher.classList.remove('aberto');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('fecharEscolher').addEventListener('click', fecharEscolher);
+overlayEscolher.addEventListener('click', e => { if (e.target === overlayEscolher) fecharEscolher(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && overlayEscolher.classList.contains('aberto')) fecharEscolher();
+});
+formCadastro.addEventListener('reset', () => {
+  capaHerdada = null;
+  pdfHerdado  = null;
+});
+
+/* ==========================================================
+   ALUNOS
+   ========================================================== */
+const formAluno   = document.getElementById('formAluno');
+const msgAluno    = document.getElementById('msgAluno');
+const corpoAlunos = document.getElementById('corpoAlunos');
+const vazioAlunos = document.getElementById('vazioAlunos');
+const buscaAluno  = document.getElementById('buscaAluno');
+
+formAluno.addEventListener('submit', async e => {
+  e.preventDefault();
+  msgAluno.className = 'msg-form';
+  const f = formAluno;
+  const nome  = f.nome.value.trim();
+  const serie = f.serie.value;
+  const turma = f.turma.value.trim();
+  const turno = f.turno.value;
+
+  if (!nome) {
+    msgAluno.className = 'msg-form erro';
+    msgAluno.textContent = 'Preencha o nome do aluno.';
+    return;
+  }
+
+  try {
+    await api.criarAluno({
+      nome,
+      serie: serie || null,
+      turma: turma || null,
+      turno: turno || null
+    });
+  } catch (err) {
+    console.error(err);
+    msgAluno.className = 'msg-form erro';
+    msgAluno.textContent = 'Erro ao cadastrar o aluno.';
+    return;
+  }
+
+  await carregarAlunos();
+  renderizarAlunos();
+  renderizarEmprestimos();
+  atualizarModoRodape();
+
+  formAluno.reset();
+  msgAluno.className = 'msg-form ok';
+  msgAluno.textContent = `✅ Aluno "${nome}" cadastrado com sucesso!`;
+  setTimeout(() => { msgAluno.className = 'msg-form'; }, 4000);
+});
+
+function renderizarAlunos() {
+  const t = termoBuscaAluno.toLowerCase();
+  const lista = alunos.filter(a =>
+    !t ||
+    (a.nome || '').toLowerCase().includes(t) ||
+    (a.serie || '').toLowerCase().includes(t) ||
+    (a.turma || '').toLowerCase().includes(t) ||
+    (a.turno || '').toLowerCase().includes(t)
+  );
+
+  document.getElementById('contadorAlunos').textContent = alunos.length;
+  const tabela = document.querySelector('.tabela-alunos');
+  corpoAlunos.innerHTML = '';
+
+  if (lista.length === 0) {
+    vazioAlunos.style.display = 'block';
+    tabela.style.display = 'none';
+    return;
+  }
+  vazioAlunos.style.display = 'none';
+  tabela.style.display = 'table';
+
+  lista.forEach(a => {
+    const emps = emprestimosDoAluno(a.id);
+    let badgeEmp, classEmp;
+    if (emps.length === 0) { classEmp = 'zero'; badgeEmp = 'Nenhum'; }
+    else {
+      const atrasado = emps.some(e => new Date(e.data_devolucao + 'T00:00:00') < hoje());
+      classEmp = atrasado ? 'atraso' : 'ativo';
+      badgeEmp = `${emps.length}${atrasado ? ' (atrasado)' : ''}`;
+    }
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td data-label="Nome">
+        <div class="info-aluno">
+          <span class="avatar-aluno">${esc(iniciais(a.nome))}</span>
+          <span class="nome-aluno-txt">${esc(a.nome)}</span>
+        </div>
+      </td>
+      <td data-label="Série">${a.serie ? `<span class="matricula-badge">${esc(a.serie)}</span>` : `<span class="turma-badge vazio">—</span>`}</td>
+      <td data-label="Turma">${a.turma ? `<span class="matricula-badge">${esc(a.turma)}</span>` : `<span class="turma-badge vazio">—</span>`}</td>
+      <td data-label="Turno">${a.turno ? `<span class="turma-badge ${classeTurma(a.turno)}">${esc(a.turno)}</span>` : `<span class="turma-badge vazio">—</span>`}</td>
+      <td data-label="Empréstimos"><span class="badge-emp ${classEmp}">${badgeEmp}</span></td>
+      <td data-label="Ações"><button class="btn btn-perigo" data-acao="excluir" data-id="${a.id}">🗑️ Excluir</button></td>
+    `;
+    corpoAlunos.appendChild(tr);
+  });
+}
+
+corpoAlunos.addEventListener('click', async e => {
+  const btn = e.target.closest('button[data-acao="excluir"]');
+  if (!btn) return;
+  const id = Number(btn.dataset.id);
+  const aluno = alunos.find(a => Number(a.id) === id);
+  if (!aluno) return;
+  if (emprestimosDoAluno(id).length > 0) {
+    alert('Não é possível excluir: este aluno tem empréstimos ativos. Devolva-os primeiro.');
+    return;
+  }
+  if (!confirm(`Excluir o aluno "${aluno.nome}"?`)) return;
+  try {
+    await api.removerAluno(id);
+    await carregarAlunos();
+    renderizarAlunos();
+    renderizarEmprestimos();
+    atualizarModoRodape();
+  } catch (err) {
+    console.error(err);
+    alert('Erro ao excluir o aluno.');
+  }
+});
+
+buscaAluno.addEventListener('input', () => {
+  termoBuscaAluno = buscaAluno.value.trim();
+  renderizarAlunos();
+});
+
+/* ==========================================================
+   EMPRÉSTIMOS
+   ========================================================== */
+const formEmprestimo = document.getElementById('formEmprestimo');
+const msgEmprestimo  = document.getElementById('msgEmprestimo');
+const corpoTabela    = document.getElementById('corpoEmprestimos');
+const vazioTabela    = document.getElementById('vazioEmprestimos');
+
+function popularSelectLivros() {
+  const sel = formEmprestimo.livroId;
+  const valorAtual = sel.value;
+  sel.innerHTML = '<option value="">-- selecione um livro --</option>';
+  livros.forEach((l) => {
+    const opt = document.createElement('option');
+    opt.value = l.id;
+    const emprestado = emprestimoAtivoDoLivro(l.id);
+    opt.textContent = l.titulo + (emprestado ? ' (emprestado)' : '');
+    opt.disabled = !!emprestado;
+    sel.appendChild(opt);
+  });
+  if (valorAtual) sel.value = valorAtual;
+}
+
+function popularSelectAlunos() {
+  const sel = formEmprestimo.alunoId;
+  const valorAtual = sel.value;
+  sel.innerHTML = '<option value="">-- selecione um aluno --</option>';
+  if (alunos.length === 0) {
+    const opt = document.createElement('option');
+    opt.disabled = true;
+    opt.textContent = 'Nenhum aluno cadastrado — vá em 🎓 Alunos';
+    sel.appendChild(opt);
+    return;
+  }
+  alunos.forEach(a => {
+    const opt = document.createElement('option');
+    opt.value = a.id;
+    const info = infoAlunoCurta(a);
+    opt.textContent = info ? `${a.nome} (${info})` : a.nome;
+    sel.appendChild(opt);
+  });
+  if (valorAtual) sel.value = valorAtual;
+}
+
+formEmprestimo.addEventListener('submit', async e => {
+  e.preventDefault();
+  msgEmprestimo.className = 'msg-form';
+
+  const alunoId = Number(formEmprestimo.alunoId.value);
+  const livroId = Number(formEmprestimo.livroId.value);
+  const dias    = Number(formEmprestimo.dias.value);
+
+  if (!alunoId || !livroId || !dias || dias < 1) {
+    msgEmprestimo.className = 'msg-form erro';
+    msgEmprestimo.textContent = 'Preencha aluno, livro e prazo (mínimo 1 dia).';
+    return;
+  }
+  if (emprestimoAtivoDoLivro(livroId)) {
+    msgEmprestimo.className = 'msg-form erro';
+    msgEmprestimo.textContent = 'Este livro já está emprestado.';
+    return;
+  }
+
+  const inicio = new Date();
+  inicio.setHours(0,0,0,0);
+  const devolucao = new Date(inicio);
+  devolucao.setDate(devolucao.getDate() + dias);
+
+  let criado = null;
+  try {
+    criado = await api.criarEmprestimo({
+      aluno_id: alunoId,
+      livro_id: livroId,
+      dias,
+      data_inicio: inicio.toISOString().slice(0,10),
+      data_devolucao: devolucao.toISOString().slice(0,10)
+    });
+  } catch (err) {
+    console.error(err);
+    msgEmprestimo.className = 'msg-form erro';
+    msgEmprestimo.textContent = 'Erro ao salvar o empréstimo.';
+    return;
+  }
+
+  await carregarEmprestimos();
+  formEmprestimo.reset();
+  formEmprestimo.dias.value = 15;
+  renderizarEstante();
+  renderizarEmprestimos();
+  renderizarAlunos();
+  atualizarModoRodape();
+
+  msgEmprestimo.className = 'msg-form ok';
+  msgEmprestimo.textContent = `✅ Empréstimo registrado. Devolver até ${formatarData(devolucao)}.`;
+  setTimeout(() => { msgEmprestimo.className = 'msg-form'; }, 4500);
+
+  if (criado) mostrarComprovante(criado);
+});
+
+function renderizarEmprestimos() {
+  popularSelectLivros();
+  popularSelectAlunos();
+
+  const agora = hoje();
+  let vencendo = 0, atrasados = 0;
+  corpoTabela.innerHTML = '';
+
+  const tabela = document.querySelector('.tabela-emprestimos');
+
+  if (emprestimos.length === 0) {
+    vazioTabela.style.display = 'block';
+    tabela.style.display = 'none';
+  } else {
+    vazioTabela.style.display = 'none';
+    tabela.style.display = 'table';
+
+    emprestimos.forEach(emp => {
+      const livro = emp.livros || { titulo: '(livro removido)', autor: '' };
+      const aluno = emp.alunos || { nome: '(aluno removido)' };
+      const dev   = new Date(emp.data_devolucao + 'T00:00:00');
+      const ini   = new Date(emp.data_inicio + 'T00:00:00');
+      const rest  = diasEntre(agora, dev);
+
+      let classe = 'ok', texto = '';
+      if (rest < 0)       { classe = 'atraso'; atrasados++; texto = `${Math.abs(rest)}d em atraso`; }
+      else if (rest === 0){ classe = 'alerta'; vencendo++;  texto = 'Devolve hoje'; }
+      else if (rest <= 3) { classe = 'alerta'; vencendo++;  texto = `Faltam ${rest}d`; }
+      else                { texto = `Faltam ${rest}d`; }
+
+      const infoAluno = infoAlunoCurta(aluno);
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td data-label="Aluno">
+          <span class="nome-aluno">${esc(aluno.nome)}</span><br>
+          <small style="color:#8a7460">${infoAluno ? esc(infoAluno) : ''}</small>
+        </td>
+        <td data-label="Livro">
+          <span class="titulo-livro">${esc(livro.titulo)}</span><br>
+          <span class="autor-livro">${esc(livro.autor || '')}</span>
+        </td>
+        <td data-label="Empréstimo">${formatarData(ini)}</td>
+        <td data-label="Devolver até">${formatarData(dev)}</td>
+        <td data-label="Prazo">
+          <div><span class="dias-badge">${emp.dias}d total</span></div>
+          <div style="margin-top:4px"><span class="prazo ${classe}">${texto}</span></div>
+        </td>
+        <td data-label="Ações">
+          <div class="celula-acoes">
+            <button class="btn btn-alerta" data-acao="renovar" data-id="${emp.id}" title="Adicionar 15 dias">🔄 +15d</button>
+            <button class="btn btn-ok" data-acao="devolver" data-id="${emp.id}">↩️ Devolver</button>
+            <button class="btn btn-secundario" data-acao="recibo" data-id="${emp.id}" style="padding:6px 12px;font-size:.78rem" title="Imprimir comprovante">🖨️</button>
+          </div>
+        </td>
+      `;
+      corpoTabela.appendChild(tr);
+    });
+  }
+
+  document.getElementById('resumoAtivos').textContent    = emprestimos.length;
+  document.getElementById('resumoVencendo').textContent  = vencendo;
+  document.getElementById('resumoAtrasados').textContent = atrasados;
+}
+
+corpoTabela.addEventListener('click', async e => {
+  const btn = e.target.closest('button[data-acao]');
+  if (!btn) return;
+  const acao = btn.dataset.acao;
+  const id   = Number(btn.dataset.id);
+  const emp  = emprestimos.find(x => Number(x.id) === id);
+  if (!emp) return;
+
+  try {
+    if (acao === 'devolver') {
+      const titulo = emp.livros ? emp.livros.titulo : 'livro';
+      const nome   = emp.alunos ? emp.alunos.nome : 'aluno';
+      if (!confirm(`Confirmar devolução de "${titulo}" por ${nome}?`)) return;
+      await api.removerEmprestimo(id);
+      await carregarEmprestimos();
+      renderizarEstante();
+      renderizarEmprestimos();
+      renderizarAlunos();
+      atualizarModoRodape();
+    } else if (acao === 'renovar') {
+      if (!confirm('Renovar empréstimo por mais 15 dias?')) return;
+      const novaDev = new Date(emp.data_devolucao + 'T00:00:00');
+      novaDev.setDate(novaDev.getDate() + 15);
+      await api.atualizarEmprestimo(id, {
+        data_devolucao: novaDev.toISOString().slice(0,10),
+        dias: Number(emp.dias) + 15
+      });
+      await carregarEmprestimos();
+      renderizarEstante();
+      renderizarEmprestimos();
+      atualizarModoRodape();
+    } else if (acao === 'recibo') {
+      mostrarComprovante(emp);
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Erro ao executar a ação.');
+  }
+});
+
+busca.addEventListener('input', () => {
+  termoBusca = busca.value.trim();
+  renderizarEstante();
+});
+
+/* ==========================================================
+   BOTÃO DE DEBUG
+   ========================================================== */
+document.getElementById('btnDebug').addEventListener('click', () => {
+  const onde = ondeEstaSalvo();
+  const estado = lsEstado();
+  console.group('🔍 Estado atual da biblioteca');
+  console.log('Onde está salvo:', onde);
+  console.log('Total de livros:', estado.livros.length);
+  console.log('Total de alunos:', estado.alunos.length);
+  console.log('Total de empréstimos:', estado.emprestimos.length);
+  console.log('Livros:', estado.livros);
+  console.log('Alunos:', estado.alunos);
+  console.log('Empréstimos:', estado.emprestimos);
+  if (TEM_LOCAL) console.log('LS raw:', localStorage.getItem(LS_KEY));
+  if (TEM_SESSION) console.log('SS raw:', sessionStorage.getItem(LS_KEY));
+  console.groupEnd();
+  alert(
+    `📊 Onde está salvo: ${onde}\n` +
+    `📚 Livros: ${estado.livros.length}\n` +
+    `🎓 Alunos: ${estado.alunos.length}\n` +
+    `📋 Empréstimos: ${estado.emprestimos.length}\n\n` +
+    `Detalhes completos no console (F12).`
+  );
+});
+
+/* ==========================================================
+   INICIALIZAÇÃO
+   ========================================================== */
+console.log('[Biblioteca] Storage escolhido:', ondeEstaSalvo());
+carregarDados();
+</script>
+
+</body>
+</html>
