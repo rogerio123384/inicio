@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feira da Lua - Pagamentos e Caixa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #0e0d16;
+      background-image: radial-gradient(#2a283e 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+  </style>
+</head>
+<body class="text-white font-sans antialiased min-h-screen">
+
+  <!-- Cabeçalho Superior -->
+  <header class="border-b border-[#252338] bg-[#13121e]/90 backdrop-blur-md px-6 py-4 flex flex-wrap justify-between items-center gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-[#252338] border border-[#facc15]/40 flex items-center justify-center text-xl">
+        🌙
+      </div>
+      <div>
+        <h1 class="text-lg font-bold tracking-wide text-[#facc15]">FEIRA DA LUA</h1>
+        <p class="text-xs text-gray-400">● Controle Cósmico de Pagamentos</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button onclick="window.print()" class="bg-[#252338] hover:bg-[#32304a] text-white text-xs font-semibold px-3 py-2 rounded-lg transition">
+        🖨️ Imprimir
+      </button>
+      <button onclick="resetarDados()" class="bg-[#252338] hover:bg-red-900/40 text-gray-400 hover:text-red-400 text-xs px-3 py-2 rounded-lg transition">
+        🗑️ Zerar Tudo
+      </button>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="max-w-6xl mx-auto p-6 space-y-6">
+
+    <!-- 1. ÁREA DE REGISTRAR PAGAMENTO (DIRETO NA TELA) -->
+    <section class="bg-[#151421] border-2 border-[#facc15]/40 rounded-xl p-6 shadow-xl">
+      <div class="mb-4">
+        <h2 class="text-lg font-bold text-[#facc15] flex items-center gap-2">
+          💳 Registrar Pagamento / Venda
+        </h2>
+        <p class="text-xs text-gray-400">Preencha os dados abaixo e escolha se já foi pago (Pix/Dinheiro) ou se ficou Fiado (Deve).</p>
+      </div>
+
+      <form id="formVenda" class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+        
+        <!-- Data -->
+        <div class="md:col-span-2">
+          <label class="block text-[11px] uppercase tracking-wider text-gray-400 mb-1">Data</label>
+          <input type="text" id="inputData" value="18/11/2026" required
+            class="w-full bg-[#1e1d2e] border border-[#32304a] rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-[#facc15]">
+        </div>
+
+        <!-- Nome -->
+        <div class="md:col-span-3">
+          <label class="block text-[11px] uppercase tracking-wider text-gray-400 mb-1">Feirante / Cliente</label>
+          <input type="text" id="inputFeirante" placeholder="Ex: Cachorro Quente" required
+            class="w-full bg-[#1e1d2e] border border-[#32304a] rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-[#facc15]">
+        </div>
+
+        <!-- Valor -->
+        <div class="md:col-span-2">
+          <label class="block text-[11px] uppercase tracking-wider text-gray-400 mb-1">Valor (R$)</label>
+          <input type="number" step="0.01" min="0.01" id="inputValor" placeholder="0.00" required
+            class="w-full bg-[#1e1d2e] border border-[#32304a] rounded-lg px-3 py-2.5 text-sm font-bold text-[#facc15] focus:outline-none focus:border-[#facc15]">
+        </div>
+
+        <!-- Modo de Pagamento -->
+        <div class="md:col-span-3">
+          <label class="block text-[11px] uppercase tracking-wider text-gray-400 mb-1">Forma de Pagamento</label>
+          <div class="grid grid-cols-3 gap-1.5">
+            <label class="cursor-pointer">
+              <input type="radio" name="pagamento" value="pix" class="peer sr-only" checked>
+              <div class="text-center py-2.5 px-1 rounded-lg border border-[#32304a] bg-[#1e1d2e] text-xs font-semibold text-gray-300 peer-checked:border-[#38bdf8] peer-checked:bg-[#38bdf8]/20 peer-checked:text-[#38bdf8] transition">
+                💠 Pix
+              </div>
+            </label>
+
+            <label class="cursor-pointer">
+              <input type="radio" name="pagamento" value="dinheiro" class="peer sr-only">
+              <div class="text-center py-2.5 px-1 rounded-lg border border-[#32304a] bg-[#1e1d2e] text-xs font-semibold text-gray-300 peer-checked:border-[#4ade80] peer-checked:bg-[#4ade80]/20 peer-checked:text-[#4ade80] transition">
+                💵 Dinheiro
+              </div>
+            </label>
+
+            <label class="cursor-pointer">
+              <input type="radio" name="pagamento" value="fiado" class="peer sr-only">
+              <div class="text-center py-2.5 px-1 rounded-lg border border-[#32304a] bg-[#1e1d2e] text-xs font-semibold text-gray-300 peer-checked:border-[#f87171] peer-checked:bg-[#f87171]/20 peer-checked:text-[#f87171] transition">
+                ⏳ Fiado
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Botão Salvar -->
+        <div class="md:col-span-2">
+          <button type="submit" class="w-full py-2.5 px-4 rounded-lg text-sm font-bold bg-[#facc15] text-black hover:bg-[#eab308] transition shadow-lg">
+            + Lançar
+          </button>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- 2. RESUMO FINANCEIRO -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-[#151421] border border-[#2a283e] rounded-xl p-4">
+        <p class="text-[11px] uppercase tracking-wider text-[#f87171]">⏳ Total Fiado (A Receber)</p>
+        <p id="cardTotalDeve" class="text-2xl font-bold text-[#f87171] mt-1">R$ 0.00</p>
+      </div>
+
+      <div class="bg-[#151421] border border-[#2a283e] rounded-xl p-4">
+        <p class="text-[11px] uppercase tracking-wider text-[#4ade80]">💵 Total Pago em Dinheiro</p>
+        <p id="cardDinheiro" class="text-2xl font-bold text-[#4ade80] mt-1">R$ 0.00</p>
+      </div>
+
+      <div class="bg-[#151421] border border-[#2a283e] rounded-xl p-4">
+        <p class="text-[11px] uppercase tracking-wider text-[#38bdf8]">💠 Total Pago em Pix</p>
+        <p id="cardPix" class="text-2xl font-bold text-[#38bdf8] mt-1">R$ 0.00</p>
+      </div>
+
+      <div class="bg-[#151421] border border-[#2a283e] rounded-xl p-4">
+        <p class="text-[11px] uppercase tracking-wider text-[#facc15]">💰 Saldo Recebido Geral</p>
+        <p id="cardSaldoGeral" class="text-2xl font-bold text-[#facc15] mt-1">R$ 0.00</p>
+      </div>
+    </section>
+
+    <!-- 3. LISTAS LADO A LADO: QUEM DEVE vs QUEM PAGOU -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      
+      <!-- COLUNA ESQUERDA: QUEM DEVE (FIADO) -->
+      <section class="bg-[#151421] border border-[#252338] rounded-xl p-5 shadow-xl">
+        <div class="flex justify-between items-center border-b border-[#252338] pb-3 mb-4">
+          <h3 class="text-base font-bold text-[#f87171]">⏳ Quem Deve (Fiado)</h3>
+          <span id="contadorDeve" class="text-xs bg-[#3b1820] text-[#f87171] px-2.5 py-1 rounded-md font-semibold">0 pendentes</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="text-[11px] uppercase text-gray-400 border-b border-[#252338]">
+                <th class="py-2 px-2">Data</th>
+                <th class="py-2 px-2">Nome</th>
+                <th class="py-2 px-2">Valor</th>
+                <th class="py-2 px-2 text-right">Quitar</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaDevedores" class="divide-y divide-[#252338] text-sm"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- COLUNA DIREITA: QUEM JÁ PAGOU -->
+      <section class="bg-[#151421] border border-[#252338] rounded-xl p-5 shadow-xl">
+        <div class="flex justify-between items-center border-b border-[#252338] pb-3 mb-4">
+          <h3 class="text-base font-bold text-[#4ade80]">✅ Pagamentos Recebidos</h3>
+          <span id="contadorPago" class="text-xs bg-[#132a1e] text-[#4ade80] px-2.5 py-1 rounded-md font-semibold">0 pagos</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="text-[11px] uppercase text-gray-400 border-b border-[#252338]">
+                <th class="py-2 px-2">Data</th>
+                <th class="py-2 px-2">Nome</th>
+                <th class="py-2 px-2">Forma</th>
+                <th class="py-2 px-2">Valor</th>
+                <th class="py-2 px-2 text-right"></th>
+              </tr>
+            </thead>
+            <tbody id="tabelaPagos" class="divide-y divide-[#252338] text-sm"></tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Lógica com Armazenamento Permanente (localStorage) -->
+  <script>
+    const STORAGE_KEY = 'feira_da_lua_pagamentos_v2';
+
+    const dadosIniciais = {
+      devedores: [
+        { id: 1, data: '15/10/2026', feirante: 'Cachorro Quente', valor: 55.00 },
+        { id: 2, data: '08/10/2026', feirante: 'Cachorro Quente', valor: 55.00 },
+        { id: 3, data: '01/10/2026', feirante: 'Cachorro Quente', valor: 32.00 },
+        { id: 4, data: '03/09/2026', feirante: 'Cachorro Quente', valor: 55.00 }
+      ],
+      pagos: [
+        { id: 101, data: '15/10/2026', feirante: 'Feira Geral', forma: 'pix', valor: 448.00 },
+        { id: 102, data: '15/10/2026', feirante: 'Feira Geral', forma: 'dinheiro', valor: 4.00 }
+      ]
+    };
+
+    let dados = JSON.parse(localStorage.getItem(STORAGE_KEY)) || dadosIniciais;
+
+    function salvarNoNavegador() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(dados));
+    }
+
+    function atualizarTela() {
+      let totalDinheiro = 0;
+      let totalPix = 0;
+
+      dados.pagos.forEach(item => {
+        if (item.forma === 'dinheiro') totalDinheiro += item.valor;
+        if (item.forma === 'pix') totalPix += item.valor;
+      });
+
+      const saldoGeral = totalDinheiro + totalPix;
+      const totalDeve = dados.devedores.reduce((acc, item) => acc + item.valor, 0);
+
+      document.getElementById('cardTotalDeve').innerText = `R$ ${totalDeve.toFixed(2)}`;
+      document.getElementById('cardDinheiro').innerText = `R$ ${totalDinheiro.toFixed(2)}`;
+      document.getElementById('cardPix').innerText = `R$ ${totalPix.toFixed(2)}`;
+      document.getElementById('cardSaldoGeral').innerText = `R$ ${saldoGeral.toFixed(2)}`;
+
+      document.getElementById('contadorDeve').innerText = `${dados.devedores.length} pendentes`;
+      document.getElementById('contadorPago').innerText = `${dados.pagos.length} pagos`;
+
+      // Tabela de Quem Deve
+      const tbodyDevedores = document.getElementById('tabelaDevedores');
+      tbodyDevedores.innerHTML = '';
+
+      if (dados.devedores.length === 0) {
+        tbodyDevedores.innerHTML = `<tr><td colspan="4" class="py-6 text-center text-gray-500 text-xs">Ninguém devendo! 🎉</td></tr>`;
+      } else {
+        dados.devedores.forEach(item => {
+          tbodyDevedores.innerHTML += `
+            <tr class="hover:bg-[#1a1929]">
+              <td class="py-2.5 px-2 text-xs text-gray-400">${item.data}</td>
+              <td class="py-2.5 px-2 font-semibold">${item.feirante}</td>
+              <td class="py-2.5 px-2 font-bold text-[#f87171]">R$ ${item.valor.toFixed(2)}</td>
+              <td class="py-2.5 px-2 text-right space-x-1">
+                <button onclick="quitarDivida(${item.id}, 'pix')" class="bg-[#38bdf8]/20 hover:bg-[#38bdf8]/40 text-[#38bdf8] text-[11px] font-bold px-2 py-1 rounded">
+                  Pix
+                </button>
+                <button onclick="quitarDivida(${item.id}, 'dinheiro')" class="bg-[#4ade80]/20 hover:bg-[#4ade80]/40 text-[#4ade80] text-[11px] font-bold px-2 py-1 rounded">
+                  Dinheiro
+                </button>
+              </td>
+            </tr>
+          `;
+        });
+      }
+
+      // Tabela de Pagos
+      const tbodyPagos = document.getElementById('tabelaPagos');
+      tbodyPagos.innerHTML = '';
+
+      if (dados.pagos.length === 0) {
+        tbodyPagos.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-gray-500 text-xs">Nenhum pagamento registrado.</td></tr>`;
+      } else {
+        dados.pagos.forEach(item => {
+          const icone = item.forma === 'pix'
+            ? `<span class="text-[#38bdf8] text-xs font-semibold">💠 Pix</span>`
+            : `<span class="text-[#4ade80] text-xs font-semibold">💵 Dinheiro</span>`;
+
+          tbodyPagos.innerHTML += `
+            <tr class="hover:bg-[#1a1929]">
+              <td class="py-2.5 px-2 text-xs text-gray-400">${item.data}</td>
+              <td class="py-2.5 px-2 font-semibold">${item.feirante}</td>
+              <td class="py-2.5 px-2">${icone}</td>
+              <td class="py-2.5 px-2 font-bold text-[#4ade80]">R$ ${item.valor.toFixed(2)}</td>
+              <td class="py-2.5 px-2 text-right">
+                <button onclick="excluirPago(${item.id})" class="text-gray-500 hover:text-red-400 text-xs" title="Excluir">✕</button>
+              </td>
+            </tr>
+          `;
+        });
+      }
+    }
+
+    // Lançar novo registro
+    document.getElementById('formVenda').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const data = document.getElementById('inputData').value;
+      const feirante = document.getElementById('inputFeirante').value;
+      const valor = parseFloat(document.getElementById('inputValor').value);
+      const modo = document.querySelector('input[name="pagamento"]:checked').value;
+
+      if (modo === 'fiado') {
+        dados.devedores.unshift({ id: Date.now(), data, feirante, valor });
+      } else {
+        dados.pagos.unshift({ id: Date.now(), data, feirante, forma: modo, valor });
+      }
+
+      salvarNoNavegador();
+      atualizarTela();
+      document.getElementById('inputFeirante').value = '';
+      document.getElementById('inputValor').value = '';
+    });
+
+    // Quitar fiado
+    function quitarDivida(id, forma) {
+      const index = dados.devedores.findIndex(item => item.id === id);
+      if (index !== -1) {
+        const item = dados.devedores[index];
+        dados.pagos.unshift({
+          id: Date.now(),
+          data: item.data,
+          feirante: item.feirante,
+          forma: forma,
+          valor: item.valor
+        });
+        dados.devedores.splice(index, 1);
+        salvarNoNavegador();
+        atualizarTela();
+      }
+    }
+
+    function excluirPago(id) {
+      if (confirm('Excluir este pagamento?')) {
+        dados.pagos = dados.pagos.filter(item => item.id !== id);
+        salvarNoNavegador();
+        atualizarTela();
+      }
+    }
+
+    function resetarDados() {
+      if (confirm('Apagar todos os dados salvos?')) {
+        dados = { devedores: [], pagos: [] };
+        salvarNoNavegador();
+        atualizarTela();
+      }
+    }
+
+    atualizarTela();
+  </script>
+</body>
+</html>
